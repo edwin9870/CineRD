@@ -1,0 +1,64 @@
+{
+  "movies": [
+    {
+      "name":"Fast and Furious 7",
+      "duration": 80,
+      "release_date": "2012-04-23T18:25:43.511Z",
+      "synopsis": "alakslkalslsaslksalklas",
+      "rating": {"imdb": "7.1","rottentomatoes": "90%"},
+      "genre": ["comedy", "action"],
+      "theaters": [{
+        "name": "MegaPlex 10",
+        "room": [{
+          "number": "5",
+          "format": "2D",
+          "language": "espanish",
+          "subtitle": "N/A",
+          "date": "2012-04-23T18:00:00.511Z"
+        },
+          {
+            "number": "2",
+            "format": "3D",
+            "language": "english",
+            "subtitle": "espanish",
+            "date": "2012-04-23T18:00:00.511Z"
+          }]
+      }]
+    },
+    {
+      "name":"Wonder Woman",
+      "duration": 120,
+      "release_date": "2017-04-23T18:25:43.511Z",
+      "synopsis": "Wonnnnnnnnnnnnnnnn",
+      "rating": {"imdb": "9.1","rottentomatoes": "100%"},
+      "genre": ["comedy", "action"],
+      "theaters": [{
+        "name": "Galeria 360",
+        "room": [{
+          "number": "5",
+          "format": "2D",
+          "language": "espanish",
+          "subtitle": "N/A",
+          "date": "2012-04-23T18:00:00.511Z"
+        },
+          {
+            "number": "2",
+            "format": "3D",
+            "language": "english",
+            "subtitle": "espanish",
+            "date": "2012-04-23T18:00:00.511Z"
+          }]
+      },
+        {
+          "name": "Sambil",
+          "room": [
+            {
+              "number": "2",
+              "format": "3D",
+              "language": "english",
+              "subtitle": "espanish",
+              "date": "2012-04-23T18:00:00.511Z"
+            }]
+        }]
+    }]
+}
