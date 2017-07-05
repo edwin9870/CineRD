@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
  * Created by Edwin Ramirez Ventura on 7/3/2017.
  */
 
-public class CineRDContract {
+public class CineRdContract {
 
     public static final String AUTHORITY = "com.edwin.android.cinerd";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
