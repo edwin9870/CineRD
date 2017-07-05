@@ -2,6 +2,8 @@ package com.edwin.android.cinerd.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -46,9 +48,75 @@ public class CineRdContentProvider extends ContentProvider {
     public static final int THEATER = 1200;
     public static final int THEATER_WITH_ID = 1201;
 
+    private static final UriMatcher sUriMatcher = buildUriMatcher();
+    private CineRdDbHelper mCineRdDbHelper;
+
+    public static UriMatcher buildUriMatcher() {
+        UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_FORMAT, FORMAT);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_FORMAT + "/#", FORMAT_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_LANGUAGE, LANGUAGE);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_LANGUAGE + "/#", LANGUAGE_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_MOVIE, MOVIE);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_MOVIE + "/#", MOVIE_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_MOVIE_GENRE, MOVIE_GENRE);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_MOVIE_GENRE + "/#", MOVIE_GENRE_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_GENRE, GENRE);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_GENRE + "/#", GENRE_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_MOVIE_RATING, MOVIE_RATING);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_MOVIE_RATING + "/#", MOVIE_RATING_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_MOVIE_THEATER_DETAIL, MOVIE_THEATER_DETAIL);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_MOVIE_THEATER_DETAIL + "/#", MOVIE_THEATER_DETAIL_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_RATING, RATING);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_RATING + "/#", RATING_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_ROOM, ROOM);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_ROOM + "/#", ROOM_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_SUBTITLE, SUBTITLE);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_SUBTITLE + "/#", SUBTITLE_WITH_ID);
+
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_THEATER, THEATER);
+        uriMatcher.addURI(CineRdContract.AUTHORITY, CineRdContract
+                .PATH_THEATER + "/#", THEATER_WITH_ID);
+
+        return uriMatcher;
+    }
+
     @Override
     public boolean onCreate() {
-        return false;
+        Context context = getContext();
+        mCineRdDbHelper = new CineRdDbHelper(context);
+        return true;
     }
 
     @Nullable
