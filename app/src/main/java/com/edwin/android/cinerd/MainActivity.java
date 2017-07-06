@@ -15,11 +15,14 @@ import android.widget.Toast;
 import com.edwin.android.cinerd.data.CineRdContract;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Movies;
+import com.edwin.android.cinerd.entity.Rating;
 import com.edwin.android.cinerd.entity.Room;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.util.JsonUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,21 +69,14 @@ public class MainActivity extends AppCompatActivity {
                         long movieId = ContentUris.parseId(contentResolver.insert(CineRdContract.MovieEntry.CONTENT_URI, cv));
                         Log.d(TAG, "MovieID generated: " + movieId);
 
-                        long theaterId;
-                        for(Theater theater: movie.getTheaters()) {
+                        persistTheater(contentResolver, movie.getTheaters());
+                        persitRating(contentResolver);
+
+                        for(String genreName: movie.getGenre()) {
                             cv = new ContentValues();
-                            cv.put(CineRdContract.TheaterEntry.COLUMN_NAME_NAME, theater.getName());
-                            theaterId = ContentUris.parseId(contentResolver.insert(CineRdContract.TheaterEntry.CONTENT_URI, cv));
-
-                            for(Room room : theater.getRoom()) {
-                                cv = new ContentValues();
-                                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NUMBER, room.getNumber());
-                                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_THEATER_ID, theaterId);
-
-                                contentResolver.insert(CineRdContract.RoomEntry.CONTENT_URI, cv);
-                            }
+                            cv.put(CineRdContract.GenreEntry.COLUMN_NAME_NAME, genreName);
+                            contentResolver.insert(CineRdContract.GenreEntry.CONTENT_URI, cv);
                         }
-
 
                         return null;
                     }
@@ -92,5 +88,33 @@ public class MainActivity extends AppCompatActivity {
                 }.execute();
             }
         });
+    }
+
+    private void persitRating(ContentResolver contentResolver) {
+        ContentValues cv;
+        cv = new ContentValues();
+        cv.put(CineRdContract.RatingEntry.COLUMN_NAME_NAME, "RottenTomatoes");
+        contentResolver.insert(CineRdContract.RatingEntry.CONTENT_URI, cv);
+        cv.put(CineRdContract.RatingEntry.COLUMN_NAME_NAME, "IMDB");
+        contentResolver.insert(CineRdContract.RatingEntry.CONTENT_URI, cv);
+    }
+
+    private void persistTheater(ContentResolver contentResolver, List<Theater> theaters) {
+        ContentValues cv;
+        long theaterId;
+        for(Theater theater: theaters) {
+            cv = new ContentValues();
+            cv.put(CineRdContract.TheaterEntry.COLUMN_NAME_NAME, theater.getName());
+            theaterId = ContentUris.parseId(contentResolver.insert(CineRdContract.TheaterEntry.CONTENT_URI, cv));
+
+            for(Room room : theater.getRoom()) {
+                cv = new ContentValues();
+                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NUMBER, room.getNumber());
+                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_THEATER_ID, theaterId);
+
+
+                contentResolver.insert(CineRdContract.RoomEntry.CONTENT_URI, cv);
+            }
+        }
     }
 }
