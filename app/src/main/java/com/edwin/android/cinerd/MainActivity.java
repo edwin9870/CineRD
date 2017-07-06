@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Movies movies = gson.fromJson(jsonFromAsset, Movies.class);
                 Log.d(TAG, "Json: "+jsonFromAsset);
+                Log.d(TAG, "Movies: "+movies);
             }
         });
     }
