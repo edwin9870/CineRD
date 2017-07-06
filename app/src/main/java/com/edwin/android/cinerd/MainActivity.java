@@ -1,6 +1,7 @@
 package com.edwin.android.cinerd;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +13,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.data.CineRdContract;
+import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Movies;
+import com.edwin.android.cinerd.entity.Room;
+import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.util.JsonUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -52,14 +56,31 @@ public class MainActivity extends AppCompatActivity {
                         ContentResolver contentResolver = MainActivity.this.getContentResolver();
 
                         ContentValues cv = new ContentValues();
-                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_NAME, movies.getMovies().get(0).getName());
-                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_DURATION, movies.getMovies().get(0).getDuration());
-                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, movies.getMovies().get(0).getReleaseDate().toString());
-                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS, movies.getMovies().get(0).getSynopsis());
+                        Movie movie = movies.getMovies().get(0);
 
-                        contentResolver.insert(CineRdContract.MovieEntry.CONTENT_URI, cv);
+                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_NAME, movie.getName());
+                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_DURATION, movie.getDuration());
+                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, movie.getReleaseDate().toString());
+                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS, movie.getSynopsis());
 
-                        cv = new
+                        long movieId = ContentUris.parseId(contentResolver.insert(CineRdContract.MovieEntry.CONTENT_URI, cv));
+                        Log.d(TAG, "MovieID generated: " + movieId);
+
+                        long theaterId;
+                        for(Theater theater: movie.getTheaters()) {
+                            cv = new ContentValues();
+                            cv.put(CineRdContract.TheaterEntry.COLUMN_NAME_NAME, theater.getName());
+                            theaterId = ContentUris.parseId(contentResolver.insert(CineRdContract.TheaterEntry.CONTENT_URI, cv));
+
+                            for(Room room : theater.getRoom()) {
+                                cv = new ContentValues();
+                                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NUMBER, room.getNumber());
+                                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_THEATER_ID, theaterId);
+
+                                contentResolver.insert(CineRdContract.RoomEntry.CONTENT_URI, cv);
+                            }
+                        }
+
 
                         return null;
                     }
