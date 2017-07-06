@@ -1,6 +1,7 @@
 package com.edwin.android.cinerd.data;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
@@ -196,7 +197,72 @@ public class CineRdContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
-        return null;
+        SQLiteDatabase db = mCineRdDbHelper.getWritableDatabase();
+
+        int match = sUriMatcher.match(uri);
+        Uri uriToReturn;
+        long id;
+        switch (match) {
+            case FORMAT:
+                id = db.insertWithOnConflict(CineRdContract.FormatEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.FormatEntry.CONTENT_URI, id);
+                break;
+            case GENRE:
+                id = db.insertWithOnConflict(CineRdContract.GenreEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.GenreEntry.CONTENT_URI, id);
+                break;
+            case LANGUAGE:
+                id = db.insertWithOnConflict(CineRdContract.LanguageEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.LanguageEntry.CONTENT_URI, id);
+                break;
+            case MOVIE:
+                id = db.insertWithOnConflict(CineRdContract.MovieEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.MovieEntry.CONTENT_URI, id);
+                break;
+            case MOVIE_GENRE:
+                id = db.insertWithOnConflict(CineRdContract.MovieGenreEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.MovieGenreEntry.CONTENT_URI, id);
+                break;
+            case MOVIE_RATING:
+                id = db.insertWithOnConflict(CineRdContract.MovieRatingEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.MovieRatingEntry.CONTENT_URI, id);
+                break;
+            case MOVIE_THEATER_DETAIL:
+                id = db.insertWithOnConflict(CineRdContract.MovieTheaterDetailEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI, id);
+                break;
+            case RATING:
+                id = db.insertWithOnConflict(CineRdContract.RatingEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.RatingEntry.CONTENT_URI, id);
+                break;
+            case ROOM:
+                id = db.insertWithOnConflict(CineRdContract.RoomEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.RoomEntry.CONTENT_URI, id);
+                break;
+            case SUBTITLE:
+                id = db.insertWithOnConflict(CineRdContract.SubtitleEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.SubtitleEntry.CONTENT_URI, id);
+                break;
+            case THEATER:
+                id = db.insertWithOnConflict(CineRdContract.TheaterEntry.TABLE_NAME, null,
+                        contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                uriToReturn = ContentUris.withAppendedId(CineRdContract.TheaterEntry.CONTENT_URI, id);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return uriToReturn;
     }
 
     @Override
