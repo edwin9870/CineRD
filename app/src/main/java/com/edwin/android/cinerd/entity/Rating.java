@@ -20,4 +20,11 @@ public class Rating {
         return mRottentomatoes;
     }
 
+    @Override
+    public String toString() {
+        return "Rating{" +
+                "mImdb='" + mImdb + '\'' +
+                ", mRottentomatoes='" + mRottentomatoes + '\'' +
+                '}';
+    }
 }

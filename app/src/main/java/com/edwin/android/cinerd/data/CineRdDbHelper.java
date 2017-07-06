@@ -67,8 +67,8 @@ public class CineRdDbHelper extends SQLiteOpenHelper {
                 MovieGenreEntry.TABLE_NAME + " (" +
                 MovieGenreEntry.COLUMN_NAME_MOVIE_ID + " INTEGER NOT NULL," +
                 MovieGenreEntry.COLUMN_NAME_GENRE_ID + " INTEGER NOT NULL," +
-                " CONSTRAINT MOVIE_GENRE_MOVIE_ID_fk FOREIGN KEY ("+MovieGenreEntry.COLUMN_NAME_MOVIE_ID+") REFERENCES "+MovieEntry.TABLE_NAME+" ("+MovieEntry._ID+")" +
-                " CONSTRAINT MOVIE_GENRE_GENRE_ID_fk FOREIGN KEY ("+MovieGenreEntry.COLUMN_NAME_GENRE_ID+") REFERENCES "+GenreEntry.TABLE_NAME+" ("+GenreEntry._ID+");";
+                " CONSTRAINT MOVIE_GENRE_MOVIE_ID_fk FOREIGN KEY ("+MovieGenreEntry.COLUMN_NAME_MOVIE_ID+") REFERENCES "+MovieEntry.TABLE_NAME+" ("+MovieEntry._ID+")," +
+                " CONSTRAINT MOVIE_GENRE_GENRE_ID_fk FOREIGN KEY ("+MovieGenreEntry.COLUMN_NAME_GENRE_ID+") REFERENCES "+GenreEntry.TABLE_NAME+" ("+GenreEntry._ID+"));";
         db.execSQL(SQL_CREATE_MOVIE_GENRE_TABLE);
 
         final String SQL_CREATE_RATING_TABLE = "CREATE TABLE " +
@@ -89,9 +89,9 @@ public class CineRdDbHelper extends SQLiteOpenHelper {
                 MovieRatingEntry.TABLE_NAME + " (" +
                 MovieRatingEntry.COLUMN_NAME_MOVIE_ID + " INTEGER NOT NULL," +
                 MovieRatingEntry.COLUMN_NAME_RATING + " VARCHAR(3) NOT NULL," +
-                MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER + " INTEGER NOT NULL,," +
+                MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER + " INTEGER NOT NULL," +
                 " CONSTRAINT MOVIE_RATING_MOVIE_ID_fk FOREIGN KEY ("+MovieRatingEntry.COLUMN_NAME_MOVIE_ID+") REFERENCES "+MovieEntry.TABLE_NAME+" ("+MovieEntry._ID+")," +
-                " CONSTRAINT MOVIE_RATING_RATING_ID_fk FOREIGN KEY ("+MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER+") REFERENCES "+RatingEntry.TABLE_NAME+" ("+RatingEntry._ID+");";
+                " CONSTRAINT MOVIE_RATING_RATING_ID_fk FOREIGN KEY ("+MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER+") REFERENCES "+RatingEntry.TABLE_NAME+" ("+RatingEntry._ID+"));";
         db.execSQL(SQL_CREATE_MOVIE_RATING_TABLE);
 
         final String SQL_CREATE_SUBTITLE_TABLE = "CREATE TABLE " +
@@ -106,7 +106,7 @@ public class CineRdDbHelper extends SQLiteOpenHelper {
                 RoomEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 RoomEntry.COLUMN_NAME_NUMBER + " INTEGER(20) NOT NULL," +
                 RoomEntry.COLUMN_NAME_THEATER_ID + " INTEGER NOT NULL," +
-                " CONSTRAINT ROOM_THEATER_ID_fk FOREIGN KEY ("+RoomEntry.COLUMN_NAME_THEATER_ID+") REFERENCES "+ TheaterEntry.TABLE_NAME+" ("+TheaterEntry._ID+");";
+                " CONSTRAINT ROOM_THEATER_ID_fk FOREIGN KEY ("+RoomEntry.COLUMN_NAME_THEATER_ID+") REFERENCES "+ TheaterEntry.TABLE_NAME+" ("+TheaterEntry._ID+"));";
         db.execSQL(SQL_CREATE_ROOM_TABLE);
 
         final String SQL_CREATE_MOVIE_THEATER_DETAIL_TABLE = "CREATE TABLE "+

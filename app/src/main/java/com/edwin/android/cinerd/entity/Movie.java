@@ -1,6 +1,7 @@
 
 package com.edwin.android.cinerd.entity;
 
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
@@ -17,7 +18,7 @@ public class Movie {
     @SerializedName("rating")
     private Rating mRating;
     @SerializedName("release_date")
-    private String mReleaseDate;
+    private Date mReleaseDate;
     @SerializedName("synopsis")
     private String mSynopsis;
     @SerializedName("theaters")
@@ -39,7 +40,7 @@ public class Movie {
         return mRating;
     }
 
-    public String getReleaseDate() {
+    public Date getReleaseDate() {
         return mReleaseDate;
     }
 

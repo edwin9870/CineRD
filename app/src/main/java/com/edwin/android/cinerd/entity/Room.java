@@ -4,11 +4,13 @@ package com.edwin.android.cinerd.entity;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 @Generated("net.hexar.json2pojo")
 public class Room {
 
     @SerializedName("date")
-    private String mDate;
+    private Date mDate;
     @SerializedName("format")
     private String mFormat;
     @SerializedName("language")
@@ -18,7 +20,7 @@ public class Room {
     @SerializedName("subtitle")
     private String mSubtitle;
 
-    public String getDate() {
+    public Date getDate() {
         return mDate;
     }
 
