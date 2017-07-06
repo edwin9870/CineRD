@@ -21,4 +21,11 @@ public class Theater {
         return mRoom;
     }
 
+    @Override
+    public String toString() {
+        return "Theater{" +
+                "mName='" + mName + '\'' +
+                ", mRoom=" + mRoom +
+                '}';
+    }
 }

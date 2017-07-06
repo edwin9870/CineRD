@@ -38,4 +38,14 @@ public class Room {
         return mSubtitle;
     }
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "mDate='" + mDate + '\'' +
+                ", mFormat='" + mFormat + '\'' +
+                ", mLanguage='" + mLanguage + '\'' +
+                ", mNumber='" + mNumber + '\'' +
+                ", mSubtitle='" + mSubtitle + '\'' +
+                '}';
+    }
 }

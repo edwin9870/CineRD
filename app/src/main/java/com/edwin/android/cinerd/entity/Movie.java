@@ -51,4 +51,16 @@ public class Movie {
         return mTheaters;
     }
 
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "mDuration=" + mDuration +
+                ", mGenre=" + mGenre +
+                ", mName='" + mName + '\'' +
+                ", mRating=" + mRating +
+                ", mReleaseDate='" + mReleaseDate + '\'' +
+                ", mSynopsis='" + mSynopsis + '\'' +
+                ", mTheaters=" + mTheaters +
+                '}';
+    }
 }

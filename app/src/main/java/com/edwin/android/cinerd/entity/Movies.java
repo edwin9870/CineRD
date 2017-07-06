@@ -15,4 +15,10 @@ public class Movies {
         return mMovies;
     }
 
+    @Override
+    public String toString() {
+        return "Movies{" +
+                "mMovies=" + mMovies +
+                '}';
+    }
 }
