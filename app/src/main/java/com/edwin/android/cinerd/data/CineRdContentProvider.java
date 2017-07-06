@@ -267,7 +267,65 @@ public class CineRdContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+        SQLiteDatabase db = mCineRdDbHelper.getWritableDatabase();
+
+        int match = sUriMatcher.match(uri);
+        int tasksDeleted;
+        String id;
+        switch (match) {
+            case FORMAT_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(FormatEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case GENRE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(CineRdContract.GenreEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case LANGUAGE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(LanguageEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case MOVIE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(CineRdContract.MovieEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case MOVIE_GENRE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(MovieGenreEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case MOVIE_RATING_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(CineRdContract.MovieRatingEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case MOVIE_THEATER_DETAIL_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(CineRdContract.MovieTheaterDetailEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case RATING_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(CineRdContract.RatingEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case ROOM_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(CineRdContract.RoomEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case SUBTITLE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(CineRdContract.SubtitleEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case THEATER_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(CineRdContract.TheaterEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        if (tasksDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return tasksDeleted;
     }
 
     @Override
