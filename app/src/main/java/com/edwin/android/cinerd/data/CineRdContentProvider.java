@@ -5,9 +5,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.edwin.android.cinerd.data.CineRdContract.FormatEntry;
+import com.edwin.android.cinerd.data.CineRdContract.LanguageEntry;
+import com.edwin.android.cinerd.data.CineRdContract.MovieGenreEntry;
 
 /**
  * Created by Edwin Ramirez Ventura on 7/5/2017.
@@ -121,9 +126,65 @@ public class CineRdContentProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] strings, @Nullable String s,
-                        @Nullable String[] strings1, @Nullable String s1) {
-        return null;
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String
+            selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+        SQLiteDatabase db = mCineRdDbHelper.getReadableDatabase();
+
+        int match = sUriMatcher.match(uri);
+
+        Cursor refCursor;
+        switch (match) {
+            case FORMAT:
+                refCursor = db.query(FormatEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case GENRE:
+                refCursor = db.query(CineRdContract.GenreEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case LANGUAGE:
+                refCursor = db.query(LanguageEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case MOVIE:
+                refCursor = db.query(CineRdContract.MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case MOVIE_GENRE:
+                refCursor = db.query(MovieGenreEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case MOVIE_RATING:
+                refCursor = db.query(CineRdContract.MovieRatingEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case MOVIE_THEATER_DETAIL:
+                refCursor = db.query(CineRdContract.MovieTheaterDetailEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case RATING:
+                refCursor = db.query(CineRdContract.RatingEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case ROOM:
+                refCursor = db.query(CineRdContract.RoomEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case SUBTITLE:
+                refCursor = db.query(CineRdContract.SubtitleEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+            case THEATER:
+                refCursor = db.query(CineRdContract.TheaterEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                        null, sortOrder);
+                break;
+
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        refCursor.setNotificationUri(getContext().getContentResolver(), uri);
+        return refCursor;
     }
 
     @Nullable
