@@ -57,34 +57,13 @@ public class MainActivity extends AppCompatActivity {
                         Movies movies = gson.fromJson(jsonFromAsset, Movies.class);
                         Log.d(TAG, "Json: "+jsonFromAsset);
                         Log.d(TAG, "Movies: "+movies);
-                        Set<String> format = new HashSet<>();
 
                         ContentResolver contentResolver = MainActivity.this.getContentResolver();
 
-                        ContentValues cv = new ContentValues();
-                        Movie movie = movies.getMovies().get(0);
-
-                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_NAME, movie.getName());
-                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_DURATION, movie.getDuration());
-                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, movie.getReleaseDate().toString());
-                        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS, movie.getSynopsis());
-
-                        long movieId = ContentUris.parseId(contentResolver.insert(CineRdContract.MovieEntry.CONTENT_URI, cv));
-                        Log.d(TAG, "MovieID generated: " + movieId);
-
-                        persistTheater(movieId, contentResolver, movie.getTheaters());
-                        persistRating(movieId, contentResolver, movie.getRating());
-
-                        long genreId;
-                        for(String genreName: movie.getGenre()) {
-                            cv = new ContentValues();
-                            cv.put(CineRdContract.GenreEntry.COLUMN_NAME_NAME, genreName);
-                            genreId = ContentUris.parseId(contentResolver.insert(CineRdContract.GenreEntry.CONTENT_URI, cv));
-
-                            cv = new ContentValues();
-                            cv.put(CineRdContract.MovieGenreEntry.COLUMN_NAME_GENRE_ID, genreId);
-                            cv.put(CineRdContract.MovieGenreEntry.COLUMN_NAME_MOVIE_ID, movieId);
-                            contentResolver.insert(CineRdContract.MovieGenreEntry.CONTENT_URI, cv);
+                        for(Movie movie : movies.getMovies()) {
+                            Log.d(TAG, "Persisting movie: "+ movie);
+                            persistMovie(contentResolver, movie);
+                            Log.d(TAG, "Movie persisted");
                         }
 
                         return null;
@@ -97,6 +76,32 @@ public class MainActivity extends AppCompatActivity {
                 }.execute();
             }
         });
+    }
+
+    private void persistMovie(ContentResolver contentResolver, Movie movie) {
+        ContentValues cv = new ContentValues();
+        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_NAME, movie.getName());
+        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_DURATION, movie.getDuration());
+        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, movie.getReleaseDate().toString());
+        cv.put(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS, movie.getSynopsis());
+
+        long movieId = ContentUris.parseId(contentResolver.insert(CineRdContract.MovieEntry.CONTENT_URI, cv));
+        Log.d(TAG, "MovieID generated: " + movieId);
+
+        persistTheater(movieId, contentResolver, movie.getTheaters());
+        persistRating(movieId, contentResolver, movie.getRating());
+
+        long genreId;
+        for(String genreName: movie.getGenre()) {
+            cv = new ContentValues();
+            cv.put(CineRdContract.GenreEntry.COLUMN_NAME_NAME, genreName);
+            genreId = ContentUris.parseId(contentResolver.insert(CineRdContract.GenreEntry.CONTENT_URI, cv));
+
+            cv = new ContentValues();
+            cv.put(CineRdContract.MovieGenreEntry.COLUMN_NAME_GENRE_ID, genreId);
+            cv.put(CineRdContract.MovieGenreEntry.COLUMN_NAME_MOVIE_ID, movieId);
+            contentResolver.insert(CineRdContract.MovieGenreEntry.CONTENT_URI, cv);
+        }
     }
 
     private void persistRating(long movieId, ContentResolver contentResolver, Rating rating) {
