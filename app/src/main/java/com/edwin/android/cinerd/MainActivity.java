@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "MovieID generated: " + movieId);
 
                         persistTheater(contentResolver, movie.getTheaters());
-                        persitRating(contentResolver);
+                        persistRating(movieId, contentResolver, movie.getRating());
 
                         long genreId;
                         for(String genreName: movie.getGenre()) {
@@ -99,13 +99,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void persitRating(ContentResolver contentResolver) {
+    private void persistRating(long movieId, ContentResolver contentResolver, Rating rating) {
         ContentValues cv;
         cv = new ContentValues();
         cv.put(CineRdContract.RatingEntry.COLUMN_NAME_NAME, "RottenTomatoes");
-        contentResolver.insert(CineRdContract.RatingEntry.CONTENT_URI, cv);
+        long rottenTomatoesId = ContentUris.parseId(contentResolver.insert(CineRdContract.RatingEntry.CONTENT_URI, cv));
         cv.put(CineRdContract.RatingEntry.COLUMN_NAME_NAME, "IMDB");
-        contentResolver.insert(CineRdContract.RatingEntry.CONTENT_URI, cv);
+        long imdbId = ContentUris.parseId(contentResolver.insert(CineRdContract.RatingEntry.CONTENT_URI, cv));
+
+        cv = new ContentValues();
+        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_MOVIE_ID, movieId);
+        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER, rottenTomatoesId);
+        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING, rating.getRottentomatoes());
+        contentResolver.insert(CineRdContract.MovieRatingEntry.CONTENT_URI, cv);
+
+        cv = new ContentValues();
+        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_MOVIE_ID, movieId);
+        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER, imdbId);
+        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING, rating.getImdb());
+        contentResolver.insert(CineRdContract.MovieRatingEntry.CONTENT_URI, cv);
     }
 
     private void persistTheater(ContentResolver contentResolver, List<Theater> theaters) {
