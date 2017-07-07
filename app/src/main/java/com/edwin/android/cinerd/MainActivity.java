@@ -22,7 +22,9 @@ import com.edwin.android.cinerd.util.JsonUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         Movies movies = gson.fromJson(jsonFromAsset, Movies.class);
                         Log.d(TAG, "Json: "+jsonFromAsset);
                         Log.d(TAG, "Movies: "+movies);
+                        Set<String> format = new HashSet<>();
 
                         ContentResolver contentResolver = MainActivity.this.getContentResolver();
 
@@ -111,9 +114,11 @@ public class MainActivity extends AppCompatActivity {
                 cv = new ContentValues();
                 cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NUMBER, room.getNumber());
                 cv.put(CineRdContract.RoomEntry.COLUMN_NAME_THEATER_ID, theaterId);
-
-
                 contentResolver.insert(CineRdContract.RoomEntry.CONTENT_URI, cv);
+
+                cv = new ContentValues();
+                cv.put(CineRdContract.FormatEntry.COLUMN_NAME_NAME, room.getFormat());
+                contentResolver.insert(CineRdContract.FormatEntry.CONTENT_URI, cv);
             }
         }
     }
