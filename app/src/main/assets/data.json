@@ -27,7 +27,18 @@
             "subtitle": "espanish",
             "date": "2012-04-23T18:00:00.511Z"
           }]
-      }]
+      },
+        {
+          "name": "Sambil",
+          "room": [
+            {
+              "number": "2",
+              "format": "3D",
+              "language": "english",
+              "subtitle": "espanish",
+              "date": "2012-04-23T18:00:00.511Z"
+            }]
+        }]
     },
     {
       "name":"Wonder Woman",
