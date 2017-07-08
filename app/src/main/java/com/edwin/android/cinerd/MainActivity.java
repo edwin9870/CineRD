@@ -3,6 +3,7 @@ package com.edwin.android.cinerd;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.data.CineRdContract;
+import com.edwin.android.cinerd.data.CineRdContract.GenreEntry;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Movies;
 import com.edwin.android.cinerd.entity.Rating;
@@ -92,15 +94,29 @@ public class MainActivity extends AppCompatActivity {
         persistRating(movieId, contentResolver, movie.getRating());
 
         long genreId;
+        Cursor cursor = null;
         for(String genreName: movie.getGenre()) {
-            cv = new ContentValues();
-            cv.put(CineRdContract.GenreEntry.COLUMN_NAME_NAME, genreName);
-            genreId = ContentUris.parseId(contentResolver.insert(CineRdContract.GenreEntry.CONTENT_URI, cv));
+            try {
+                cursor = contentResolver.query(GenreEntry.CONTENT_URI, null,
+                        GenreEntry.COLUMN_NAME_NAME + " = ?", new String[]{genreName}, null);
+                if (cursor != null && cursor.moveToNext()) {
+                    genreId = cursor.getLong(cursor.getColumnIndexOrThrow(GenreEntry._ID));
+                    Log.d(TAG, "genreId from table: "+ genreId);
+                } else {
+                    cv = new ContentValues();
+                    cv.put(GenreEntry.COLUMN_NAME_NAME, genreName);
+                    genreId = ContentUris.parseId(contentResolver.insert(GenreEntry.CONTENT_URI, cv));
+                }
 
-            cv = new ContentValues();
-            cv.put(CineRdContract.MovieGenreEntry.COLUMN_NAME_GENRE_ID, genreId);
-            cv.put(CineRdContract.MovieGenreEntry.COLUMN_NAME_MOVIE_ID, movieId);
-            contentResolver.insert(CineRdContract.MovieGenreEntry.CONTENT_URI, cv);
+                cv = new ContentValues();
+                cv.put(CineRdContract.MovieGenreEntry.COLUMN_NAME_GENRE_ID, genreId);
+                cv.put(CineRdContract.MovieGenreEntry.COLUMN_NAME_MOVIE_ID, movieId);
+                contentResolver.insert(CineRdContract.MovieGenreEntry.CONTENT_URI, cv);
+            } finally {
+                if(cursor != null) {
+                    cursor.close();
+                }
+            }
         }
     }
 
