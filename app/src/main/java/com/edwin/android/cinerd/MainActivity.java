@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         Long theaterId;
         long roomId;
         long subtitleId;
-        long formatId;
+        short formatId;
         long languageId;
         for(Theater theater: theaters) {
             cv = new ContentValues();
@@ -179,9 +179,7 @@ public class MainActivity extends AppCompatActivity {
             for(Room room : theater.getRoom()) {
                 roomId = getRoomId(contentResolver, theaterId, room);
 
-                cv = new ContentValues();
-                cv.put(CineRdContract.FormatEntry.COLUMN_NAME_NAME, room.getFormat());
-                formatId = ContentUris.parseId(contentResolver.insert(CineRdContract.FormatEntry.CONTENT_URI, cv));
+                formatId = getFormatId(contentResolver, room);
 
                 cv = new ContentValues();
                 cv.put(CineRdContract.LanguageEntry.COLUMN_NAME_NAME, room.getLanguage());
@@ -209,6 +207,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    private short getFormatId(ContentResolver contentResolver, Room room) {
+        ContentValues cv;
+        short formatId;
+        cv = new ContentValues();
+        Cursor cursor = null;
+        try {
+            cursor = contentResolver.query(CineRdContract.FormatEntry.CONTENT_URI, null,
+                    CineRdContract.FormatEntry.COLUMN_NAME_NAME + " = ?", new String[]{room.getFormat()}, null);
+
+            cv.put(CineRdContract.FormatEntry.COLUMN_NAME_NAME, room.getFormat());
+            if (cursor != null && cursor.moveToNext()) {
+                formatId = cursor.getShort(cursor.getColumnIndexOrThrow(CineRdContract
+                        .FormatEntry._ID));
+            } else {
+                formatId = (short) ContentUris.parseId(contentResolver.insert(CineRdContract
+                        .FormatEntry.CONTENT_URI, cv));
+            }
+        } finally {
+            if(cursor != null) {
+                cursor.close();
+            }
+        }
+        return formatId;
     }
 
     private long getRoomId(ContentResolver contentResolver, Long theaterId,
