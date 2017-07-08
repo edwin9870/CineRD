@@ -34,6 +34,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String ROTTEN_TOMATOES = "RottenTomatoes";
+    public static final String IMDB = "IMDB";
     @BindView(R.id.recycler_view_movie_poster)
     RecyclerView recyclerViewMoviePoster;
     @BindView(R.id.floating_button_movie_menu)
@@ -121,29 +123,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void persistRating(long movieId, ContentResolver contentResolver, Rating rating) {
-        ContentValues cv;
-        cv = new ContentValues();
-        cv.put(CineRdContract.RatingEntry.COLUMN_NAME_NAME, "RottenTomatoes");
-        long rottenTomatoesId = ContentUris.parseId(contentResolver.insert(CineRdContract.RatingEntry.CONTENT_URI, cv));
-        cv.put(CineRdContract.RatingEntry.COLUMN_NAME_NAME, "IMDB");
-        long imdbId = ContentUris.parseId(contentResolver.insert(CineRdContract.RatingEntry.CONTENT_URI, cv));
 
-        cv = new ContentValues();
+        short rottenTomatoesRatingId = getRatingId(contentResolver, ROTTEN_TOMATOES);
+        short imdbRattingId = getRatingId(contentResolver, IMDB);
+
+        ContentValues cv = new ContentValues();
         cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_MOVIE_ID, movieId);
-        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER, rottenTomatoesId);
+        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER, rottenTomatoesRatingId);
         cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING, rating.getRottentomatoes());
         contentResolver.insert(CineRdContract.MovieRatingEntry.CONTENT_URI, cv);
 
         cv = new ContentValues();
         cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_MOVIE_ID, movieId);
-        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER, imdbId);
+        cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER, imdbRattingId);
         cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING, rating.getImdb());
         contentResolver.insert(CineRdContract.MovieRatingEntry.CONTENT_URI, cv);
     }
 
+    private short getRatingId(ContentResolver contentResolver, String ratingProvider) {
+        Cursor cursor = null;
+        short ratingId;
+        try {
+            cursor = contentResolver.query(CineRdContract.RatingEntry.CONTENT_URI, null,
+                    CineRdContract.RatingEntry.COLUMN_NAME_NAME + " = ?",
+                    new String[]{ratingProvider}, null);
+            if (cursor != null && cursor.moveToNext()) {
+                ratingId = cursor.getShort(cursor.getColumnIndexOrThrow(CineRdContract.RatingEntry._ID));
+
+                return ratingId;
+            } else {
+                ContentValues cv = new ContentValues();
+                cv.put(CineRdContract.RatingEntry.COLUMN_NAME_NAME, ratingProvider);
+                ratingId = (short) ContentUris.parseId(contentResolver.insert(CineRdContract.RatingEntry.CONTENT_URI, cv));
+                return ratingId;
+            }
+        } finally {
+            if(cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
     private void persistTheater(long movieId, ContentResolver contentResolver, List<Theater> theaters) {
         ContentValues cv;
-        long theaterId;
+        Long theaterId;
         long roomId;
         long subtitleId;
         long formatId;
@@ -154,10 +177,7 @@ public class MainActivity extends AppCompatActivity {
             theaterId = ContentUris.parseId(contentResolver.insert(CineRdContract.TheaterEntry.CONTENT_URI, cv));
 
             for(Room room : theater.getRoom()) {
-                cv = new ContentValues();
-                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NUMBER, room.getNumber());
-                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_THEATER_ID, theaterId);
-                roomId = ContentUris.parseId(contentResolver.insert(CineRdContract.RoomEntry.CONTENT_URI, cv));
+                roomId = getRoomId(contentResolver, theaterId, room);
 
                 cv = new ContentValues();
                 cv.put(CineRdContract.FormatEntry.COLUMN_NAME_NAME, room.getFormat());
@@ -189,5 +209,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    private long getRoomId(ContentResolver contentResolver, Long theaterId,
+                           Room room) {
+        long roomId;
+        Cursor cursor = null;
+        ContentValues cv = new ContentValues();
+        try {
+            cursor = contentResolver.query(CineRdContract.RoomEntry.CONTENT_URI, null,
+                    CineRdContract.RoomEntry.COLUMN_NAME_NUMBER + " = ? AND " + CineRdContract
+
+                            .RoomEntry.COLUMN_NAME_THEATER_ID + " = ?", new String[]{room
+                            .getNumber(), theaterId.toString()}, null);
+            if (cursor != null && cursor.moveToNext()) {
+                roomId = cursor.getLong(cursor.getColumnIndexOrThrow(CineRdContract.RoomEntry._ID));
+            } else {
+                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NUMBER, room.getNumber());
+                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_THEATER_ID, theaterId);
+                roomId = ContentUris.parseId(contentResolver.insert(CineRdContract
+                        .RoomEntry.CONTENT_URI, cv));
+            }
+        } finally {
+            if(cursor != null) {
+                cursor.close();
+            }
+        }
+        return roomId;
     }
 }
