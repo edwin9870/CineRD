@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         ContentValues cv;
         Long theaterId;
         long roomId;
-        long subtitleId;
+        short subtitleId;
         short formatId;
         short languageId;
         for(Theater theater: theaters) {
@@ -179,42 +179,79 @@ public class MainActivity extends AppCompatActivity {
             for(Room room : theater.getRoom()) {
                 roomId = getRoomId(contentResolver, theaterId, room);
                 formatId = getFormatId(contentResolver, room);
-
-                cv = new ContentValues();
-                Cursor cursor = null;
-                cursor = contentResolver.query(CineRdContract.LanguageEntry.CONTENT_URI, null,
-                        CineRdContract.LanguageEntry.COLUMN_NAME_NAME + " = ?", new String[]{room.getLanguage()}, null);
-                if (cursor != null && cursor.moveToNext()) {
-                    languageId = cursor.getShort(cursor.getColumnIndexOrThrow(CineRdContract
-                            .LanguageEntry._ID));
-                } else {
-                    cv.put(CineRdContract.LanguageEntry.COLUMN_NAME_NAME, room.getLanguage());
-                    languageId = (short) ContentUris.parseId(contentResolver.insert
-                            (CineRdContract.LanguageEntry.CONTENT_URI, cv));
-                }
+                languageId = getLanguageId(contentResolver, room);
 
                 if(room.getSubtitle() != null && !room.getSubtitle().isEmpty()) {
-                    cv = new ContentValues();
-                    cv.put(CineRdContract.SubtitleEntry.COLUMN_NAME_NAME, room.getLanguage());
-                    subtitleId = ContentUris.parseId(contentResolver.insert(CineRdContract.SubtitleEntry.CONTENT_URI, cv));
+                    subtitleId = getSubtitleId(contentResolver, room);
                 } else {
                     subtitleId = 0;
                 }
 
-                cv = new ContentValues();
-                cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_MOVIE_ID, movieId);
-                cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_THEATER_ID, theaterId);
-                cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_ROOM_ID, roomId);
-                cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE, room.getDate().toString());
-                if(subtitleId > 0) {
-                    cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_SUBTITLE_ID, subtitleId);
-                }
-                cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_FORMAT_ID, formatId);
-                cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_LANGUAGE_ID, languageId);
-                contentResolver.insert(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI, cv);
+                persistRoom(movieId, contentResolver, theaterId, roomId, subtitleId, formatId,
+                        languageId, room);
 
             }
         }
+    }
+
+    private void persistRoom(long movieId, ContentResolver contentResolver, Long theaterId, long
+            roomId, short subtitleId, short formatId, short languageId, Room room) {
+        ContentValues cv;
+        cv = new ContentValues();
+        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_MOVIE_ID, movieId);
+        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_THEATER_ID, theaterId);
+        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_ROOM_ID, roomId);
+        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE, room.getDate()
+        .toString());
+        if(subtitleId > 0) {
+            cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_SUBTITLE_ID,
+                    subtitleId);
+        }
+        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_FORMAT_ID, formatId);
+        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_LANGUAGE_ID, languageId);
+        contentResolver.insert(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI, cv);
+    }
+
+    private short getSubtitleId(ContentResolver contentResolver, Room room) {
+        ContentValues cv;
+        short subtitleId;
+        cv = new ContentValues();
+        Cursor cursor = null;
+        try {
+            cursor = contentResolver.query(CineRdContract.SubtitleEntry.CONTENT_URI, null,
+
+                    CineRdContract.SubtitleEntry.COLUMN_NAME_NAME + " = ?", new String[]{room.getSubtitle()}, null);
+            if (cursor != null && cursor.moveToNext()) {
+                subtitleId = cursor.getShort(cursor.getColumnIndexOrThrow(CineRdContract
+                        .SubtitleEntry._ID));
+            } else {
+                cv.put(CineRdContract.SubtitleEntry.COLUMN_NAME_NAME, room.getSubtitle());
+                subtitleId = (short) ContentUris.parseId(contentResolver.insert(CineRdContract.SubtitleEntry.CONTENT_URI, cv));
+            }
+        } finally {
+            if(cursor != null) {
+                cursor.close();
+            }
+        }
+        return subtitleId;
+    }
+
+    private short getLanguageId(ContentResolver contentResolver, Room room) {
+        ContentValues cv;
+        short languageId;
+        cv = new ContentValues();
+        Cursor cursor = null;
+        cursor = contentResolver.query(CineRdContract.LanguageEntry.CONTENT_URI, null,
+                CineRdContract.LanguageEntry.COLUMN_NAME_NAME + " = ?", new String[]{room.getLanguage()}, null);
+        if (cursor != null && cursor.moveToNext()) {
+            languageId = cursor.getShort(cursor.getColumnIndexOrThrow(CineRdContract
+                    .LanguageEntry._ID));
+        } else {
+            cv.put(CineRdContract.LanguageEntry.COLUMN_NAME_NAME, room.getLanguage());
+            languageId = (short) ContentUris.parseId(contentResolver.insert
+                    (CineRdContract.LanguageEntry.CONTENT_URI, cv));
+        }
+        return languageId;
     }
 
     private short getFormatId(ContentResolver contentResolver, Room room) {
