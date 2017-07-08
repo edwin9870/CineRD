@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "Movies: "+movies);
 
                         ContentResolver contentResolver = MainActivity.this.getContentResolver();
+                        cleanMovieSchedule(contentResolver);
 
                         for(Movie movie : movies.getMovies()) {
                             Log.d(TAG, "Persisting movie: "+ movie);
@@ -81,11 +82,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private int cleanMovieSchedule(ContentResolver contentResolver) {
+        int rowsDeleted = contentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,
+                null, null);
+        Log.d(TAG, "rows deleted: "+ rowsDeleted);
+        return rowsDeleted;
+    }
+
     private void processMovie(ContentResolver contentResolver, Movie movie) {
         ContentValues cv = new ContentValues();
         long movieId;
 
         movieId = persistMovie(contentResolver, movie, cv);
+
         processMovieDetail(movieId, contentResolver, movie.getTheaters());
         persistRating(movieId, contentResolver, movie.getRating());
 

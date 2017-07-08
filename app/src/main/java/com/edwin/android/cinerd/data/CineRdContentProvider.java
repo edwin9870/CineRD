@@ -266,7 +266,7 @@ public class CineRdContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         SQLiteDatabase db = mCineRdDbHelper.getWritableDatabase();
 
         int match = sUriMatcher.match(uri);
@@ -316,6 +316,9 @@ public class CineRdContentProvider extends ContentProvider {
             case THEATER_WITH_ID:
                 id = uri.getPathSegments().get(1);
                 tasksDeleted = db.delete(CineRdContract.TheaterEntry.TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            case MOVIE_THEATER_DETAIL:
+                tasksDeleted = db.delete(CineRdContract.MovieTheaterDetailEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
