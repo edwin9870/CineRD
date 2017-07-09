@@ -1,12 +1,7 @@
 package com.edwin.android.cinerd;
 
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -14,20 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
-import com.edwin.android.cinerd.data.CineRdContract;
-import com.edwin.android.cinerd.data.CineRdContract.GenreEntry;
 import com.edwin.android.cinerd.data.MovieDataPersistence;
-import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Movies;
-import com.edwin.android.cinerd.entity.Rating;
-import com.edwin.android.cinerd.entity.Room;
-import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.util.JsonUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.List;
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,11 +29,12 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerViewMoviePoster;
     @BindView(R.id.floating_button_movie_menu)
     FloatingActionButton floatingButtonMovieMenu;
+    @Inject
     MovieDataPersistence mMovieDataPersistence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mMovieDataPersistence = DaggerDatabaseComponent.builder().build().getMovieDataPersistence();
+        DaggerDatabaseComponent.builder().applicationModule(new ApplicationModule(getApplication())).build().inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -63,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "Json: "+jsonFromAsset);
                         Log.d(TAG, "Movies: "+movies);
 
-                        ContentResolver contentResolver = MainActivity.this.getContentResolver();
-                        mMovieDataPersistence.process(contentResolver, movies.getMovies());
+                        mMovieDataPersistence.process(movies.getMovies());
 
                         return null;
                     }

@@ -1,6 +1,12 @@
 package com.edwin.android.cinerd.configuration.di;
 
+import android.app.Application;
+import android.content.ContentResolver;
+import android.content.Context;
+
 import com.edwin.android.cinerd.data.MovieDataPersistence;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,8 +18,15 @@ import dagger.Provides;
 @Module
 public class DatabaseModule {
 
-    //@Provides
-    static MovieDataPersistence provideMovieDataPersistence() {
-        return new MovieDataPersistence();
+
+    @Provides
+    @Singleton
+    MovieDataPersistence provideMovieDataPersistence(ContentResolver contentResolver) {
+        return new MovieDataPersistence(contentResolver);
     }
+
+    @Provides @Singleton
+    ContentResolver provideContentResolver(Application application) {
+        return application.getContentResolver();
+    };
 }

@@ -14,8 +14,6 @@ import com.edwin.android.cinerd.entity.Theater;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 /**
  * Created by Edwin Ramirez Ventura on 7/8/2017.
  */
@@ -24,13 +22,14 @@ public class MovieDataPersistence {
     public static final String TAG = MovieDataPersistence.class.getSimpleName();
     public static final String ROTTEN_TOMATOES = "RottenTomatoes";
     public static final String IMDB = "IMDB";
-    private ContentResolver mContentResolver;
+    ContentResolver mContentResolver;
 
-    @Inject
-    public MovieDataPersistence() {}
 
-    public void process(ContentResolver contentResolver, List<Movie> movies) {
-        mContentResolver = contentResolver;
+    public MovieDataPersistence(ContentResolver contentResolver) {
+        this.mContentResolver = contentResolver;
+    }
+
+    public void process(List<Movie> movies) {
         cleanMovieSchedule();
 
         for(Movie movie : movies) {
