@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.edwin.android.cinerd.data.MovieDataPersistence;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -26,7 +27,7 @@ public class DatabaseModule {
     }
 
     @Provides @Singleton
-    ContentResolver provideContentResolver(Application application) {
-        return application.getContentResolver();
+    ContentResolver provideContentResolver(@Named("application context") Context applicationContext) {
+        return applicationContext.getContentResolver();
     };
 }

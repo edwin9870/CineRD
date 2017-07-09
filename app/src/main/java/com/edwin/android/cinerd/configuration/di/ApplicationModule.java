@@ -1,7 +1,9 @@
 package com.edwin.android.cinerd.configuration.di;
 
 import android.app.Application;
+import android.content.Context;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -12,15 +14,16 @@ import dagger.Provides;
  */
 @Module
 public class ApplicationModule {
-    Application mApplication;
+    private Context mApplicationContext;
 
-    public ApplicationModule(Application application) {
-        mApplication = application;
+    public ApplicationModule(Context applicationContext) {
+        mApplicationContext = applicationContext;
     }
 
     @Provides
     @Singleton
-    Application providesApplication() {
-        return mApplication;
+    @Named("application context")
+    Context providesApplication() {
+        return mApplicationContext;
     }
 }
