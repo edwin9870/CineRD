@@ -1,6 +1,7 @@
 package com.edwin.android.cinerd.util;
 
 import android.app.Activity;
+import android.content.Context;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,12 +10,13 @@ import java.io.InputStream;
  * Created by Edwin Ramirez Ventura on 7/6/2017.
  */
 
+
 public final class JsonUtil {
 
-    public static String loadJSONFromAsset(Activity activity, String fileName) {
+    public static String loadJSONFromAsset(Context context, String fileName) {
         String json = null;
         try {
-            InputStream is = activity.getAssets().open(fileName);
+            InputStream is = context.getAssets().open(fileName);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

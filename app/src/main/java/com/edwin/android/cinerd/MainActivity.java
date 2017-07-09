@@ -11,13 +11,14 @@ import android.widget.Toast;
 
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
+import com.edwin.android.cinerd.data.MovieCollector;
 import com.edwin.android.cinerd.data.MovieDataPersistence;
-import com.edwin.android.cinerd.entity.Movies;
-import com.edwin.android.cinerd.util.JsonUtil;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.edwin.android.cinerd.entity.Movie;
+
+import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,10 +32,13 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton floatingButtonMovieMenu;
     @Inject
     MovieDataPersistence mMovieDataPersistence;
+    @Inject @Named("MovieCollectorJSON")
+    MovieCollector mMovieCollector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DaggerDatabaseComponent.builder().applicationModule(new ApplicationModule(getApplication())).build().inject(this);
+        DaggerDatabaseComponent.builder().applicationModule(new ApplicationModule(getApplication
+                ())).build().inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -43,25 +47,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Button clicked", Toast.LENGTH_SHORT).show();
-
                 new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void... voids) {
-                        String jsonFromAsset = JsonUtil.loadJSONFromAsset(MainActivity.this, "data.json");
-                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();;
+                        List<Movie> movies = mMovieCollector.getMovies();
+                        Log.d(TAG, "Movies: " + movies);
 
-                        Movies movies = gson.fromJson(jsonFromAsset, Movies.class);
-                        Log.d(TAG, "Json: "+jsonFromAsset);
-                        Log.d(TAG, "Movies: "+movies);
-
-                        mMovieDataPersistence.process(movies.getMovies());
+                        mMovieDataPersistence.process(movies);
 
                         return null;
                     }
 
                     @Override
                     protected void onPostExecute(Void aVoid) {
-                        Toast.makeText(MainActivity.this, "Sync completed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Sync completed", Toast.LENGTH_SHORT)
+                                .show();
                     }
                 }.execute();
             }

@@ -6,19 +6,25 @@ import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Created by Edwin Ramirez Ventura on 7/6/2017.
  */
 
 public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
+    public static final String TAG = MoviesSyncAdapter.class.getSimpleName();
     @Inject
     MovieDataPersistence mMovieDataPersistence;
+    @Inject @Named("MovieCollectorJSON")
+    MovieCollector mMovieCollector;
+
     private Context mContext;
 
 
@@ -37,6 +43,8 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
             contentProviderClient, SyncResult syncResult) {
         DaggerDatabaseComponent.builder().applicationModule(new ApplicationModule(mContext
                 .getApplicationContext())).build().inject(this);
+
+        Log.d(TAG, "mMovieCollector.getMovies(): " + mMovieCollector.getMovies());
 
     }
 }
