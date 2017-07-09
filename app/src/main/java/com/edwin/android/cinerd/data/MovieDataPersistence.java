@@ -14,10 +14,14 @@ import com.edwin.android.cinerd.entity.Theater;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Created by Edwin Ramirez Ventura on 7/8/2017.
  */
 
+@Singleton
 public class MovieDataPersistence {
     public static final String TAG = MovieDataPersistence.class.getSimpleName();
     public static final String ROTTEN_TOMATOES = "RottenTomatoes";
@@ -25,6 +29,7 @@ public class MovieDataPersistence {
     ContentResolver mContentResolver;
 
 
+    @Inject
     public MovieDataPersistence(ContentResolver contentResolver) {
         this.mContentResolver = contentResolver;
     }

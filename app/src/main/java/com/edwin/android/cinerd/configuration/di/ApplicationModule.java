@@ -1,6 +1,5 @@
 package com.edwin.android.cinerd.configuration.di;
 
-import android.app.Application;
 import android.content.Context;
 
 import javax.inject.Named;
