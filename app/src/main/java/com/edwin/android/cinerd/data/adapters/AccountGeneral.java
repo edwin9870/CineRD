@@ -12,36 +12,18 @@ import com.edwin.android.cinerd.R;
  * Created by Edwin Ramirez Ventura on 7/9/2017.
  */
 
+
 public final class AccountGeneral {
 
-    /**
-     * This is the type of account we are using. i.e. we can specify our app or apps
-     * to have different types, such as 'read-only', 'sync-only', & 'admin'.
-     */
     public static final String ACCOUNT_TYPE = "edwin.com";
 
-    /**
-     * This is the name that appears in the Android 'Accounts' settings.
-     */
     private static final String ACCOUNT_NAME = "CineRD Account";
     public static final String AUTHORITY = "com.edwin.android.cinerd";
 
-
-
-    /**
-     * Gets the standard sync account for our app.
-     *
-     * @return {@link Account}
-     */
     public static Account getAccount() {
         return new Account(ACCOUNT_NAME, ACCOUNT_TYPE);
     }
 
-    /**
-     * Creates the standard sync account for our app.
-     *
-     * @param context {@link Context}
-     */
     public static void createSyncAccount(Context context) {
         boolean created = false;
 
@@ -59,7 +41,7 @@ public final class AccountGeneral {
         }
 
         if(created) {
-            MoviesSyncAdapter.performSync();
+            MovieSyncAdapter.performSync();
         }
     }
 }

@@ -11,14 +11,14 @@ import android.support.annotation.Nullable;
 
 public class MovieSyncService extends Service {
 
-    private static MoviesSyncAdapter sMoviesSyncAdapter = null;
+    private static MovieSyncAdapter sMovieSyncAdapter = null;
     private static final Object sSyncAdapterLock = new Object();
 
     @Override
     public void onCreate() {
         synchronized (sSyncAdapterLock) {
-            if (sMoviesSyncAdapter == null) {
-                sMoviesSyncAdapter = new MoviesSyncAdapter(getApplicationContext(), true);
+            if (sMovieSyncAdapter == null) {
+                sMovieSyncAdapter = new MovieSyncAdapter(getApplicationContext(), true);
             }
         }
     }
@@ -26,6 +26,6 @@ public class MovieSyncService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return sMoviesSyncAdapter.getSyncAdapterBinder();
+        return sMovieSyncAdapter.getSyncAdapterBinder();
     }
 }

@@ -24,8 +24,8 @@ import javax.inject.Named;
  * Created by Edwin Ramirez Ventura on 7/6/2017.
  */
 
-public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
-    public static final String TAG = MoviesSyncAdapter.class.getSimpleName();
+public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
+    public static final String TAG = MovieSyncAdapter.class.getSimpleName();
     @Inject
     MovieDataPersistence mMovieDataPersistence;
     @Inject @Named("MovieCollectorJSON")
@@ -34,12 +34,12 @@ public class MoviesSyncAdapter extends AbstractThreadedSyncAdapter {
     private Context mContext;
 
 
-    public MoviesSyncAdapter(Context context, boolean autoInitialize) {
+    public MovieSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         this.mContext = context;
     }
 
-    public MoviesSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
+    public MovieSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
         this.mContext = context;
     }
