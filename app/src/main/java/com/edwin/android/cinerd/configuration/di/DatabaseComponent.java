@@ -1,6 +1,6 @@
 package com.edwin.android.cinerd.configuration.di;
 
-import com.edwin.android.cinerd.MainActivity;
+import com.edwin.android.cinerd.movieposter.MoviePosterActivity;
 import com.edwin.android.cinerd.data.adapters.MovieSyncAdapter;
 
 import javax.inject.Singleton;
@@ -13,6 +13,6 @@ import dagger.Component;
 @Component(modules = {ApplicationModule.class, DatabaseModule.class, MovieModule.class})
 @Singleton
 public interface DatabaseComponent {
-    void inject(MainActivity activity);
+    void inject(MoviePosterActivity activity);
     void inject(MovieSyncAdapter activity);
 }
