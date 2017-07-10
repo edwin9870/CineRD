@@ -1,5 +1,8 @@
 package com.edwin.android.cinerd;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +16,8 @@ import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.data.MovieCollector;
 import com.edwin.android.cinerd.data.MovieDataPersistence;
+import com.edwin.android.cinerd.data.adapters.AccountGeneral;
+import com.edwin.android.cinerd.data.adapters.MoviesSyncAdapter;
 import com.edwin.android.cinerd.entity.Movie;
 
 import java.util.List;
@@ -43,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        floatingButtonMovieMenu.setOnClickListener(new View.OnClickListener() {
+        AccountGeneral.createSyncAccount(this);
+        //MoviesSyncAdapter.performSync();
+
+        /*floatingButtonMovieMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Button clicked", Toast.LENGTH_SHORT).show();
@@ -63,8 +71,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Sync completed", Toast.LENGTH_SHORT)
                                 .show();
                     }
-                }.execute();
+                }.execute();*/
             }
-        });
-    }
+
+
+
 }

@@ -1,7 +1,7 @@
 package com.edwin.android.cinerd.configuration.di;
 
 import com.edwin.android.cinerd.MainActivity;
-import com.edwin.android.cinerd.data.MoviesSyncAdapter;
+import com.edwin.android.cinerd.data.adapters.MoviesSyncAdapter;
 
 import javax.inject.Singleton;
 
