@@ -1,9 +1,10 @@
 package com.edwin.android.cinerd.movieposter;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
@@ -16,8 +17,6 @@ import butterknife.ButterKnife;
 public class MoviePosterActivity extends AppCompatActivity {
 
     public static final String TAG = MoviePosterActivity.class.getSimpleName();
-    @BindView(R.id.recycler_view_movie_poster)
-    RecyclerView recyclerViewMoviePoster;
     @BindView(R.id.floating_button_movie_menu)
     FloatingActionButton floatingButtonMovieMenu;
 
@@ -30,6 +29,11 @@ public class MoviePosterActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         AccountGeneral.createSyncAccount(this);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_movie_poster, MoviePosterFragment.newInstance());
+        fragmentTransaction.commit();
     }
 
 

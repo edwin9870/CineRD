@@ -25,7 +25,7 @@ public class MovieCollectorJSON implements MovieCollector {
     @Override
     public List<Movie> getMovies() {
         String jsonData = JsonUtil.loadJSONFromAsset(mContext, "data.json");
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();;
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
         Movies movies = gson.fromJson(jsonData, Movies.class);
         return movies.getMovies();
     }

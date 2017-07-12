@@ -28,10 +28,13 @@ public class MovieDataPersistence {
     public static final String IMDB = "IMDB";
     ContentResolver mContentResolver;
 
-
     @Inject
     public MovieDataPersistence(ContentResolver contentResolver) {
         this.mContentResolver = contentResolver;
+    }
+
+    public List<Movie> getMovies() {
+        return null;
     }
 
     public void process(List<Movie> movies) {
