@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
@@ -49,6 +50,8 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
             Picasso picasso = Picasso.with(mContext);
             picasso.load(R.drawable.maxmaxposter).fit()
                     .into(holder.mMoviePosterImageView);
+            Movie movie = mMovies.get(position);
+            holder.mMovieNameTextView.setText(movie.getName());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,7 +73,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
         @BindView(R.id.image_movie_poster)
         ImageView mMoviePosterImageView;
         @BindView(R.id.text_movie_name)
-        ImageView mMovieNameTextView;
+        TextView mMovieNameTextView;
 
         MoviePosterAdapterViewHolder(View itemView) {
             super(itemView);

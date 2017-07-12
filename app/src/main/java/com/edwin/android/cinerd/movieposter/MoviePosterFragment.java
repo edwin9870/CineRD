@@ -2,28 +2,35 @@ package com.edwin.android.cinerd.movieposter;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.edwin.android.cinerd.R;
+import com.edwin.android.cinerd.data.MovieCollectorJSON;
+import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.util.SpacesItemDecoration;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class MoviePosterFragment extends Fragment {
+public class MoviePosterFragment extends Fragment implements MoviePosterMVP.View {
 
 
+    public static final String TAG = MoviePosterFragment.class.getSimpleName();
     @BindView(R.id.recycler_view_movie_poster)
-    RecyclerView mRecyclerViewMoviePoster;
+    RecyclerView mRecyclerView;
     Unbinder unbinder;
     private MoviePosterAdapter mAdapter;
+    private MoviePosterPresenter mPresenter;
 
-    public MoviePosterFragment() {
-    }
+    public MoviePosterFragment() {}
 
     public static MoviePosterFragment newInstance() {
         MoviePosterFragment fragment = new MoviePosterFragment();
@@ -42,7 +49,18 @@ public class MoviePosterFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         mAdapter = new MoviePosterAdapter(getActivity());
-        mRecyclerViewMoviePoster.setAdapter(mAdapter);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space_between_movie_poster);
+        mRecyclerView.addItemDecoration(new SpacesItemDecoration(2, spacingInPixels, false));
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mPresenter = new MoviePosterPresenter(this, new MovieCollectorJSON(getActivity()));
+        mPresenter.getMovies();
+
         return view;
     }
 
@@ -55,5 +73,15 @@ public class MoviePosterFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onReceiveMovies(List<Movie> movies) {
+        //TODO: Delete movies add, is just for testing purpose
+        movies.add(movies.get(0));
+        movies.add(movies.get(1));
+        movies.add(movies.get(0));
+        movies.add(movies.get(1));
+        mAdapter.setMovies(movies);
     }
 }

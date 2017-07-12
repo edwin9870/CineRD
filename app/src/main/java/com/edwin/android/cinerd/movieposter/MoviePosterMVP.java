@@ -11,7 +11,7 @@ import java.util.List;
 public interface MoviePosterMVP {
 
     interface View {
-        void showMovies(List<Movie> movies);
+        void onReceiveMovies(List<Movie> movies);
     }
 
     interface Presenter {

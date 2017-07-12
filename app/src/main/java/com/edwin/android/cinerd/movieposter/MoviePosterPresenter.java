@@ -31,7 +31,7 @@ public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
 
             @Override
             protected void onPostExecute(List<Movie> movies) {
-                mView.showMovies(movies);
+                mView.onReceiveMovies(movies);
             }
         }.execute();
     }

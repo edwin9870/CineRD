@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             xmlns:tools="http://schemas.android.com/tools">
+             android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -17,19 +17,23 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="200dp"
-            android:padding="8dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:background="@color/movieHeaderBackground"
+            android:padding="8dp"
             >
 
             <TextView
                 android:id="@+id/text_movie_name"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="#FFFFFF"
                 android:layout_gravity="center_vertical"
+                android:paddingBottom="@dimen/text_movie_name_padding_bottom"
+                android:paddingLeft="@dimen/text_movie_name_padding_left"
+                android:paddingRight="@dimen/text_movie_name_padding_right"
+                android:paddingTop="@dimen/text_movie_name_padding_top"
+                android:textColor="#FFFFFF"
                 tools:text="Wonder Woman"/>
         </FrameLayout>
 
