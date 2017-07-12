@@ -22,14 +22,14 @@ import javax.inject.Singleton;
  */
 
 @Singleton
-public class MovieDataPersistence {
-    public static final String TAG = MovieDataPersistence.class.getSimpleName();
+public class MovieDataRepository {
+    public static final String TAG = MovieDataRepository.class.getSimpleName();
     public static final String ROTTEN_TOMATOES = "RottenTomatoes";
     public static final String IMDB = "IMDB";
     ContentResolver mContentResolver;
 
     @Inject
-    public MovieDataPersistence(ContentResolver contentResolver) {
+    public MovieDataRepository(ContentResolver contentResolver) {
         this.mContentResolver = contentResolver;
     }
 
@@ -45,8 +45,9 @@ public class MovieDataPersistence {
             processMovie(movie);
             Log.d(TAG, "Movie persisted");
         }
-
     }
+
+    public List<Movie> getMovies()
 
     private int cleanMovieSchedule() {
         int rowsDeleted = mContentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,
@@ -133,8 +134,8 @@ public class MovieDataPersistence {
 
     private void persistMovieRating(long movieId, Rating rating) {
 
-        short rottenTomatoesRatingId = persistRating(MovieDataPersistence.ROTTEN_TOMATOES);
-        short imdbRattingId = persistRating(MovieDataPersistence.IMDB);
+        short rottenTomatoesRatingId = persistRating(MovieDataRepository.ROTTEN_TOMATOES);
+        short imdbRattingId = persistRating(MovieDataRepository.IMDB);
 
         ContentValues cv = new ContentValues();
         cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_MOVIE_ID, movieId);
