@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_movie_poster_height">300dp</dimen>
+
+    <!-- item_movie_list.xml-->
+    <dimen name="space_between_movie_poster">8dp</dimen>
+    <dimen name="text_movie_name_padding_bottom">12dp</dimen>
+    <dimen name="text_movie_name_padding_left">8dp</dimen>
+    <dimen name="text_movie_name_padding_right">@dimen/text_movie_name_padding_left</dimen>
+    <dimen name="text_movie_name_padding_top">12dp</dimen>
+</resources>
