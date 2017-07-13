@@ -46,9 +46,6 @@ public class MoviePosterActivity extends AppCompatActivity {
                 .moviePosterPresenterModule(new MoviePosterPresenterModule(fragment)).build()
                 .inject(this);
 
-        Log.d(TAG, "MoviePosterPresenter: " + moviePosterPresenter);
-
-
 
         fragmentTransaction.add(R.id.fragment_movie_poster, fragment);
         fragmentTransaction.commit();

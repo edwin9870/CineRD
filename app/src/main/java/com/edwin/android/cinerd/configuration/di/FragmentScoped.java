@@ -1,4 +1,4 @@
-package com.edwin.android.cinerd.util;
+package com.edwin.android.cinerd.configuration.di;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

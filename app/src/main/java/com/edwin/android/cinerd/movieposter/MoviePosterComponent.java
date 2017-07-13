@@ -1,9 +1,7 @@
 package com.edwin.android.cinerd.movieposter;
 
 import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
-import com.edwin.android.cinerd.util.FragmentScoped;
-
-import javax.inject.Singleton;
+import com.edwin.android.cinerd.configuration.di.FragmentScoped;
 
 import dagger.Component;
 
