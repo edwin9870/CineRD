@@ -15,6 +15,7 @@ import com.edwin.android.cinerd.entity.Theater;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 /**
@@ -27,14 +28,16 @@ public class MovieDataRepository {
     public static final String ROTTEN_TOMATOES = "RottenTomatoes";
     public static final String IMDB = "IMDB";
     ContentResolver mContentResolver;
+    MovieCollector mMovieCollector;
 
     @Inject
-    public MovieDataRepository(ContentResolver contentResolver) {
+    public MovieDataRepository(ContentResolver contentResolver, MovieCollectorJSON movieCollector) {
         this.mContentResolver = contentResolver;
+        this.mMovieCollector = movieCollector;
     }
 
     public List<Movie> getMovies() {
-        return null;
+        return mMovieCollector.getMovies();
     }
 
     public void process(List<Movie> movies) {
@@ -47,7 +50,6 @@ public class MovieDataRepository {
         }
     }
 
-    public List<Movie> getMovies()
 
     private int cleanMovieSchedule() {
         int rowsDeleted = mContentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,

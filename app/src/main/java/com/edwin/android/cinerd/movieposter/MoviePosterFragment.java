@@ -4,12 +4,12 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
 
@@ -28,7 +28,7 @@ public class MoviePosterFragment extends Fragment implements MoviePosterMVP.View
     RecyclerView mRecyclerView;
     Unbinder unbinder;
     private MoviePosterAdapter mAdapter;
-    private MoviePosterPresenter mPresenter;
+    private MoviePosterMVP.Presenter mPresenter;
 
     public MoviePosterFragment() {}
 
@@ -58,7 +58,6 @@ public class MoviePosterFragment extends Fragment implements MoviePosterMVP.View
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setAdapter(mAdapter);
 
-        mPresenter = new MoviePosterPresenter(this, new MovieCollectorJSON(getActivity()));
         mPresenter.getMovies();
 
         return view;
@@ -83,5 +82,11 @@ public class MoviePosterFragment extends Fragment implements MoviePosterMVP.View
         movies.add(movies.get(0));
         movies.add(movies.get(1));
         mAdapter.setMovies(movies);
+    }
+
+    @Override
+    public void setPresenter(MoviePosterMVP.Presenter presenter) {
+        mPresenter = presenter;
+        Log.d(TAG, "Setting presenter");
     }
 }

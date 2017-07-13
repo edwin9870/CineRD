@@ -10,15 +10,21 @@ import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 /**
  * Created by Edwin Ramirez Ventura on 7/9/2017.
  */
 
+@Singleton
 public class MovieCollectorJSON implements MovieCollector {
 
     Context mContext;
 
-    public MovieCollectorJSON(Context mContext) {
+    @Inject
+    public MovieCollectorJSON(@Named("application context") Context mContext) {
         this.mContext = mContext;
     }
 

@@ -2,10 +2,12 @@ package com.edwin.android.cinerd.movieposter;
 
 import android.os.AsyncTask;
 
-import com.edwin.android.cinerd.data.MovieCollectorJSON;
+import com.edwin.android.cinerd.data.MovieDataRepository;
 import com.edwin.android.cinerd.entity.Movie;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Edwin Ramirez Ventura on 7/12/2017.
@@ -14,11 +16,17 @@ import java.util.List;
 public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
 
     MoviePosterMVP.View mView;
-    private final MovieCollectorJSON mMovieCollector;
+    private final MovieDataRepository mMovieDataRepository;
 
-    public MoviePosterPresenter(MoviePosterMVP.View view, MovieCollectorJSON movieCollector) {
+    @Inject
+    public MoviePosterPresenter(MoviePosterMVP.View view, MovieDataRepository mMovieDataRepository) {
         mView = view;
-        mMovieCollector = movieCollector;
+        this.mMovieDataRepository = mMovieDataRepository;
+    }
+
+    @Inject
+    void setupListener() {
+        mView.setPresenter(this);
     }
 
     @Override
@@ -26,7 +34,7 @@ public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
         new AsyncTask<Void, Void, List<Movie>>(){
             @Override
             protected List<Movie> doInBackground(Void... voids) {
-                return mMovieCollector.getMovies();
+                return mMovieDataRepository.getMovies();
             }
 
             @Override

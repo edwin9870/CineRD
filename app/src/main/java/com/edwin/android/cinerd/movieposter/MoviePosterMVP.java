@@ -12,6 +12,7 @@ public interface MoviePosterMVP {
 
     interface View {
         void onReceiveMovies(List<Movie> movies);
+        void setPresenter(Presenter presenter);
     }
 
     interface Presenter {
