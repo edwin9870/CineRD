@@ -23,11 +23,12 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 app:layout_collapseMode="parallax"/>
+
             <ImageView
                 android:layout_width="88dp"
                 android:layout_height="88dp"
-                android:src="@drawable/ic_play_circle_filled"
-                android:layout_gravity="center_horizontal|center_vertical"/>
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:src="@drawable/ic_play_circle_filled"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_detail_movie"
@@ -35,9 +36,81 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
         </android.support.design.widget.CollapsingToolbarLayout>
-
-
     </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/text_movie_name"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Wonder Woman"/>
+
+            <TextView
+                android:id="@+id/text_movie_genre"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/text_movie_name"
+                app:layout_constraintTop_toBottomOf="@id/text_movie_name"
+                tools:text="Comedy, Action | 91 min"/>
+
+            <TextView
+                android:id="@+id/text_movie_release_date"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toLeftOf="@+id/text_movie_genre"
+                app:layout_constraintTop_toBottomOf="@+id/text_movie_genre"
+                tools:text="20 July 2015"/>
+
+            <TextView
+                android:id="@+id/text_imdb_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="80dp"
+                android:text="IMDB: "
+                app:layout_constraintBaseline_toBaselineOf="@+id/text_movie_genre"
+                app:layout_constraintLeft_toRightOf="@+id/text_movie_genre"/>
+
+            <TextView
+                android:id="@+id/text_imdb_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@+id/text_imdb_label"
+                app:layout_constraintLeft_toRightOf="@id/text_imdb_label"
+                tools:text="7.1"/>
+
+            <TextView
+                android:id="@+id/text_rotten_tomatoes_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/text_imdb_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_imdb_label"
+                tools:text="Rotten Tomatoes: "/>
+
+            <TextView
+                android:id="@+id/text_rotten_tomatoes_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@+id/text_rotten_tomatoes_label"
+                app:layout_constraintLeft_toRightOf="@+id/text_rotten_tomatoes_label"
+                tools:text="7.1"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </android.support.design.widget.CoordinatorLayout>
