@@ -46,7 +46,7 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
+            android:paddingTop="16dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView
@@ -54,9 +54,11 @@
                 style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Wonder Woman"/>
+                tools:text="Wonder Woman"
+                android:layout_marginStart="16dp"/>
 
             <TextView
                 android:id="@+id/text_movie_genre"
@@ -64,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@+id/text_movie_name"
-                app:layout_constraintTop_toBottomOf="@id/text_movie_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_movie_name"
                 tools:text="Comedy, Action | 91 min"/>
 
             <TextView
@@ -72,7 +74,6 @@
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
                 app:layout_constraintLeft_toLeftOf="@+id/text_movie_genre"
                 app:layout_constraintTop_toBottomOf="@+id/text_movie_genre"
                 tools:text="20 July 2015"/>
@@ -82,8 +83,8 @@
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp"
                 android:layout_marginLeft="70dp"
+                android:layout_marginStart="70dp"
                 android:background="@drawable/icons8_imdb_96"
                 app:layout_constraintBottom_toTopOf="@+id/text_movie_genre"
                 app:layout_constraintLeft_toRightOf="@+id/text_movie_name"
@@ -96,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/text_rotten_tomatoes_label"
                 app:layout_constraintLeft_toRightOf="@+id/text_imdb_label"
@@ -120,6 +122,37 @@
                 app:layout_constraintLeft_toRightOf="@+id/text_rotten_tomatoes_label"
                 app:layout_constraintTop_toTopOf="@+id/text_rotten_tomatoes_label"
                 tools:text="91%"/>
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline_movie_detail_divisor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="101dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="448dp"/>
+
+            <android.support.design.widget.TabLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline_movie_detail_divisor"
+                app:tabGravity="fill"
+                app:tabMode="fixed">
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SYNOPSIS"/>
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SCHEDULE"/>
+
+            </android.support.design.widget.TabLayout>
+
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
