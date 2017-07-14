@@ -3,16 +3,21 @@ package com.edwin.android.cinerd.moviedetail;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.entity.Movie;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +34,16 @@ public class MovieDetailFragment extends Fragment {
     public static final String TAG = MovieDetailFragment.class.getSimpleName();
     @BindView(R.id.image_movie_backdrop)
     ImageView imageMovieBackdrop;
+    @BindView(R.id.text_movie_name)
+    TextView mMovieNameTextView;
+    @BindView(R.id.text_movie_genre)
+    TextView mMovieGenreTextView;
+    @BindView(R.id.text_movie_release_date)
+    TextView mMoviereleaseDateTextView;
+    @BindView(R.id.text_imdb_value)
+    TextView mImdbValueTextView;
+    @BindView(R.id.text_rotten_tomatoes_value)
+    TextView textRottenTomatoesValue;
     private Movie mMovie;
     private Unbinder mUnbinder;
 
@@ -53,6 +68,20 @@ public class MovieDetailFragment extends Fragment {
 
         Picasso picasso = Picasso.with(getActivity());
         picasso.load(R.drawable.maxmaxbackdrop).fit().into(imageMovieBackdrop);
+
+        mMovieNameTextView.setText(mMovie.getName());
+        Log.d(TAG, "mMovie.getName(): " + mMovie.getName());
+        String genre = TextUtils.join(", ", mMovie.getGenre());
+        mMovieGenreTextView.setText(genre);
+        mMovieGenreTextView.append(" | ");
+        mMovieGenreTextView.append(mMovie.getDuration().toString());
+        mMovieGenreTextView.append(" min");
+
+        SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
+        mMoviereleaseDateTextView.setText(df.format(mMovie.getReleaseDate()));
+
+        mImdbValueTextView.setText(mMovie.getRating().getImdb());
+        textRottenTomatoesValue.setText(mMovie.getRating().getRottentomatoes());
 
 
         return view;

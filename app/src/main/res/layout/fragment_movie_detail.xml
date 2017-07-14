@@ -40,17 +40,18 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView
                 android:id="@+id/text_movie_name"
-                style="@style/TextAppearance.AppCompat.Subhead"
+                style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -59,7 +60,7 @@
 
             <TextView
                 android:id="@+id/text_movie_genre"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@+id/text_movie_name"
@@ -68,7 +69,7 @@
 
             <TextView
                 android:id="@+id/text_movie_release_date"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
@@ -76,38 +77,49 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_movie_genre"
                 tools:text="20 July 2015"/>
 
-            <TextView
+            <ImageView
                 android:id="@+id/text_imdb_label"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:text="IMDB: "
-                app:layout_constraintBaseline_toBaselineOf="@+id/text_movie_genre"
-                app:layout_constraintLeft_toRightOf="@+id/text_movie_genre"/>
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="70dp"
+                android:background="@drawable/icons8_imdb_96"
+                app:layout_constraintBottom_toTopOf="@+id/text_movie_genre"
+                app:layout_constraintLeft_toRightOf="@+id/text_movie_name"
+                app:layout_constraintTop_toTopOf="@+id/text_movie_name"/>
 
             <TextView
                 android:id="@+id/text_imdb_value"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@+id/text_imdb_label"
-                app:layout_constraintLeft_toRightOf="@id/text_imdb_label"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/text_rotten_tomatoes_label"
+                app:layout_constraintLeft_toRightOf="@+id/text_imdb_label"
+                app:layout_constraintTop_toTopOf="@+id/text_imdb_label"
                 tools:text="7.1"/>
 
-            <TextView
+            <ImageView
                 android:id="@+id/text_rotten_tomatoes_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="62dp"
+                android:layout_height="47dp"
+                android:background="@drawable/ic_rotten_tomatoes"
                 app:layout_constraintLeft_toLeftOf="@+id/text_imdb_label"
-                app:layout_constraintTop_toBottomOf="@+id/text_imdb_label"
-                tools:text="Rotten Tomatoes: "/>
+                app:layout_constraintRight_toRightOf="@+id/text_imdb_label"
+                app:layout_constraintTop_toBottomOf="@+id/text_imdb_label"/>
 
             <TextView
                 android:id="@+id/text_rotten_tomatoes_value"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@+id/text_rotten_tomatoes_label"
+                app:layout_constraintBottom_toBottomOf="@+id/text_rotten_tomatoes_label"
                 app:layout_constraintLeft_toRightOf="@+id/text_rotten_tomatoes_label"
-                tools:text="7.1"/>
+                app:layout_constraintTop_toTopOf="@+id/text_rotten_tomatoes_label"
+                tools:text="91%"/>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
