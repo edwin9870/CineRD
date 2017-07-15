@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 public class Movie {
 
     @SerializedName("duration")
-    private Long mDuration;
+    private Short mDuration;
     @SerializedName("genre")
     private List<String> mGenre;
     @SerializedName("name")
@@ -24,7 +24,7 @@ public class Movie {
     @SerializedName("theaters")
     private List<Theater> mTheaters;
 
-    public Long getDuration() {
+    public Short getDuration() {
         return mDuration;
     }
 
