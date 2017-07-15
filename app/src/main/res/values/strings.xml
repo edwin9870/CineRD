@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CineRD</string>
 
+    <string name="tab_synopsis_name">SYNOPSIS</string>
+    <string name="tab_schedule_name">SCHEDULE</string>
+
 </resources>

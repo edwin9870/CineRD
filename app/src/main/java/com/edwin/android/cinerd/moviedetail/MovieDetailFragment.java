@@ -76,7 +76,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
         MovieSynopsisFragment movieSynopsisFragment = MovieSynopsisFragment.newInstance(mMovie
                 .getSynopsis());
-        adapter.addFragment(movieSynopsisFragment, "SYNOPSIS");
+        adapter.addFragment(movieSynopsisFragment, getActivity().getString(R.string.tab_synopsis_name));
 
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
