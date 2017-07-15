@@ -3,6 +3,8 @@ package com.edwin.android.cinerd.moviedetail;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +45,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     TextView mImdbValueTextView;
     @BindView(R.id.text_rotten_tomatoes_value)
     TextView textRottenTomatoesValue;
+    @BindView(R.id.pager_tab_content)
+    ViewPager mViewPager;
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
     private Movie mMovie;
     private Unbinder mUnbinder;
     private MovieDetailMVP.Presenter mPresenter;
@@ -66,6 +72,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
 
         Log.d(TAG, "Movie displayed: " + mMovie.toString());
         mPresenter.showMovieDetail(mMovie);
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        MovieSynopsisFragment movieSynopsisFragment = MovieSynopsisFragment.newInstance(mMovie
+                .getSynopsis());
+        adapter.addFragment(movieSynopsisFragment, "SYNOPSIS");
+
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+
         return view;
 
 
