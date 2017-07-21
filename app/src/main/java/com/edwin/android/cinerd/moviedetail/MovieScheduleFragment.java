@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
@@ -27,14 +29,15 @@ import butterknife.Unbinder;
  * Use the {@link MovieScheduleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter.ScheduleDayClicked {
+public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter
+        .ScheduleDayClicked {
 
 
     public static final Date todayDate = new Date();
     public static final String TAG = MovieScheduleFragment.class.getSimpleName();
+    Unbinder unbinder;
     @BindView(R.id.recycler_view_movie_schedule)
     RecyclerView mRecyclerView;
-    Unbinder unbinder;
     private MovieScheduleAdapter mAdapter;
 
     public MovieScheduleFragment() {
@@ -67,6 +70,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
         List<Date> dates = getDates();
         mAdapter.setDates(dates);
+
         return view;
     }
 
@@ -75,7 +79,6 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         super.onDestroyView();
         unbinder.unbind();
     }
-
 
 
     private List<Date> getDates() {
@@ -88,7 +91,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
     @Override
     public void onClickDay(Date date) {
-        Log.d(TAG, "Date clicked: "+ date);
+        Log.d(TAG, "Date clicked: " + date);
         Toast.makeText(getActivity(), "Touched", Toast.LENGTH_SHORT).show();
     }
 }

@@ -50,4 +50,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     provided 'javax.annotation:jsr250-api:1.0'
+
+    //Search Dialog dependency
+    compile 'com.github.mirrajabi:search-dialog:1.2.1'
 }

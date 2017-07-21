@@ -1,14 +1,31 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             tools:context="com.edwin.android.cinerd.moviedetail.MovieScheduleFragment">
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="8dp"
+              tools:context="com.edwin.android.cinerd.moviedetail.MovieScheduleFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_movie_schedule"
         android:layout_width="match_parent"
-        android:padding="8dp"
-        android:layout_height="200dp" />
+        android:layout_height="wrap_content"/>
 
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/text_theater_name"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:text="@string/theater_name"/>
+
+    <View
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:background="#000000"/>
+
+
+</LinearLayout>
