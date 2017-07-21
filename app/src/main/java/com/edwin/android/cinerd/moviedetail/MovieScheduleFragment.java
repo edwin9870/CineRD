@@ -9,11 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
+import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.util.DateUtil;
 
 import java.util.ArrayList;
@@ -22,7 +22,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
+import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.SearchResultListener;
+import ir.mirrajabi.searchdialog.core.Searchable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +43,8 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     Unbinder unbinder;
     @BindView(R.id.recycler_view_movie_schedule)
     RecyclerView mRecyclerView;
+    @BindView(R.id.text_theater_name)
+    TextView textTheaterName;
     private MovieScheduleAdapter mAdapter;
 
     public MovieScheduleFragment() {
@@ -93,5 +100,34 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     public void onClickDay(Date date) {
         Log.d(TAG, "Date clicked: " + date);
         Toast.makeText(getActivity(), "Touched", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.text_theater_name)
+    public void onViewClicked() {
+        Log.d(TAG, "Theater name clicked");
+        ArrayList<Searchable> searchableList = new ArrayList<>();
+        searchableList.add(new Theater("Sambil"));
+        searchableList.add(new Theater("Agora"));
+        searchableList.add(new Theater("Downtown"));
+        searchableList.add(new Theater("Megacentro"));
+
+        String dialogTitle = MovieScheduleFragment.this.getString(R.string
+                .movie_theater_search_dialog_title);
+        String inputPlaceHolder = MovieScheduleFragment.this.getString(R.string
+                .movie_theater_search_dialog_input_place_holder);
+
+        new SimpleSearchDialogCompat(getActivity(), dialogTitle,
+                inputPlaceHolder, null, searchableList,
+                new SearchResultListener<Theater>() {
+                    @Override
+                    public void onSelected(BaseSearchDialogCompat dialog, Theater
+                            theater, int position) {
+                        Toast.makeText(MovieScheduleFragment.this.getActivity(), theater.getTitle(),
+                                Toast.LENGTH_SHORT).show();
+                        MovieScheduleFragment.this.textTheaterName.setText(theater.getTitle());
+                        dialog.dismiss();
+
+                    }
+                }).show();
     }
 }

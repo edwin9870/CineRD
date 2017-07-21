@@ -10,4 +10,8 @@
     <!--fragment_movie_schedule.xml-->
     <string name="theater_name">Theater name</string>
 
+    <!-- Search dialog movie theater -->
+    <string name="movie_theater_search_dialog_title">Find movie theater</string>
+    <string name="movie_theater_search_dialog_input_place_holder">Movie theater name</string>
+
 </resources>
