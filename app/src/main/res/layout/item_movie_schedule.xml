@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true">
 
     <TextView
         android:id="@+id/text_schedule_day_name"

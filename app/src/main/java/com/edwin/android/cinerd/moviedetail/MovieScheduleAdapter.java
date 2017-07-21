@@ -24,7 +24,12 @@ import butterknife.ButterKnife;
 public class MovieScheduleAdapter extends RecyclerView.Adapter<MovieScheduleAdapter.MoviePosterAdapterViewHolder> {
 
     public static final String TAG = MovieScheduleAdapter.class.getSimpleName();
-    List<Date> mDates;
+    private List<Date> mDates;
+    private ScheduleDayClicked scheduleDayClicked;
+
+    public MovieScheduleAdapter(ScheduleDayClicked scheduleDayClicked) {
+        this.scheduleDayClicked = scheduleDayClicked;
+    }
 
     @Override
     public MoviePosterAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -56,7 +61,8 @@ public class MovieScheduleAdapter extends RecyclerView.Adapter<MovieScheduleAdap
         return mDates.size();
     }
 
-    class MoviePosterAdapterViewHolder extends RecyclerView.ViewHolder {
+    class MoviePosterAdapterViewHolder extends RecyclerView.ViewHolder implements View
+            .OnClickListener {
         @BindView(R.id.text_schedule_day_name)
         TextView mScheduleDayNameTextView;
         @BindView(R.id.text_schedule_day)
@@ -65,11 +71,21 @@ public class MovieScheduleAdapter extends RecyclerView.Adapter<MovieScheduleAdap
         MoviePosterAdapterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            scheduleDayClicked.onClickDay(mDates.get(getAdapterPosition()));
         }
     }
 
     public void setDates(List<Date> dates) {
         this.mDates = dates;
         notifyDataSetChanged();
+    }
+
+    interface ScheduleDayClicked {
+        void onClickDay(Date date);
     }
 }
