@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             tools:context="com.edwin.android.cinerd.moviedetail.MovieSynopsisFragment">
+             tools:context="com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment">
 
     <TextView
         style="@style/TextAppearance.AppCompat.Body1"

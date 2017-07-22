@@ -1,4 +1,4 @@
-package com.edwin.android.cinerd.moviedetail;
+package com.edwin.android.cinerd.moviedetail.viewpager;
 
 
 import android.app.Fragment;

@@ -1,4 +1,4 @@
-package com.edwin.android.cinerd.moviedetail;
+package com.edwin.android.cinerd.moviedetail.viewpager;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -85,7 +85,7 @@ public class MovieScheduleAdapter extends RecyclerView.Adapter<MovieScheduleAdap
         notifyDataSetChanged();
     }
 
-    interface ScheduleDayClicked {
+    public interface ScheduleDayClicked {
         void onClickDay(Date date);
     }
 }

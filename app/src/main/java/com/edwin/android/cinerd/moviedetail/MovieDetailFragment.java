@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment;
+import com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment;
+import com.edwin.android.cinerd.moviedetail.viewpager.ViewPagerAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

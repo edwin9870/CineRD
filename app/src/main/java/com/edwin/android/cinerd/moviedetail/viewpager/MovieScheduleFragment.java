@@ -1,4 +1,4 @@
-package com.edwin.android.cinerd.moviedetail;
+package com.edwin.android.cinerd.moviedetail.viewpager;
 
 
 import android.app.Fragment;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.entity.Room;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.util.DateUtil;
 
@@ -34,8 +35,7 @@ import ir.mirrajabi.searchdialog.core.SearchResultListener;
  * Use the {@link MovieScheduleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter
-        .ScheduleDayClicked {
+public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter.ScheduleDayClicked {
 
 
     public static final Date todayDate = new Date();
@@ -138,6 +138,10 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
                     }
                 }).show();
+    }
+
+    public void setMovieTheaterDetail(List<Room> rooms) {
+
     }
 
 }

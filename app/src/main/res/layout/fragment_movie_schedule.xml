@@ -4,7 +4,7 @@
               android:layout_height="wrap_content"
               android:orientation="vertical"
               android:padding="8dp"
-              tools:context="com.edwin.android.cinerd.moviedetail.MovieScheduleFragment">
+              tools:context="com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_movie_schedule"
