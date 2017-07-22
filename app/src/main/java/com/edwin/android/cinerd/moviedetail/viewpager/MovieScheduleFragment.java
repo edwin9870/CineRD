@@ -4,6 +4,7 @@ package com.edwin.android.cinerd.moviedetail.viewpager;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +36,8 @@ import ir.mirrajabi.searchdialog.core.SearchResultListener;
  * Use the {@link MovieScheduleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter.ScheduleDayClicked {
+public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter
+        .ScheduleDayClicked {
 
 
     public static final Date todayDate = new Date();
@@ -46,8 +48,11 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     RecyclerView mRecyclerView;
     @BindView(R.id.text_theater_name)
     TextView textTheaterName;
+    @BindView(R.id.recycler_view_movie_time)
+    RecyclerView mMovieTimeRecyclerView;
     private MovieScheduleAdapter mAdapter;
     private Movie mMovie;
+    private MovieTimeFormatAdapter mMovieTimeFormatAdapter;
 
     public MovieScheduleFragment() {
     }
@@ -55,6 +60,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @param movie
      * @return a new instance of fragment MovieScheduleFragment
      */
@@ -69,7 +75,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             mMovie = getArguments().getParcelable(ARGUMENT_MOVIE);
         }
 
@@ -88,9 +94,19 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setAdapter(mAdapter);
-
         List<Date> dates = getDates();
         mAdapter.setDates(dates);
+
+
+
+        mMovieTimeFormatAdapter = new MovieTimeFormatAdapter();
+
+        LinearLayoutManager linearLayoutManager
+                = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        mMovieTimeRecyclerView.setLayoutManager(linearLayoutManager);
+        mMovieTimeRecyclerView.setHasFixedSize(false);
+        mMovieTimeRecyclerView.setNestedScrollingEnabled(true);
+        mMovieTimeRecyclerView.setAdapter(mMovieTimeFormatAdapter);
 
         return view;
     }
@@ -120,6 +136,8 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     public void onViewClicked() {
         Log.d(TAG, "Theater name clicked");
 
+        Log.d(TAG, "Movie data: "+ mMovie);
+
         String dialogTitle = MovieScheduleFragment.this.getString(R.string
                 .movie_theater_search_dialog_title);
         String inputPlaceHolder = MovieScheduleFragment.this.getString(R.string
@@ -134,6 +152,8 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                         Toast.makeText(MovieScheduleFragment.this.getActivity(), theater.getTitle(),
                                 Toast.LENGTH_SHORT).show();
                         MovieScheduleFragment.this.textTheaterName.setText(theater.getTitle());
+
+                        MovieScheduleFragment.this.setMovieTheaterDetail(theater.getRoom());
                         dialog.dismiss();
 
                     }
@@ -141,7 +161,8 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     }
 
     public void setMovieTheaterDetail(List<Room> rooms) {
-
+        Log.d(TAG, "Rooms: "+ rooms);
+        mMovieTimeFormatAdapter.setRooms(rooms);
     }
 
 }

@@ -8,4 +8,7 @@
     <dimen name="text_movie_name_padding_left">8dp</dimen>
     <dimen name="text_movie_name_padding_right">@dimen/text_movie_name_padding_left</dimen>
     <dimen name="text_movie_name_padding_top">12dp</dimen>
+
+    <!-- item_movie_time_format.xml -->
+    <dimen name="text_movie_format_margin_left">24dp</dimen>
 </resources>

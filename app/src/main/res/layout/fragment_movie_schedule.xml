@@ -28,4 +28,10 @@
         android:background="#000000"/>
 
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_movie_time"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+
 </LinearLayout>

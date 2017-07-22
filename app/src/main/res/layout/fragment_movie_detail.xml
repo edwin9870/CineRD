@@ -145,6 +145,7 @@
                 app:tabMode="fixed"/>
 
             <android.support.v4.view.ViewPager
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:id="@+id/pager_tab_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
