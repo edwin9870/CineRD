@@ -67,6 +67,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
+        //TODO: Receive movie using the bunde
         MovieCollectorJSON movieCollectorJSON = new MovieCollectorJSON(getActivity());
         mMovie = movieCollectorJSON.getMovies().get(0);
 
@@ -79,7 +80,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
 
         adapter.addFragment(movieSynopsisFragment, getActivity().getString(R.string.tab_synopsis_name));
 
-        MovieScheduleFragment movieScheduleFragment = MovieScheduleFragment.newInstance();
+        MovieScheduleFragment movieScheduleFragment = MovieScheduleFragment.newInstance(mMovie);
         adapter.addFragment(movieScheduleFragment, getActivity().getString(R.string.tab_schedule_name));
 
         mViewPager.setAdapter(adapter);

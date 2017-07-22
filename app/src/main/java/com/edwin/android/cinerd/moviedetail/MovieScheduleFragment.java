@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
+import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.util.DateUtil;
 
@@ -27,7 +28,6 @@ import butterknife.Unbinder;
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.SearchResultListener;
-import ir.mirrajabi.searchdialog.core.Searchable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,24 +40,38 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
     public static final Date todayDate = new Date();
     public static final String TAG = MovieScheduleFragment.class.getSimpleName();
+    public static final String ARGUMENT_MOVIE = "MOVIE";
     Unbinder unbinder;
     @BindView(R.id.recycler_view_movie_schedule)
     RecyclerView mRecyclerView;
     @BindView(R.id.text_theater_name)
     TextView textTheaterName;
     private MovieScheduleAdapter mAdapter;
+    private Movie mMovie;
 
     public MovieScheduleFragment() {
     }
 
-    public static MovieScheduleFragment newInstance() {
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     * @param movie
+     * @return a new instance of fragment MovieScheduleFragment
+     */
+    public static MovieScheduleFragment newInstance(Movie movie) {
         MovieScheduleFragment fragment = new MovieScheduleFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARGUMENT_MOVIE, movie);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            mMovie = getArguments().getParcelable(ARGUMENT_MOVIE);
+        }
 
     }
 
@@ -105,11 +119,6 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     @OnClick(R.id.text_theater_name)
     public void onViewClicked() {
         Log.d(TAG, "Theater name clicked");
-        ArrayList<Searchable> searchableList = new ArrayList<>();
-        searchableList.add(new Theater("Sambil"));
-        searchableList.add(new Theater("Agora"));
-        searchableList.add(new Theater("Downtown"));
-        searchableList.add(new Theater("Megacentro"));
 
         String dialogTitle = MovieScheduleFragment.this.getString(R.string
                 .movie_theater_search_dialog_title);
@@ -117,7 +126,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                 .movie_theater_search_dialog_input_place_holder);
 
         new SimpleSearchDialogCompat(getActivity(), dialogTitle,
-                inputPlaceHolder, null, searchableList,
+                inputPlaceHolder, null, ((ArrayList<Theater>) mMovie.getTheaters()),
                 new SearchResultListener<Theater>() {
                     @Override
                     public void onSelected(BaseSearchDialogCompat dialog, Theater
@@ -130,4 +139,5 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                     }
                 }).show();
     }
+
 }

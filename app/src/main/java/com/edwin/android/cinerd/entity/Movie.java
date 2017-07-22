@@ -1,13 +1,16 @@
 
 package com.edwin.android.cinerd.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
-public class Movie {
+public class Movie implements Parcelable {
 
     @SerializedName("duration")
     private Short mDuration;
@@ -23,6 +26,27 @@ public class Movie {
     private String mSynopsis;
     @SerializedName("theaters")
     private List<Theater> mTheaters;
+
+    protected Movie(Parcel in) {
+        mGenre = in.createStringArrayList();
+        mName = in.readString();
+        mRating = in.readParcelable(Rating.class.getClassLoader());
+        mReleaseDate = new Date(in.readLong());
+        mSynopsis = in.readString();
+        mTheaters = in.createTypedArrayList(Theater.CREATOR);
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public Short getDuration() {
         return mDuration;
@@ -63,5 +87,20 @@ public class Movie {
                 ", mSynopsis='" + mSynopsis + '\'' +
                 ", mTheaters=" + mTheaters +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeStringList(mGenre);
+        parcel.writeString(mName);
+        parcel.writeParcelable(mRating, i);
+        parcel.writeLong(mReleaseDate.getTime());
+        parcel.writeString(mSynopsis);
+        parcel.writeTypedList(mTheaters);
     }
 }
