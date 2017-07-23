@@ -21,5 +21,6 @@ public interface MovieDetailMVP {
 
     interface Presenter {
         void showMovieDetail(Movie movie);
+        void getMoviesByDayMovieNameTheaterName(int day, String movieName, String theaterName);
     }
 }

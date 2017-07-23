@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
+import com.edwin.android.cinerd.data.adapters.AccountGeneral;
+import com.edwin.android.cinerd.data.adapters.MovieSyncAdapter;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment;
@@ -55,6 +57,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     private Movie mMovie;
     private Unbinder mUnbinder;
     private MovieDetailMVP.Presenter mPresenter;
+    private MovieScheduleFragment mScheduleFragment;
 
     public MovieDetailFragment() {
     }
@@ -83,16 +86,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
 
         adapter.addFragment(movieSynopsisFragment, getActivity().getString(R.string.tab_synopsis_name));
 
-        MovieScheduleFragment movieScheduleFragment = MovieScheduleFragment.newInstance(mMovie);
-        adapter.addFragment(movieScheduleFragment, getActivity().getString(R.string.tab_schedule_name));
+        mScheduleFragment = MovieScheduleFragment.newInstance(mMovie, getTag());
+        Log.d(TAG, "mScheduleFragment: " + mScheduleFragment.getTag());
+        adapter.addFragment(mScheduleFragment, getActivity().getString(R.string.tab_schedule_name));
 
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
+        AccountGeneral.createSyncAccount(getActivity());
 
         return view;
-
-
     }
 
     @Override

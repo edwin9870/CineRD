@@ -2,6 +2,8 @@ package com.edwin.android.cinerd.moviedetail.viewpager;
 
 
 import android.app.Fragment;
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
+import com.edwin.android.cinerd.data.CineRdContract;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Room;
 import com.edwin.android.cinerd.entity.Theater;
@@ -43,6 +46,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     public static final Date todayDate = new Date();
     public static final String TAG = MovieScheduleFragment.class.getSimpleName();
     public static final String ARGUMENT_MOVIE = "MOVIE";
+    public static final String ARGUMENT_HOST_FRAGMENT_TAG = "ARGUMENT_HOST_FRAGMENT_TAG";
     Unbinder unbinder;
     @BindView(R.id.recycler_view_movie_schedule)
     RecyclerView mRecyclerView;
@@ -64,12 +68,19 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
      * @param movie
      * @return a new instance of fragment MovieScheduleFragment
      */
-    public static MovieScheduleFragment newInstance(Movie movie) {
+    public static MovieScheduleFragment newInstance(Movie movie, String fragmentHostTag) {
         MovieScheduleFragment fragment = new MovieScheduleFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARGUMENT_MOVIE, movie);
+        Log.d(TAG, "fragmentHostTag: " + fragmentHostTag);
+        args.putString(ARGUMENT_HOST_FRAGMENT_TAG, fragmentHostTag);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 
     @Override
@@ -142,6 +153,18 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                 .movie_theater_search_dialog_title);
         String inputPlaceHolder = MovieScheduleFragment.this.getString(R.string
                 .movie_theater_search_dialog_input_place_holder);
+
+        Cursor query = getActivity().getContentResolver().query(CineRdContract.MovieEntry
+                .CONTENT_URI, new String[]{CineRdContract.MovieEntry._ID}, "UPPER(NAME) = ?", new String[]{mMovie.getName().toUpperCase()}, null);
+        Log.d(TAG, "Query count: " + query.getCount());
+        long movieId;
+        if(query.moveToNext()) {
+            movieId = query.getLong(query.getColumnIndex(CineRdContract.MovieEntry._ID));
+            Log.d(TAG, "MovieID: " + movieId);
+        }
+        query.close();
+
+        
 
         new SimpleSearchDialogCompat(getActivity(), dialogTitle,
                 inputPlaceHolder, null, ((ArrayList<Theater>) mMovie.getTheaters()),

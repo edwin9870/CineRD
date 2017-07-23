@@ -44,4 +44,9 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         mView.setMovieReleaseDate(df.format(movie.getReleaseDate()));
         mView.setRating(movie.getRating().getImdb(), movie.getRating().getRottentomatoes());
     }
+
+    @Override
+    public void getMoviesByDayMovieNameTheaterName(int day, String movieName, String theaterName) {
+
+    }
 }
