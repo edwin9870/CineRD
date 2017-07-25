@@ -114,7 +114,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
 
 
-        mMovieTimeFormatAdapter = new MovieTimeFormatAdapter();
+        mMovieTimeFormatAdapter = new MovieTimeFormatAdapter(getActivity());
 
         LinearLayoutManager linearLayoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);

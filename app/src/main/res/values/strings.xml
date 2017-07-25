@@ -14,4 +14,7 @@
     <string name="movie_theater_search_dialog_title">Find movie theater</string>
     <string name="movie_theater_search_dialog_input_place_holder">Movie theater name</string>
 
+    <!-- Date utils-->
+    <string name="date_hour_minute">HH:mm</string>
+
 </resources>

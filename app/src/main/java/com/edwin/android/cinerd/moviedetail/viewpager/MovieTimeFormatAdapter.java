@@ -23,6 +23,11 @@ import butterknife.ButterKnife;
 public class MovieTimeFormatAdapter extends RecyclerView.Adapter<MovieTimeFormatAdapter.MovieTimeFormatAdapterViewHolder>  {
 
     private List<Room> mRooms;
+    private Context mContext;
+
+    public MovieTimeFormatAdapter(Context context) {
+        this.mContext = context;
+    }
 
     @Override
     public MovieTimeFormatAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -36,7 +41,7 @@ public class MovieTimeFormatAdapter extends RecyclerView.Adapter<MovieTimeFormat
     @Override
     public void onBindViewHolder(MovieTimeFormatAdapterViewHolder holder, int position) {
         Room room = mRooms.get(position);
-        CharSequence hourMinute = DateFormat.format("HH:mm", room.getDate());
+        CharSequence hourMinute = DateFormat.format(mContext.getString(R.string.date_hour_minute), room.getDate());
         holder.mMovieTimeTextView.setText(hourMinute);
         holder.mMovieFormatTextView.setText(room.getFormat().toUpperCase());
     }
