@@ -19,8 +19,8 @@ import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.CineRdContract;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Movie;
-import com.edwin.android.cinerd.entity.StringSearcheable;
-import com.edwin.android.cinerd.entity.json.Theater;
+import com.edwin.android.cinerd.entity.TheaterSearchable;
+import com.edwin.android.cinerd.entity.json.Room;
 import com.edwin.android.cinerd.util.DateUtil;
 
 import java.util.ArrayList;
@@ -149,7 +149,6 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     @OnClick(R.id.text_theater_name)
     public void onViewClicked() {
         Log.d(TAG, "Theater name clicked");
-
         Log.d(TAG, "Movie data: "+ mMovie);
 
         String dialogTitle = MovieScheduleFragment.this.getString(R.string
@@ -157,32 +156,32 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         String inputPlaceHolder = MovieScheduleFragment.this.getString(R.string
                 .movie_theater_search_dialog_input_place_holder);
 
-        long movieId = getMovieIdByName(mMovie.getName().toUpperCase());
+        final long movieId = getMovieIdByName(mMovie.getName().toUpperCase());
         Log.d(TAG, "MovieID: "+ movieId);
 
+        final Date date = new Date();
         List<MovieTheaterDetail> movieTheaterDetails =
-                getMoviesTheaterDetailByMovieIdAvailableDate(movieId, new Date());
+                getMoviesTheaterDetailByMovieIdAvailableDate(movieId, date);
 
         Log.d(TAG, "movieTheaterDetails: " + movieTheaterDetails);
 
-        Set<StringSearcheable> theatersName = new HashSet<>();
+        Set<TheaterSearchable> theatersName = new HashSet<>();
         for(MovieTheaterDetail detail : movieTheaterDetails) {
             String theaterName = getTheaterNameById(detail.getTheaterId());
-            theatersName.add(new StringSearcheable(theaterName));
+            theatersName.add(new TheaterSearchable(theaterName, detail.getTheaterId()));
         }
 
-
         new SimpleSearchDialogCompat(getActivity(), dialogTitle,
-                inputPlaceHolder, null, new ArrayList<StringSearcheable>(theatersName),
-                new SearchResultListener<StringSearcheable>() {
+                inputPlaceHolder, null, new ArrayList<TheaterSearchable>(theatersName),
+                new SearchResultListener<TheaterSearchable>() {
                     @Override
-                    public void onSelected(BaseSearchDialogCompat dialog, StringSearcheable
-                            stringSearcheable, int position) {
-                        Toast.makeText(MovieScheduleFragment.this.getActivity(), stringSearcheable.getTitle(),
+                    public void onSelected(BaseSearchDialogCompat dialog, TheaterSearchable
+                            theaterSearchable, int position) {
+                        Toast.makeText(MovieScheduleFragment.this.getActivity(), theaterSearchable.getTitle(),
                                 Toast.LENGTH_SHORT).show();
 
-                        MovieScheduleFragment.this.textTheaterName.setText(stringSearcheable.getTitle());
-
+                        MovieScheduleFragment.this.setMovieTheaterDetail(movieId, theaterSearchable.getTheaterId(), date);
+                        MovieScheduleFragment.this.textTheaterName.setText(theaterSearchable.getTitle());
                         dialog.dismiss();
 
                     }
@@ -201,6 +200,32 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                     .MovieTheaterDetailEntry
                     .COLUMN_NAME_AVAILABLE_DATE + ") < date('" + DateUtil.formatDate
                     (availableDate) + "')", new String[]{String.valueOf(movieId)}, null);
+
+            movieTheaterDetailList = parseMovieTheaterDetail(movieId, movieTheaterDetailCursor);
+            movieTheaterDetailCursor.close();
+
+            return movieTheaterDetailList;
+        } finally {
+            if(movieTheaterDetailCursor != null) {
+                movieTheaterDetailCursor.close();
+            }
+        }
+    }
+
+    private List<MovieTheaterDetail> getMoviesTheaterDetailByMovieIdAvailableDate(long movieId,
+                                                                                  Date availableDate,
+                                                                                  long theaterId) {
+        List<MovieTheaterDetail> movieTheaterDetailList;
+        Cursor movieTheaterDetailCursor = null;
+        try {
+            movieTheaterDetailCursor = getActivity().getContentResolver().query(CineRdContract
+                    .MovieTheaterDetailEntry
+                    .CONTENT_URI, null, CineRdContract.MovieTheaterDetailEntry
+                    .COLUMN_NAME_MOVIE_ID + " = ? AND " + CineRdContract.MovieTheaterDetailEntry
+                    .COLUMN_NAME_THEATER_ID + " = ? AND date(" + CineRdContract
+                    .MovieTheaterDetailEntry
+                    .COLUMN_NAME_AVAILABLE_DATE + ") < date('" + DateUtil.formatDate
+                    (availableDate) + "')", new String[]{String.valueOf(movieId), String.valueOf(theaterId)}, null);
 
             movieTheaterDetailList = parseMovieTheaterDetail(movieId, movieTheaterDetailCursor);
             movieTheaterDetailCursor.close();
@@ -312,9 +337,16 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         }
     }
 
-    public void setMovieTheaterDetail(String movieId, String theaterName) {
-        //Log.d(TAG, "Rooms: "+ rooms);
-        //mMovieTimeFormatAdapter.setRooms(rooms);
+    public void setMovieTheaterDetail(long movieId, long theaterId, Date availableDate) {
+        Log.d(TAG, "setMovieTheaterDetail.movieId: " + movieId);
+        Log.d(TAG, "setMovieTheaterDetail.theaterId: " + theaterId);
+        Log.d(TAG, "setMovieTheaterDetail.movieId: " + availableDate);
+        List<MovieTheaterDetail> details =
+                getMoviesTheaterDetailByMovieIdAvailableDate(movieId, availableDate, theaterId);
+        Log.d(TAG, "details: " + details);
+        Room room = new Room();
+
+
     }
 
 }

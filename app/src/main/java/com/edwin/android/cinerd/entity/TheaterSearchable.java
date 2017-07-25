@@ -6,11 +6,13 @@ import ir.mirrajabi.searchdialog.core.Searchable;
  * Created by Edwin Ramirez Ventura on 7/24/2017.
  */
 
-public class StringSearcheable implements Searchable {
+public class TheaterSearchable implements Searchable {
     private String mTitle;
+    private long mTheaterId;
 
-    public StringSearcheable(String title) {
+    public TheaterSearchable(String title, long theaterId) {
         mTitle = title;
+        mTheaterId = theaterId;
     }
 
     @Override
@@ -18,9 +20,17 @@ public class StringSearcheable implements Searchable {
         return mTitle;
     }
 
-    public StringSearcheable setTitle(String title) {
+    public TheaterSearchable setTitle(String title) {
         mTitle = title;
         return this;
+    }
+
+    public long getTheaterId() {
+        return mTheaterId;
+    }
+
+    public void setTheaterId(long theaterId) {
+        this.mTheaterId = theaterId;
     }
 
     @Override
@@ -28,7 +38,7 @@ public class StringSearcheable implements Searchable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StringSearcheable that = (StringSearcheable) o;
+        TheaterSearchable that = (TheaterSearchable) o;
 
         return mTitle != null ? mTitle.equals(that.mTitle) : that.mTitle == null;
 

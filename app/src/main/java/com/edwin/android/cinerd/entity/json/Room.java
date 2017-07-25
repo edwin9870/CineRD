@@ -23,6 +23,8 @@ public class Room implements Parcelable {
     @SerializedName("subtitle")
     private String mSubtitle;
 
+    public Room() {}
+
     protected Room(Parcel in) {
         mFormat = in.readString();
         mLanguage = in.readString();
@@ -60,6 +62,26 @@ public class Room implements Parcelable {
 
     public String getSubtitle() {
         return mSubtitle;
+    }
+
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
+    }
+
+    public void setmFormat(String mFormat) {
+        this.mFormat = mFormat;
+    }
+
+    public void setmLanguage(String mLanguage) {
+        this.mLanguage = mLanguage;
+    }
+
+    public void setmNumber(String mNumber) {
+        this.mNumber = mNumber;
+    }
+
+    public void setmSubtitle(String mSubtitle) {
+        this.mSubtitle = mSubtitle;
     }
 
     @Override
