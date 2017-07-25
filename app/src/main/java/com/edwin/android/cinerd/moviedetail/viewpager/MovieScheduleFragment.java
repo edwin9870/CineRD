@@ -174,16 +174,15 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
         new SimpleSearchDialogCompat(getActivity(), dialogTitle,
                 inputPlaceHolder, null, new ArrayList<StringSearcheable>(theatersName),
-                new SearchResultListener<Theater>() {
+                new SearchResultListener<StringSearcheable>() {
                     @Override
-                    public void onSelected(BaseSearchDialogCompat dialog, Theater
-                            theater, int position) {
-                        Toast.makeText(MovieScheduleFragment.this.getActivity(), theater.getTitle(),
+                    public void onSelected(BaseSearchDialogCompat dialog, StringSearcheable
+                            stringSearcheable, int position) {
+                        Toast.makeText(MovieScheduleFragment.this.getActivity(), stringSearcheable.getTitle(),
                                 Toast.LENGTH_SHORT).show();
 
-                        MovieScheduleFragment.this.textTheaterName.setText(theater.getTitle());
+                        MovieScheduleFragment.this.textTheaterName.setText(stringSearcheable.getTitle());
 
-                        //MovieScheduleFragment.this.setMovieTheaterDetail();
                         dialog.dismiss();
 
                     }
@@ -192,7 +191,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
 
     private List<MovieTheaterDetail> getMoviesTheaterDetailByMovieIdAvailableDate(long movieId, Date availableDate) {
-        List<MovieTheaterDetail> movieTheaterDetailList = new ArrayList<>();
+        List<MovieTheaterDetail> movieTheaterDetailList;
         Cursor movieTheaterDetailCursor = null;
         try {
             movieTheaterDetailCursor = getActivity().getContentResolver().query(CineRdContract
@@ -203,35 +202,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                     .COLUMN_NAME_AVAILABLE_DATE + ") < date('" + DateUtil.formatDate
                     (availableDate) + "')", new String[]{String.valueOf(movieId)}, null);
 
-            MovieTheaterDetail movieTheaterDetail;
-            while (movieTheaterDetailCursor.moveToNext()) {
-                Log.d(TAG, "movieTheaterDetailCursor.getCount(): " + movieTheaterDetailCursor.getCount());
-                short roomId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
-                        .getColumnIndexOrThrow(CineRdContract.MovieTheaterDetailEntry
-                                .COLUMN_NAME_ROOM_ID));
-                short subtitleId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
-                        .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
-                                .COLUMN_NAME_SUBTITLE_ID));
-                short formatId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
-                        .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
-                                .COLUMN_NAME_FORMAT_ID));
-                short languageId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
-                        .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
-                                .COLUMN_NAME_LANGUAGE_ID));
-                int theaterId = movieTheaterDetailCursor.getInt(movieTheaterDetailCursor
-                        .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
-                                .COLUMN_NAME_THEATER_ID));
-
-                movieTheaterDetail = new MovieTheaterDetail();
-                movieTheaterDetail.setRoomId(roomId);
-                movieTheaterDetail.setSubtitleId(subtitleId);
-                movieTheaterDetail.setFormatId(formatId);
-                movieTheaterDetail.setLanguageId(languageId);
-                movieTheaterDetail.setTheaterId(theaterId);
-                movieTheaterDetail.setMovieId(movieId);
-
-                movieTheaterDetailList.add(movieTheaterDetail);
-            }
+            movieTheaterDetailList = parseMovieTheaterDetail(movieId, movieTheaterDetailCursor);
             movieTheaterDetailCursor.close();
 
             return movieTheaterDetailList;
@@ -240,6 +211,41 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                 movieTheaterDetailCursor.close();
             }
         }
+    }
+
+    private List<MovieTheaterDetail> parseMovieTheaterDetail(long movieId, Cursor movieTheaterDetailCursor) {
+        List<MovieTheaterDetail> movieTheaterDetailList = new ArrayList<>();
+        MovieTheaterDetail movieTheaterDetail;
+        while (movieTheaterDetailCursor.moveToNext()) {
+            Log.d(TAG, "movieTheaterDetailCursor.getCount(): " + movieTheaterDetailCursor.getCount());
+            short roomId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
+                    .getColumnIndexOrThrow(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_ROOM_ID));
+            short subtitleId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_SUBTITLE_ID));
+            short formatId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_FORMAT_ID));
+            short languageId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_LANGUAGE_ID));
+            int theaterId = movieTheaterDetailCursor.getInt(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_THEATER_ID));
+
+            movieTheaterDetail = new MovieTheaterDetail();
+            movieTheaterDetail.setRoomId(roomId);
+            movieTheaterDetail.setSubtitleId(subtitleId);
+            movieTheaterDetail.setFormatId(formatId);
+            movieTheaterDetail.setLanguageId(languageId);
+            movieTheaterDetail.setTheaterId(theaterId);
+            movieTheaterDetail.setMovieId(movieId);
+
+            movieTheaterDetailList.add(movieTheaterDetail);
+        }
+
+        return movieTheaterDetailList;
     }
 
     private String getTheaterNameById(int theaterId) {
