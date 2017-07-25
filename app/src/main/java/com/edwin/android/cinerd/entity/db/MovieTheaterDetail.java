@@ -12,6 +12,7 @@ public class MovieTheaterDetail {
     private Short roomId;
     private Integer theaterId;
     private Short subtitleId;
+    private Date availableDate;
     private Short formatId;
     private Short languageId;
 
@@ -63,6 +64,14 @@ public class MovieTheaterDetail {
         this.languageId = languageId;
     }
 
+    public Date getAvailableDate() {
+        return availableDate;
+    }
+
+    public void setAvailableDate(Date availableDate) {
+        this.availableDate = availableDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,6 +107,7 @@ public class MovieTheaterDetail {
                 ", roomId=" + roomId +
                 ", theaterId=" + theaterId +
                 ", subtitleId=" + subtitleId +
+                ", availableDate=" + availableDate +
                 ", formatId=" + formatId +
                 ", languageId=" + languageId +
                 '}';

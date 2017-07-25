@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -259,6 +260,11 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                     .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
                             .COLUMN_NAME_THEATER_ID));
 
+            String availableDateString = movieTheaterDetailCursor.getString(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_AVAILABLE_DATE));
+            Date availableDate = DateUtil.getDateFromString(availableDateString);
+
             movieTheaterDetail = new MovieTheaterDetail();
             movieTheaterDetail.setRoomId(roomId);
             movieTheaterDetail.setSubtitleId(subtitleId);
@@ -266,6 +272,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
             movieTheaterDetail.setLanguageId(languageId);
             movieTheaterDetail.setTheaterId(theaterId);
             movieTheaterDetail.setMovieId(movieId);
+            movieTheaterDetail.setAvailableDate(availableDate);
 
             movieTheaterDetailList.add(movieTheaterDetail);
         }
@@ -344,7 +351,17 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         List<MovieTheaterDetail> details =
                 getMoviesTheaterDetailByMovieIdAvailableDate(movieId, availableDate, theaterId);
         Log.d(TAG, "details: " + details);
-        Room room = new Room();
+        Room room;
+        List<Room> rooms = new ArrayList<>();
+        for(MovieTheaterDetail detail : details) {
+            room = new Room();
+            room.setmDate(detail.getAvailableDate());
+            room.setmFormat(getFormatNameById(detail.getFormatId()));
+            rooms.add(room);
+        }
+
+        mMovieTimeFormatAdapter.setRooms(rooms);
+
 
 
     }
