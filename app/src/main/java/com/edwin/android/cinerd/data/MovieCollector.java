@@ -1,6 +1,6 @@
 package com.edwin.android.cinerd.data;
 
-import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.entity.json.Movie;
 
 import java.util.List;
 

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
 
 import java.util.List;

@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieDataRepository;
-import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.entity.json.Movie;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.entity.Room;
+import com.edwin.android.cinerd.entity.json.Room;
 
 import java.util.List;
 

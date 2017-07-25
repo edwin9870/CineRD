@@ -1,5 +1,5 @@
 
-package com.edwin.android.cinerd.entity;
+package com.edwin.android.cinerd.entity.json;
 
 import android.os.Parcel;
 import android.os.Parcelable;

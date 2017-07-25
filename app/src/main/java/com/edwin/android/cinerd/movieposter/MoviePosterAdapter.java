@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.entity.json.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

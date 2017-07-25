@@ -7,15 +7,15 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.edwin.android.cinerd.entity.Movie;
-import com.edwin.android.cinerd.entity.Rating;
-import com.edwin.android.cinerd.entity.Room;
-import com.edwin.android.cinerd.entity.Theater;
+import com.edwin.android.cinerd.entity.json.Movie;
+import com.edwin.android.cinerd.entity.json.Rating;
+import com.edwin.android.cinerd.entity.json.Room;
+import com.edwin.android.cinerd.entity.json.Theater;
+import com.edwin.android.cinerd.util.DateUtil;
 
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 /**
@@ -84,7 +84,7 @@ public class MovieDataRepository {
             } else {
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_NAME, movie.getName());
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_DURATION, movie.getDuration());
-                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, movie.getReleaseDate().toString());
+                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, DateUtil.formatDateTime(movie.getReleaseDate()));
 
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS, movie.getSynopsis());
 
@@ -235,8 +235,8 @@ public class MovieDataRepository {
         cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_MOVIE_ID, movieId);
         cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_THEATER_ID, theaterId);
         cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_ROOM_ID, roomId);
-        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE, room.getDate()
-                .toString());
+
+        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE, DateUtil.formatDateTime(room.getDate()));
         if(subtitleId > 0) {
             cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_SUBTITLE_ID,
                     subtitleId);
