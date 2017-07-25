@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.CineRdContract;
+import com.edwin.android.cinerd.data.MovieCollectorJSON;
+import com.edwin.android.cinerd.data.MovieDataRepository;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.entity.TheaterSearchable;
@@ -61,6 +63,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     private MovieScheduleAdapter mAdapter;
     private Movie mMovie;
     private MovieTimeFormatAdapter mMovieTimeFormatAdapter;
+    private MovieDataRepository mMovieDataRepository;
 
     public MovieScheduleFragment() {
     }
@@ -123,6 +126,9 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mMovieTimeRecyclerView.setNestedScrollingEnabled(true);
         mMovieTimeRecyclerView.setAdapter(mMovieTimeFormatAdapter);
 
+        mMovieDataRepository = new MovieDataRepository(getActivity().getContentResolver(), new MovieCollectorJSON
+                (getActivity()));
+
         return view;
     }
 
@@ -157,18 +163,18 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         String inputPlaceHolder = MovieScheduleFragment.this.getString(R.string
                 .movie_theater_search_dialog_input_place_holder);
 
-        final long movieId = getMovieIdByName(mMovie.getName().toUpperCase());
+        final long movieId = mMovieDataRepository.getMovieIdByName(mMovie.getName().toUpperCase());
         Log.d(TAG, "MovieID: "+ movieId);
 
         final Date date = new Date();
         List<MovieTheaterDetail> movieTheaterDetails =
-                getMoviesTheaterDetailByMovieIdAvailableDate(movieId, date);
+                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId, date);
 
         Log.d(TAG, "movieTheaterDetails: " + movieTheaterDetails);
 
         Set<TheaterSearchable> theatersName = new HashSet<>();
         for(MovieTheaterDetail detail : movieTheaterDetails) {
-            String theaterName = getTheaterNameById(detail.getTheaterId());
+            String theaterName = mMovieDataRepository.getTheaterNameById(detail.getTheaterId());
             theatersName.add(new TheaterSearchable(theaterName, detail.getTheaterId()));
         }
 
@@ -189,174 +195,19 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                 }).show();
     }
 
-
-    private List<MovieTheaterDetail> getMoviesTheaterDetailByMovieIdAvailableDate(long movieId, Date availableDate) {
-        List<MovieTheaterDetail> movieTheaterDetailList;
-        Cursor movieTheaterDetailCursor = null;
-        try {
-            movieTheaterDetailCursor = getActivity().getContentResolver().query(CineRdContract
-                    .MovieTheaterDetailEntry
-                    .CONTENT_URI, null, CineRdContract.MovieTheaterDetailEntry
-                    .COLUMN_NAME_MOVIE_ID + " = ? AND date(" + CineRdContract
-                    .MovieTheaterDetailEntry
-                    .COLUMN_NAME_AVAILABLE_DATE + ") < date('" + DateUtil.formatDate
-                    (availableDate) + "')", new String[]{String.valueOf(movieId)}, null);
-
-            movieTheaterDetailList = parseMovieTheaterDetail(movieId, movieTheaterDetailCursor);
-            movieTheaterDetailCursor.close();
-
-            return movieTheaterDetailList;
-        } finally {
-            if(movieTheaterDetailCursor != null) {
-                movieTheaterDetailCursor.close();
-            }
-        }
-    }
-
-    private List<MovieTheaterDetail> getMoviesTheaterDetailByMovieIdAvailableDate(long movieId,
-                                                                                  Date availableDate,
-                                                                                  long theaterId) {
-        List<MovieTheaterDetail> movieTheaterDetailList;
-        Cursor movieTheaterDetailCursor = null;
-        try {
-            movieTheaterDetailCursor = getActivity().getContentResolver().query(CineRdContract
-                    .MovieTheaterDetailEntry
-                    .CONTENT_URI, null, CineRdContract.MovieTheaterDetailEntry
-                    .COLUMN_NAME_MOVIE_ID + " = ? AND " + CineRdContract.MovieTheaterDetailEntry
-                    .COLUMN_NAME_THEATER_ID + " = ? AND date(" + CineRdContract
-                    .MovieTheaterDetailEntry
-                    .COLUMN_NAME_AVAILABLE_DATE + ") < date('" + DateUtil.formatDate
-                    (availableDate) + "')", new String[]{String.valueOf(movieId), String.valueOf(theaterId)}, null);
-
-            movieTheaterDetailList = parseMovieTheaterDetail(movieId, movieTheaterDetailCursor);
-            movieTheaterDetailCursor.close();
-
-            return movieTheaterDetailList;
-        } finally {
-            if(movieTheaterDetailCursor != null) {
-                movieTheaterDetailCursor.close();
-            }
-        }
-    }
-
-    private List<MovieTheaterDetail> parseMovieTheaterDetail(long movieId, Cursor movieTheaterDetailCursor) {
-        List<MovieTheaterDetail> movieTheaterDetailList = new ArrayList<>();
-        MovieTheaterDetail movieTheaterDetail;
-        while (movieTheaterDetailCursor.moveToNext()) {
-            Log.d(TAG, "movieTheaterDetailCursor.getCount(): " + movieTheaterDetailCursor.getCount());
-            short roomId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
-                    .getColumnIndexOrThrow(CineRdContract.MovieTheaterDetailEntry
-                            .COLUMN_NAME_ROOM_ID));
-            short subtitleId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
-                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
-                            .COLUMN_NAME_SUBTITLE_ID));
-            short formatId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
-                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
-                            .COLUMN_NAME_FORMAT_ID));
-            short languageId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
-                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
-                            .COLUMN_NAME_LANGUAGE_ID));
-            int theaterId = movieTheaterDetailCursor.getInt(movieTheaterDetailCursor
-                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
-                            .COLUMN_NAME_THEATER_ID));
-
-            String availableDateString = movieTheaterDetailCursor.getString(movieTheaterDetailCursor
-                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
-                            .COLUMN_NAME_AVAILABLE_DATE));
-            Date availableDate = DateUtil.getDateFromString(availableDateString);
-
-            movieTheaterDetail = new MovieTheaterDetail();
-            movieTheaterDetail.setRoomId(roomId);
-            movieTheaterDetail.setSubtitleId(subtitleId);
-            movieTheaterDetail.setFormatId(formatId);
-            movieTheaterDetail.setLanguageId(languageId);
-            movieTheaterDetail.setTheaterId(theaterId);
-            movieTheaterDetail.setMovieId(movieId);
-            movieTheaterDetail.setAvailableDate(availableDate);
-
-            movieTheaterDetailList.add(movieTheaterDetail);
-        }
-
-        return movieTheaterDetailList;
-    }
-
-    private String getTheaterNameById(int theaterId) {
-        Cursor theaterCursor = null;
-
-        try {
-            theaterCursor = getActivity().getContentResolver().query(CineRdContract.TheaterEntry
-                            .CONTENT_URI, null,
-                    CineRdContract.TheaterEntry._ID + " = ?", new String[]{String.valueOf(theaterId)},
-
-                    null);
-
-            if (theaterCursor.moveToNext()) {
-                String theaterName = theaterCursor.getString(theaterCursor.getColumnIndex(CineRdContract.TheaterEntry.COLUMN_NAME_NAME));
-                Log.d(TAG, "theaterName: " + theaterName);
-                return theaterName;
-            }
-            return null;
-        } finally {
-            if(theaterCursor != null) {
-                theaterCursor.close();
-            }
-        }
-
-
-    }
-
-    private String getFormatNameById(int formatId) {
-        String formatName = "";
-        Cursor formatCursor = null;
-        try {
-            formatCursor = getActivity().getContentResolver().query(CineRdContract.FormatEntry
-
-                    .CONTENT_URI, null, CineRdContract.FormatEntry._ID + "=?", new
-                    String[]{String.valueOf(formatId)}, null);
-            if (formatCursor.moveToNext()) {
-                formatName = formatCursor.getString(formatCursor.getColumnIndex(CineRdContract.FormatEntry.COLUMN_NAME_NAME));
-                Log.d(TAG, "format name: " + formatName);
-            }
-            return formatName;
-        } finally {
-            if(formatCursor != null) {
-                formatCursor.close();
-            }
-        }
-    }
-
-    private long getMovieIdByName(String movieName) {
-        long movieId = -1;
-        Cursor movieCursor = null;
-        try {
-            movieCursor = getActivity().getContentResolver().query(CineRdContract.MovieEntry
-                    .CONTENT_URI, new String[]{CineRdContract.MovieEntry._ID}, "UPPER(NAME) = ?", new String[]{movieName}, null);
-
-            if (movieCursor.moveToNext()) {
-                movieId = movieCursor.getLong(movieCursor.getColumnIndex(CineRdContract.MovieEntry._ID));
-            }
-
-            return movieId;
-        }finally {
-            if(movieCursor != null) {
-                movieCursor.close();
-            }
-        }
-    }
-
     public void setMovieTheaterDetail(long movieId, long theaterId, Date availableDate) {
         Log.d(TAG, "setMovieTheaterDetail.movieId: " + movieId);
         Log.d(TAG, "setMovieTheaterDetail.theaterId: " + theaterId);
         Log.d(TAG, "setMovieTheaterDetail.movieId: " + availableDate);
         List<MovieTheaterDetail> details =
-                getMoviesTheaterDetailByMovieIdAvailableDate(movieId, availableDate, theaterId);
+                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId, availableDate, theaterId);
         Log.d(TAG, "details: " + details);
         Room room;
         List<Room> rooms = new ArrayList<>();
         for(MovieTheaterDetail detail : details) {
             room = new Room();
             room.setmDate(detail.getAvailableDate());
-            room.setmFormat(getFormatNameById(detail.getFormatId()));
+            room.setmFormat(mMovieDataRepository.getFormatNameById(detail.getFormatId()));
             rooms.add(room);
         }
 

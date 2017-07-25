@@ -7,12 +7,15 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.entity.json.Rating;
 import com.edwin.android.cinerd.entity.json.Room;
 import com.edwin.android.cinerd.entity.json.Theater;
 import com.edwin.android.cinerd.util.DateUtil;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -50,6 +53,158 @@ public class MovieDataRepository {
         }
     }
 
+    public List<MovieTheaterDetail> getMoviesTheaterDetailByMovieIdAvailableDate(long movieId,
+                                                                                  Date availableDate,
+                                                                                  long theaterId) {
+        List<MovieTheaterDetail> movieTheaterDetailList;
+        Cursor movieTheaterDetailCursor = null;
+        try {
+            movieTheaterDetailCursor = mContentResolver.query(CineRdContract
+                    .MovieTheaterDetailEntry
+                    .CONTENT_URI, null, CineRdContract.MovieTheaterDetailEntry
+                    .COLUMN_NAME_MOVIE_ID + " = ? AND " + CineRdContract.MovieTheaterDetailEntry
+                    .COLUMN_NAME_THEATER_ID + " = ? AND date(" + CineRdContract
+                    .MovieTheaterDetailEntry
+                    .COLUMN_NAME_AVAILABLE_DATE + ") < date('" + DateUtil.formatDate
+                    (availableDate) + "')", new String[]{String.valueOf(movieId), String.valueOf(theaterId)}, null);
+
+            movieTheaterDetailList = parseMovieTheaterDetail(movieId, movieTheaterDetailCursor);
+            movieTheaterDetailCursor.close();
+
+            return movieTheaterDetailList;
+        } finally {
+            if(movieTheaterDetailCursor != null) {
+                movieTheaterDetailCursor.close();
+            }
+        }
+    }
+
+    private List<MovieTheaterDetail> parseMovieTheaterDetail(long movieId, Cursor movieTheaterDetailCursor) {
+        List<MovieTheaterDetail> movieTheaterDetailList = new ArrayList<>();
+        MovieTheaterDetail movieTheaterDetail;
+        while (movieTheaterDetailCursor.moveToNext()) {
+            Log.d(TAG, "movieTheaterDetailCursor.getCount(): " + movieTheaterDetailCursor.getCount());
+            short roomId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
+                    .getColumnIndexOrThrow(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_ROOM_ID));
+            short subtitleId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_SUBTITLE_ID));
+            short formatId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_FORMAT_ID));
+            short languageId = movieTheaterDetailCursor.getShort(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_LANGUAGE_ID));
+            int theaterId = movieTheaterDetailCursor.getInt(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_THEATER_ID));
+
+            String availableDateString = movieTheaterDetailCursor.getString(movieTheaterDetailCursor
+                    .getColumnIndex(CineRdContract.MovieTheaterDetailEntry
+                            .COLUMN_NAME_AVAILABLE_DATE));
+            Date availableDate = DateUtil.getDateFromString(availableDateString);
+
+            movieTheaterDetail = new MovieTheaterDetail();
+            movieTheaterDetail.setRoomId(roomId);
+            movieTheaterDetail.setSubtitleId(subtitleId);
+            movieTheaterDetail.setFormatId(formatId);
+            movieTheaterDetail.setLanguageId(languageId);
+            movieTheaterDetail.setTheaterId(theaterId);
+            movieTheaterDetail.setMovieId(movieId);
+            movieTheaterDetail.setAvailableDate(availableDate);
+
+            movieTheaterDetailList.add(movieTheaterDetail);
+        }
+
+        return movieTheaterDetailList;
+    }
+
+    public String getTheaterNameById(int theaterId) {
+        Cursor theaterCursor = null;
+
+        try {
+            theaterCursor = mContentResolver.query(CineRdContract.TheaterEntry
+                            .CONTENT_URI, null,
+                    CineRdContract.TheaterEntry._ID + " = ?", new String[]{String.valueOf(theaterId)},
+
+                    null);
+
+            if (theaterCursor.moveToNext()) {
+                String theaterName = theaterCursor.getString(theaterCursor.getColumnIndex(CineRdContract.TheaterEntry.COLUMN_NAME_NAME));
+                Log.d(TAG, "theaterName: " + theaterName);
+                return theaterName;
+            }
+            return null;
+        } finally {
+            if(theaterCursor != null) {
+                theaterCursor.close();
+            }
+        }
+    }
+
+    public String getFormatNameById(int formatId) {
+        String formatName = "";
+        Cursor formatCursor = null;
+        try {
+            formatCursor = mContentResolver.query(CineRdContract.FormatEntry
+
+                    .CONTENT_URI, null, CineRdContract.FormatEntry._ID + "=?", new
+                    String[]{String.valueOf(formatId)}, null);
+            if (formatCursor.moveToNext()) {
+                formatName = formatCursor.getString(formatCursor.getColumnIndex(CineRdContract.FormatEntry.COLUMN_NAME_NAME));
+                Log.d(TAG, "format name: " + formatName);
+            }
+            return formatName;
+        } finally {
+            if(formatCursor != null) {
+                formatCursor.close();
+            }
+        }
+    }
+
+
+    public long getMovieIdByName(String movieName) {
+        long movieId = -1;
+        Cursor movieCursor = null;
+        try {
+            movieCursor = mContentResolver.query(CineRdContract.MovieEntry
+                    .CONTENT_URI, new String[]{CineRdContract.MovieEntry._ID}, "UPPER(NAME) = ?", new String[]{movieName}, null);
+
+            if (movieCursor.moveToNext()) {
+                movieId = movieCursor.getLong(movieCursor.getColumnIndex(CineRdContract.MovieEntry._ID));
+            }
+
+            return movieId;
+        }finally {
+            if(movieCursor != null) {
+                movieCursor.close();
+            }
+        }
+    }
+
+    public List<MovieTheaterDetail> getMoviesTheaterDetailByMovieIdAvailableDate(long movieId, Date availableDate) {
+        List<MovieTheaterDetail> movieTheaterDetailList;
+        Cursor movieTheaterDetailCursor = null;
+        try {
+            movieTheaterDetailCursor = mContentResolver.query(CineRdContract
+                    .MovieTheaterDetailEntry
+                    .CONTENT_URI, null, CineRdContract.MovieTheaterDetailEntry
+                    .COLUMN_NAME_MOVIE_ID + " = ? AND date(" + CineRdContract
+                    .MovieTheaterDetailEntry
+                    .COLUMN_NAME_AVAILABLE_DATE + ") < date('" + DateUtil.formatDate
+                    (availableDate) + "')", new String[]{String.valueOf(movieId)}, null);
+
+            movieTheaterDetailList = parseMovieTheaterDetail(movieId, movieTheaterDetailCursor);
+            movieTheaterDetailCursor.close();
+
+            return movieTheaterDetailList;
+        } finally {
+            if(movieTheaterDetailCursor != null) {
+                movieTheaterDetailCursor.close();
+            }
+        }
+    }
 
     private int cleanMovieSchedule() {
         int rowsDeleted = mContentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,
