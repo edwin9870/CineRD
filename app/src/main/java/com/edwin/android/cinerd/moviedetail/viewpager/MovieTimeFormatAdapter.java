@@ -2,7 +2,7 @@ package com.edwin.android.cinerd.moviedetail.viewpager;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.json.Room;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +24,9 @@ import butterknife.ButterKnife;
 
 public class MovieTimeFormatAdapter extends RecyclerView.Adapter<MovieTimeFormatAdapter.MovieTimeFormatAdapterViewHolder>  {
 
+
+
+    public static final String TAG = MovieTimeFormatAdapter.class.getSimpleName();
     private List<Room> mRooms;
     private Context mContext;
 
@@ -41,7 +46,12 @@ public class MovieTimeFormatAdapter extends RecyclerView.Adapter<MovieTimeFormat
     @Override
     public void onBindViewHolder(MovieTimeFormatAdapterViewHolder holder, int position) {
         Room room = mRooms.get(position);
-        CharSequence hourMinute = DateFormat.format(mContext.getString(R.string.date_hour_minute), room.getDate());
+
+        java.text.DateFormat df = new SimpleDateFormat(mContext.getString(R.string.date_hour_minute)); // Quoted "Z" to indicate
+        Log.d(TAG, "TimeZone.getDefault(): "+ df.getTimeZone());
+        Log.d(TAG, "room.getDate(): " + room.getDate());
+        CharSequence hourMinute = df.format(room.getDate());
+
         holder.mMovieTimeTextView.setText(hourMinute);
         holder.mMovieFormatTextView.setText(room.getFormat().toUpperCase());
     }

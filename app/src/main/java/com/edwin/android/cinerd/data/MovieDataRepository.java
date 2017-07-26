@@ -114,6 +114,8 @@ public class MovieDataRepository {
             movieTheaterDetail.setMovieId(movieId);
             movieTheaterDetail.setAvailableDate(availableDate);
 
+            Log.d(TAG, "availableDate after: " + availableDate);
+
             movieTheaterDetailList.add(movieTheaterDetail);
         }
 
@@ -391,6 +393,8 @@ public class MovieDataRepository {
         cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_THEATER_ID, theaterId);
         cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_ROOM_ID, roomId);
 
+        Log.d(TAG, "room.getDate: " + room.getDate());
+        Log.d(TAG, "DateUtil.formatDateTime(room.getDate()): " + DateUtil.formatDateTime(room.getDate()));
         cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE, DateUtil.formatDateTime(room.getDate()));
         if(subtitleId > 0) {
             cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_SUBTITLE_ID,

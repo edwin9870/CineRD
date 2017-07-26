@@ -20,6 +20,7 @@ import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.CineRdContract;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.data.adapters.MovieSyncAdapter;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.entity.TheaterSearchable;
@@ -128,6 +129,8 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
         mMovieDataRepository = new MovieDataRepository(getActivity().getContentResolver(), new MovieCollectorJSON
                 (getActivity()));
+
+        MovieSyncAdapter.performSync();
 
         return view;
     }
