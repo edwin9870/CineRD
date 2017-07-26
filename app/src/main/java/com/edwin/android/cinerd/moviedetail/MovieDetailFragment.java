@@ -75,9 +75,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         //TODO: Receive movie using the bunde
         MovieCollectorJSON movieCollectorJSON = new MovieCollectorJSON(getActivity());
         mMovie = movieCollectorJSON.getMovies().get(0);
+        long movieId = 9L;
 
         Log.d(TAG, "Movie displayed: " + mMovie.toString());
-        mPresenter.showMovieDetail(mMovie);
+        mPresenter.showMovieDetail(movieId);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
         MovieSynopsisFragment movieSynopsisFragment = MovieSynopsisFragment.newInstance(mMovie

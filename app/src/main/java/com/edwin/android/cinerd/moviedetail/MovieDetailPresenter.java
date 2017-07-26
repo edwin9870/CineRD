@@ -34,15 +34,17 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     }
 
     @Override
-    public void showMovieDetail(Movie movie) {
+    public void showMovieDetail(long movieId) {
         Log.d(TAG, "Start executing showMovieDetail method");
         mView.setBackdropImage(R.drawable.maxmaxbackdrop);
+        com.edwin.android.cinerd.entity.Movie movie = mMovieDataRepository.getMovieById(movieId);
+
         mView.setMovieName(movie.getName());
-        mView.setMovieGenreDuration(movie.getGenre(), movie.getDuration());
+        //mView.setMovieGenreDuration(movie.getGenre(), movie.getDuration());
 
         SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
         mView.setMovieReleaseDate(df.format(movie.getReleaseDate()));
-        mView.setRating(movie.getRating().getImdb(), movie.getRating().getRottentomatoes());
+        //mView.setRating(movie.getRating().getImdb(), movie.getRating().getRottentomatoes());
     }
 
     @Override

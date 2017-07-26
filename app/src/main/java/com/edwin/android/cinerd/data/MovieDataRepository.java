@@ -185,6 +185,32 @@ public class MovieDataRepository {
         }
     }
 
+    public com.edwin.android.cinerd.entity.Movie getMovieById(long movieId) {
+        com.edwin.android.cinerd.entity.Movie movie = null;
+        Cursor movieCursor = null;
+        try {
+            movieCursor = mContentResolver.query(CineRdContract.MovieEntry
+                    .CONTENT_URI, null, CineRdContract.MovieEntry._ID+" = ?", new String[]{String.valueOf(movieId)}, null);
+
+            if (movieCursor.moveToNext()) {
+                movie = new com.edwin.android.cinerd.entity.Movie();
+                movie.setMovieId(movieId);
+                movie.setName(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_NAME)));
+                movie.setDuration(movieCursor.getInt(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_DURATION)));
+                String releaseDateText = movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
+                        .MovieEntry.COLUMN_NAME_RELEASE_DATE));
+                movie.setReleaseDate(DateUtil.getDateFromString(releaseDateText));
+                movie.setSynopsis(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS)));
+            }
+
+            return movie;
+        }finally {
+            if(movieCursor != null) {
+                movieCursor.close();
+            }
+        }
+    }
+
     public List<MovieTheaterDetail> getMoviesTheaterDetailByMovieIdAvailableDate(long movieId, Date availableDate) {
         List<MovieTheaterDetail> movieTheaterDetailList;
         Cursor movieTheaterDetailCursor = null;

@@ -18,8 +18,7 @@ import android.widget.Toast;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.MovieDataRepository;
-import com.edwin.android.cinerd.data.adapters.MovieSyncAdapter;
-import com.edwin.android.cinerd.entity.TheaterSearchable;
+import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.entity.json.Room;
@@ -171,17 +170,17 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
         Log.d(TAG, "movieTheaterDetails: " + movieTheaterDetails);
 
-        Set<TheaterSearchable> theatersName = new HashSet<>();
+        Set<Theater> theatersName = new HashSet<>();
         for (MovieTheaterDetail detail : movieTheaterDetails) {
             String theaterName = mMovieDataRepository.getTheaterNameById(detail.getTheaterId());
-            theatersName.add(new TheaterSearchable(theaterName, detail.getTheaterId()));
+            theatersName.add(new Theater(theaterName, detail.getTheaterId()));
         }
 
         new SimpleSearchDialogCompat(getActivity(), dialogTitle,
-                inputPlaceHolder, null, new ArrayList<TheaterSearchable>(theatersName),
-                new SearchResultListener<TheaterSearchable>() {
+                inputPlaceHolder, null, new ArrayList<Theater>(theatersName),
+                new SearchResultListener<Theater>() {
                     @Override
-                    public void onSelected(BaseSearchDialogCompat dialog, TheaterSearchable
+                    public void onSelected(BaseSearchDialogCompat dialog, Theater
                             theaterSearchable, int position) {
                         Toast.makeText(MovieScheduleFragment.this.getActivity(),
                                 theaterSearchable.getTitle(),
