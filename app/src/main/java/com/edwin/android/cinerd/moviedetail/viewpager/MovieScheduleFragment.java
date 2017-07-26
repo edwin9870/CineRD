@@ -20,7 +20,6 @@ import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.MovieDataRepository;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
-import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.entity.json.Room;
 import com.edwin.android.cinerd.util.DateUtil;
 
@@ -48,7 +47,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
     public static final Date todayDate = new Date();
     public static final String TAG = MovieScheduleFragment.class.getSimpleName();
-    public static final String ARGUMENT_MOVIE = "MOVIE";
+    public static final String ARGUMENT_MOVIE_ID = "MOVIE";
     public static final String ARGUMENT_HOST_FRAGMENT_TAG = "ARGUMENT_HOST_FRAGMENT_TAG";
     Unbinder unbinder;
     @BindView(R.id.recycler_view_movie_schedule)
@@ -60,24 +59,18 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     @BindView(R.id.layout_movie_theater_info)
     LinearLayout movieTheaterInfoLinearLayout;
     private MovieScheduleAdapter mAdapter;
-    private Movie mMovie;
+    private long mMovieId;
     private MovieTimeFormatAdapter mMovieTimeFormatAdapter;
     private MovieDataRepository mMovieDataRepository;
 
     public MovieScheduleFragment() {
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param movie
-     * @return a new instance of fragment MovieScheduleFragment
-     */
-    public static MovieScheduleFragment newInstance(Movie movie, String fragmentHostTag) {
+
+    public static MovieScheduleFragment newInstance(long movieId, String fragmentHostTag) {
         MovieScheduleFragment fragment = new MovieScheduleFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ARGUMENT_MOVIE, movie);
+        args.putLong(ARGUMENT_MOVIE_ID, movieId);
         Log.d(TAG, "fragmentHostTag: " + fragmentHostTag);
         args.putString(ARGUMENT_HOST_FRAGMENT_TAG, fragmentHostTag);
         fragment.setArguments(args);
@@ -93,7 +86,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMovie = getArguments().getParcelable(ARGUMENT_MOVIE);
+            mMovieId = getArguments().getLong(ARGUMENT_MOVIE_ID);
         }
 
     }
@@ -154,18 +147,18 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
     public void showMovieTheaterDetail(final Date dateToShowMovies) {
         Log.d(TAG, "Theater name clicked");
-        Log.d(TAG, "Movie data: " + mMovie);
+        Log.d(TAG, "Movie data: " + mMovieId);
 
         String dialogTitle = MovieScheduleFragment.this.getString(R.string
                 .movie_theater_search_dialog_title);
         String inputPlaceHolder = MovieScheduleFragment.this.getString(R.string
                 .movie_theater_search_dialog_input_place_holder);
 
-        final long movieId = mMovieDataRepository.getMovieIdByName(mMovie.getName().toUpperCase());
-        Log.d(TAG, "MovieID: " + movieId);
+
+        Log.d(TAG, "MovieID: " + mMovieId);
 
         List<MovieTheaterDetail> movieTheaterDetails =
-                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId,
+                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(mMovieId,
                         dateToShowMovies);
 
         Log.d(TAG, "movieTheaterDetails: " + movieTheaterDetails);
@@ -186,7 +179,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                                 theaterSearchable.getTitle(),
                                 Toast.LENGTH_SHORT).show();
 
-                        MovieScheduleFragment.this.setMovieTheaterDetail(movieId,
+                        MovieScheduleFragment.this.setMovieTheaterDetail(mMovieId,
                                 theaterSearchable.getTheaterId(), dateToShowMovies);
                         MovieScheduleFragment.this.textTheaterName.setText(theaterSearchable
                                 .getTitle());

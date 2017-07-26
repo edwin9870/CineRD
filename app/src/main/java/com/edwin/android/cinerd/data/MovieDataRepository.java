@@ -41,7 +41,7 @@ public class MovieDataRepository {
         this.mMovieCollector = movieCollector;
     }
 
-    public List<Movie> getMovies() {
+    public List<Movie> getMoviesCollector() {
         return mMovieCollector.getMovies();
     }
 
@@ -193,21 +193,44 @@ public class MovieDataRepository {
         try {
             movieCursor = mContentResolver.query(CineRdContract.MovieEntry
                     .CONTENT_URI, null, CineRdContract.MovieEntry._ID+" = ?", new String[]{String.valueOf(movieId)}, null);
-
             if (movieCursor.moveToNext()) {
-                movie = new com.edwin.android.cinerd.entity.Movie();
-                movie.setMovieId(movieId);
-                movie.setName(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_NAME)));
-                movie.setDuration(movieCursor.getShort(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_DURATION)));
-                String releaseDateText = movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
-                        .MovieEntry.COLUMN_NAME_RELEASE_DATE));
-                movie.setReleaseDate(DateUtil.getDateFromString(releaseDateText));
-                movie.setSynopsis(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS)));
+                movie = parseMovie(movieCursor);
             }
-
             return movie;
         }finally {
             if(movieCursor != null) {
+                movieCursor.close();
+            }
+        }
+    }
+
+    @NonNull
+    private com.edwin.android.cinerd.entity.Movie parseMovie(Cursor movieCursor) {
+        com.edwin.android.cinerd.entity.Movie movie;
+        movie = new com.edwin.android.cinerd.entity.Movie();
+        movie.setMovieId(movieCursor.getLong(movieCursor.getColumnIndex(CineRdContract.MovieEntry._ID)));
+        movie.setName(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_NAME)));
+        movie.setDuration(movieCursor.getShort(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_DURATION)));
+
+        String releaseDateText = movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
+                .MovieEntry.COLUMN_NAME_RELEASE_DATE));
+        movie.setReleaseDate(DateUtil.getDateFromString(releaseDateText));
+        movie.setSynopsis(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS)));
+        return movie;
+    }
+
+    public List<com.edwin.android.cinerd.entity.Movie> getMovies() {
+        List<com.edwin.android.cinerd.entity.Movie> movies = new ArrayList<>();
+        Cursor movieCursor = null;
+        try {
+            movieCursor = mContentResolver.query(CineRdContract.MovieEntry
+                    .CONTENT_URI, null, null, null, null);
+            while (movieCursor.moveToNext()) {
+                movies.add(parseMovie(movieCursor));
+            }
+            return movies;
+        }finally {
+            if (movieCursor != null) {
                 movieCursor.close();
             }
         }

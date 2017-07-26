@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.entity.json.Movie;
+import com.edwin.android.cinerd.entity.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -28,9 +28,11 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
     public static final String TAG = MoviePosterAdapter.class.toString();
     private List<Movie> mMovies;
     private Context mContext;
+    private MoviePosterListener mMoviePosterListener;
 
-    public MoviePosterAdapter(Context context) {
+    public MoviePosterAdapter(Context context, MoviePosterListener moviePosterListener) {
         this.mContext = context;
+        this.mMoviePosterListener = moviePosterListener;
     }
 
     @Override
@@ -84,11 +86,16 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
+            mMoviePosterListener.onClickMovie(MoviePosterAdapter.this.mMovies.get(adapterPosition));
         }
     }
 
     public void setMovies(List<Movie> movies) {
         this.mMovies = movies;
         notifyDataSetChanged();
+    }
+
+    interface MoviePosterListener {
+        void onClickMovie(Movie movie);
     }
 }

@@ -19,16 +19,15 @@
         <activity
             android:name=".movieposter.MoviePosterActivity"
             android:launchMode="singleTop">
-
-        </activity>
-
-        <activity android:name=".moviedetail.MovieDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".moviedetail.MovieDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name=".data.CineRdContentProvider"

@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
+import com.edwin.android.cinerd.data.MovieCollectorJSON;
+import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.entity.Movie;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,12 +19,12 @@ import butterknife.Unbinder;
 
 public class MovieSynopsisFragment extends Fragment {
     public static final String TAG = MovieSynopsisFragment.class.getSimpleName();
-    private static final String ARGUMENT_MOVIE_SYNOPSIS = "MOVIE_SYNOPSIS";
+    private static final String ARGUMENT_MOVIE_ID = "MOVIE_SYNOPSIS";
     @BindView(R.id.text_movie_synopsis)
     TextView mMovieSynopsisTextView;
     Unbinder unbinder;
 
-    private String mSynopsis;
+    private long mMovieId;
 
     public MovieSynopsisFragment() {
     }
@@ -30,13 +33,13 @@ public class MovieSynopsisFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param movieSynopsis Parameter 1.
+     * @param movieId Parameter 1.
      * @return A new instance of fragment MovieSynopsisFragment.
      */
-    public static MovieSynopsisFragment newInstance(String movieSynopsis) {
+    public static MovieSynopsisFragment newInstance(Long movieId) {
         MovieSynopsisFragment fragment = new MovieSynopsisFragment();
         Bundle args = new Bundle();
-        args.putString(ARGUMENT_MOVIE_SYNOPSIS, movieSynopsis);
+        args.putLong(ARGUMENT_MOVIE_ID, movieId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +48,7 @@ public class MovieSynopsisFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mSynopsis = getArguments().getString(ARGUMENT_MOVIE_SYNOPSIS);
+            mMovieId = getArguments().getLong(ARGUMENT_MOVIE_ID);
         }
     }
 
@@ -55,9 +58,15 @@ public class MovieSynopsisFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_synopsis, container, false);
         unbinder = ButterKnife.bind(this, view);
         Log.d(TAG, "MovieSynopsis created");
-        Log.d(TAG, "Movie synopsis: " + mSynopsis);
+        Log.d(TAG, "Movie synopsis: " + mMovieId);
 
-        mMovieSynopsisTextView.setText(mSynopsis);
+        MovieDataRepository movieDataRepository = new MovieDataRepository(getActivity()
+                .getContentResolver(), new
+                MovieCollectorJSON
+                (getActivity()));
+
+        Movie movie = movieDataRepository.getMovieById(mMovieId);
+        mMovieSynopsisTextView.setText(movie.getSynopsis());
 
         return view;
     }

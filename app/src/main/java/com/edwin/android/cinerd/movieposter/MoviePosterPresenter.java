@@ -3,7 +3,7 @@ package com.edwin.android.cinerd.movieposter;
 import android.os.AsyncTask;
 
 import com.edwin.android.cinerd.data.MovieDataRepository;
-import com.edwin.android.cinerd.entity.json.Movie;
+import com.edwin.android.cinerd.entity.Movie;
 
 import java.util.List;
 
@@ -36,7 +36,6 @@ public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
             protected List<Movie> doInBackground(Void... voids) {
                 return mMovieDataRepository.getMovies();
             }
-
             @Override
             protected void onPostExecute(List<Movie> movies) {
                 mView.onReceiveMovies(movies);

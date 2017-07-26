@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
@@ -14,6 +15,8 @@ import javax.inject.Inject;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
+    public static final String TAG = MovieDetailActivity.class.getSimpleName();
+    public static final String BUNDLE_MOVIE_ID = "BUNDLE_MOVIE_ID";
     @Inject
     MovieDetailPresenter moviePosterPresenter;
 
@@ -22,9 +25,13 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
+        long movieId = getIntent().getExtras().getLong(BUNDLE_MOVIE_ID, 0);
+
+        Log.d(TAG, "movieId: "+ movieId);
+
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MovieDetailFragment movieDetailFragment = MovieDetailFragment.newInstance();
+        MovieDetailFragment movieDetailFragment = MovieDetailFragment.newInstance(movieId);
 
         fragmentTransaction.add(R.id.fragment_movie_detail, movieDetailFragment);
         fragmentTransaction.commit();

@@ -3,6 +3,7 @@ package com.edwin.android.cinerd.moviedetail;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -14,9 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.adapters.AccountGeneral;
-import com.edwin.android.cinerd.entity.Genre;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment;
@@ -38,6 +37,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
 
 
     public static final String TAG = MovieDetailFragment.class.getSimpleName();
+    public static final String ARGUMENT_MOVIE_ID = "ARGUMENT_MOVIE_ID";
     @BindView(R.id.image_movie_backdrop)
     ImageView imageMovieBackdrop;
     @BindView(R.id.text_movie_name)
@@ -54,17 +54,29 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     ViewPager mViewPager;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
-    private Movie mMovie;
     private Unbinder mUnbinder;
     private MovieDetailMVP.Presenter mPresenter;
     private MovieScheduleFragment mScheduleFragment;
+    private long mMovieId;
+    private ViewPagerAdapter mAdapter;
 
     public MovieDetailFragment() {
     }
 
-    public static MovieDetailFragment newInstance() {
+    public static MovieDetailFragment newInstance(long movieId) {
         MovieDetailFragment fragment = new MovieDetailFragment();
+        Bundle arguments = new Bundle();
+        arguments.putLong(ARGUMENT_MOVIE_ID, movieId);
+        fragment.setArguments(arguments);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            mMovieId = getArguments().getLong(ARGUMENT_MOVIE_ID);
+        }
     }
 
     @Override
@@ -73,25 +85,19 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
-        //TODO: Receive movie using the bunde
-        MovieCollectorJSON movieCollectorJSON = new MovieCollectorJSON(getActivity());
-        mMovie = movieCollectorJSON.getMovies().get(0);
-        long movieId = 9L;
+        Log.d(TAG, "Movie ID displayed: " + mMovieId);
+        mPresenter.showMovieDetail(mMovieId);
 
-        Log.d(TAG, "Movie displayed: " + mMovie.toString());
-        mPresenter.showMovieDetail(movieId);
+        mAdapter = new ViewPagerAdapter(getFragmentManager());
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-        MovieSynopsisFragment movieSynopsisFragment = MovieSynopsisFragment.newInstance(mMovie
-                .getSynopsis());
+        MovieSynopsisFragment movieSynopsisFragment = MovieSynopsisFragment.newInstance(mMovieId);
+        mAdapter.addFragment(movieSynopsisFragment, getActivity().getString(R.string.tab_synopsis_name));
 
-        adapter.addFragment(movieSynopsisFragment, getActivity().getString(R.string.tab_synopsis_name));
-
-        mScheduleFragment = MovieScheduleFragment.newInstance(mMovie, getTag());
+        mScheduleFragment = MovieScheduleFragment.newInstance(mMovieId, getTag());
         Log.d(TAG, "mScheduleFragment: " + mScheduleFragment.getTag());
-        adapter.addFragment(mScheduleFragment, getActivity().getString(R.string.tab_schedule_name));
+        mAdapter.addFragment(mScheduleFragment, getActivity().getString(R.string.tab_schedule_name));
 
-        mViewPager.setAdapter(adapter);
+        mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
         AccountGeneral.createSyncAccount(getActivity());
@@ -141,4 +147,5 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         Log.d(TAG, "Setting MovieDetail presenter");
         mPresenter = presenter;
     }
+
 }

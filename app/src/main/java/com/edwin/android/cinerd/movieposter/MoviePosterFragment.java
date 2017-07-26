@@ -1,6 +1,7 @@
 package com.edwin.android.cinerd.movieposter;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.entity.json.Movie;
+import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.moviedetail.MovieDetailActivity;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
 
 import java.util.List;
@@ -20,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class MoviePosterFragment extends Fragment implements MoviePosterMVP.View {
+public class MoviePosterFragment extends Fragment implements MoviePosterMVP.View, MoviePosterAdapter.MoviePosterListener {
 
 
     public static final String TAG = MoviePosterFragment.class.getSimpleName();
@@ -48,7 +50,7 @@ public class MoviePosterFragment extends Fragment implements MoviePosterMVP.View
         View view = inflater.inflate(R.layout.fragment_movie_poster, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        mAdapter = new MoviePosterAdapter(getActivity());
+        mAdapter = new MoviePosterAdapter(getActivity(), this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
 
         mRecyclerView.setLayoutManager(gridLayoutManager);
@@ -76,11 +78,6 @@ public class MoviePosterFragment extends Fragment implements MoviePosterMVP.View
 
     @Override
     public void onReceiveMovies(List<Movie> movies) {
-        //TODO: Delete movies add, is just for testing purpose
-        movies.add(movies.get(0));
-        movies.add(movies.get(1));
-        movies.add(movies.get(0));
-        movies.add(movies.get(1));
         mAdapter.setMovies(movies);
     }
 
@@ -88,5 +85,13 @@ public class MoviePosterFragment extends Fragment implements MoviePosterMVP.View
     public void setPresenter(MoviePosterMVP.Presenter presenter) {
         mPresenter = presenter;
         Log.d(TAG, "Setting presenter");
+    }
+
+    @Override
+    public void onClickMovie(Movie movie) {
+        Log.d(TAG, "Movie clicked: "+ movie);
+        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+        intent.putExtra(MovieDetailActivity.BUNDLE_MOVIE_ID, movie.getMovieId());
+        getActivity().startActivity(intent);
     }
 }

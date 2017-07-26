@@ -52,7 +52,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 .getApplicationContext())).build().inject(this);
 
         List<Movie> movies = mMovieCollector.getMovies();
-        Log.d(TAG, "mMovieCollector.getMovies(): " + movies);
+        Log.d(TAG, "mMovieCollector.getMoviesCollector(): " + movies);
         mMovieDataRepository.process(movies);
 
     }
