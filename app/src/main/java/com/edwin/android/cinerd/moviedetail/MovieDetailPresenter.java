@@ -5,6 +5,7 @@ import android.util.Log;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieDataRepository;
 import com.edwin.android.cinerd.entity.Genre;
+import com.edwin.android.cinerd.entity.Rating;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +55,8 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
 
         SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
         mView.setMovieReleaseDate(df.format(movie.getReleaseDate()));
-        //mView.setRating(movie.getRating().getImdb(), movie.getRating().getRottentomatoes());
+        Rating rating = mMovieDataRepository.getRatingByMovieId(movieId);
+        mView.setRating(rating.getImdb(), rating.getRottenTomatoes());
     }
 
     @Override
