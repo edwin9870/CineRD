@@ -65,7 +65,7 @@ public class MovieDataRepository {
                     .COLUMN_NAME_MOVIE_ID + " = ? AND " + CineRdContract.MovieTheaterDetailEntry
                     .COLUMN_NAME_THEATER_ID + " = ? AND date(" + CineRdContract
                     .MovieTheaterDetailEntry
-                    .COLUMN_NAME_AVAILABLE_DATE + ") < date('" + DateUtil.formatDate
+                    .COLUMN_NAME_AVAILABLE_DATE + ") = date('" + DateUtil.formatDate
                     (availableDate) + "')", new String[]{String.valueOf(movieId), String.valueOf(theaterId)}, null);
 
             movieTheaterDetailList = parseMovieTheaterDetail(movieId, movieTheaterDetailCursor);
@@ -194,7 +194,7 @@ public class MovieDataRepository {
                     .CONTENT_URI, null, CineRdContract.MovieTheaterDetailEntry
                     .COLUMN_NAME_MOVIE_ID + " = ? AND date(" + CineRdContract
                     .MovieTheaterDetailEntry
-                    .COLUMN_NAME_AVAILABLE_DATE + ") < date('" + DateUtil.formatDate
+                    .COLUMN_NAME_AVAILABLE_DATE + ") = date('" + DateUtil.formatDate
                     (availableDate) + "')", new String[]{String.valueOf(movieId)}, null);
 
             movieTheaterDetailList = parseMovieTheaterDetail(movieId, movieTheaterDetailCursor);

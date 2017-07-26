@@ -3,27 +3,25 @@ package com.edwin.android.cinerd.moviedetail.viewpager;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.data.CineRdContract;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.MovieDataRepository;
 import com.edwin.android.cinerd.data.adapters.MovieSyncAdapter;
+import com.edwin.android.cinerd.entity.TheaterSearchable;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Movie;
-import com.edwin.android.cinerd.entity.TheaterSearchable;
 import com.edwin.android.cinerd.entity.json.Room;
 import com.edwin.android.cinerd.util.DateUtil;
 
@@ -35,7 +33,6 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
@@ -61,6 +58,8 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     TextView textTheaterName;
     @BindView(R.id.recycler_view_movie_time)
     RecyclerView mMovieTimeRecyclerView;
+    @BindView(R.id.layout_movie_theater_info)
+    LinearLayout movieTheaterInfoLinearLayout;
     private MovieScheduleAdapter mAdapter;
     private Movie mMovie;
     private MovieTimeFormatAdapter mMovieTimeFormatAdapter;
@@ -117,7 +116,6 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mAdapter.setDates(dates);
 
 
-
         mMovieTimeFormatAdapter = new MovieTimeFormatAdapter(getActivity());
 
         LinearLayoutManager linearLayoutManager
@@ -127,10 +125,9 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mMovieTimeRecyclerView.setNestedScrollingEnabled(true);
         mMovieTimeRecyclerView.setAdapter(mMovieTimeFormatAdapter);
 
-        mMovieDataRepository = new MovieDataRepository(getActivity().getContentResolver(), new MovieCollectorJSON
+        mMovieDataRepository = new MovieDataRepository(getActivity().getContentResolver(), new
+                MovieCollectorJSON
                 (getActivity()));
-
-        MovieSyncAdapter.performSync();
 
         return view;
     }
@@ -153,13 +150,12 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     @Override
     public void onClickDay(Date date) {
         Log.d(TAG, "Date clicked: " + date);
-        Toast.makeText(getActivity(), "Touched", Toast.LENGTH_SHORT).show();
+        showMovieTheaterDetail(date);
     }
 
-    @OnClick(R.id.text_theater_name)
-    public void onViewClicked() {
+    public void showMovieTheaterDetail(final Date dateToShowMovies) {
         Log.d(TAG, "Theater name clicked");
-        Log.d(TAG, "Movie data: "+ mMovie);
+        Log.d(TAG, "Movie data: " + mMovie);
 
         String dialogTitle = MovieScheduleFragment.this.getString(R.string
                 .movie_theater_search_dialog_title);
@@ -167,16 +163,16 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                 .movie_theater_search_dialog_input_place_holder);
 
         final long movieId = mMovieDataRepository.getMovieIdByName(mMovie.getName().toUpperCase());
-        Log.d(TAG, "MovieID: "+ movieId);
+        Log.d(TAG, "MovieID: " + movieId);
 
-        final Date date = new Date();
         List<MovieTheaterDetail> movieTheaterDetails =
-                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId, date);
+                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId,
+                        dateToShowMovies);
 
         Log.d(TAG, "movieTheaterDetails: " + movieTheaterDetails);
 
         Set<TheaterSearchable> theatersName = new HashSet<>();
-        for(MovieTheaterDetail detail : movieTheaterDetails) {
+        for (MovieTheaterDetail detail : movieTheaterDetails) {
             String theaterName = mMovieDataRepository.getTheaterNameById(detail.getTheaterId());
             theatersName.add(new TheaterSearchable(theaterName, detail.getTheaterId()));
         }
@@ -187,12 +183,16 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                     @Override
                     public void onSelected(BaseSearchDialogCompat dialog, TheaterSearchable
                             theaterSearchable, int position) {
-                        Toast.makeText(MovieScheduleFragment.this.getActivity(), theaterSearchable.getTitle(),
+                        Toast.makeText(MovieScheduleFragment.this.getActivity(),
+                                theaterSearchable.getTitle(),
                                 Toast.LENGTH_SHORT).show();
 
-                        MovieScheduleFragment.this.setMovieTheaterDetail(movieId, theaterSearchable.getTheaterId(), date);
-                        MovieScheduleFragment.this.textTheaterName.setText(theaterSearchable.getTitle());
+                        MovieScheduleFragment.this.setMovieTheaterDetail(movieId,
+                                theaterSearchable.getTheaterId(), dateToShowMovies);
+                        MovieScheduleFragment.this.textTheaterName.setText(theaterSearchable
+                                .getTitle());
                         dialog.dismiss();
+                        MovieScheduleFragment.this.movieTheaterInfoLinearLayout.setVisibility(View.VISIBLE);
 
                     }
                 }).show();
@@ -203,11 +203,12 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         Log.d(TAG, "setMovieTheaterDetail.theaterId: " + theaterId);
         Log.d(TAG, "setMovieTheaterDetail.movieId: " + availableDate);
         List<MovieTheaterDetail> details =
-                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId, availableDate, theaterId);
+                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId,
+                        availableDate, theaterId);
         Log.d(TAG, "details: " + details);
         Room room;
         List<Room> rooms = new ArrayList<>();
-        for(MovieTheaterDetail detail : details) {
+        for (MovieTheaterDetail detail : details) {
             room = new Room();
             room.setmDate(detail.getAvailableDate());
             room.setmFormat(mMovieDataRepository.getFormatNameById(detail.getFormatId()));
@@ -215,7 +216,6 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         }
 
         mMovieTimeFormatAdapter.setRooms(rooms);
-
 
 
     }

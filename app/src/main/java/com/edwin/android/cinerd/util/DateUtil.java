@@ -46,7 +46,6 @@ public final class DateUtil {
     public static String formatDate(Date date) {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // Quoted "Z" to indicate UTC, no
-        // timezone offset
         df.setTimeZone(tz);
         return df.format(date);
     }
