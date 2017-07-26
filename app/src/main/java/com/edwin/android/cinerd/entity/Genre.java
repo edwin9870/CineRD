@@ -6,7 +6,14 @@ package com.edwin.android.cinerd.entity;
 
 public class Genre {
     private int id;
-    private String genre;
+    private String name;
+
+    public Genre() {
+    }
+    public Genre(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -16,11 +23,35 @@ public class Genre {
         this.id = id;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getName() {
+        return name;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Genre genre = (Genre) o;
+
+        return id == genre.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

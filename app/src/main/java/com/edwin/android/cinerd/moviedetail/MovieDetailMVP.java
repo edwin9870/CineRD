@@ -1,5 +1,7 @@
 package com.edwin.android.cinerd.moviedetail;
 
+import com.edwin.android.cinerd.entity.Genre;
+
 import java.util.List;
 
 /**

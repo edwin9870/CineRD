@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.adapters.AccountGeneral;
+import com.edwin.android.cinerd.entity.Genre;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment;
@@ -116,7 +117,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         mMovieGenreDurationTextView.append(" | ");
         mMovieGenreDurationTextView.append(String.valueOf(duration));
         mMovieGenreDurationTextView.append(" min");
-
     }
 
     @Override

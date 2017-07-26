@@ -4,10 +4,14 @@ import android.util.Log;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieDataRepository;
-import com.edwin.android.cinerd.entity.json.Movie;
+import com.edwin.android.cinerd.entity.Genre;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -40,7 +44,13 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         com.edwin.android.cinerd.entity.Movie movie = mMovieDataRepository.getMovieById(movieId);
 
         mView.setMovieName(movie.getName());
-        //mView.setMovieGenreDuration(movie.getGenre(), movie.getDuration());
+        List<Genre> genres = mMovieDataRepository.getGenresByMovieId(movieId);
+        Set<String> genresName = new HashSet<>();
+
+        for(Genre genre: genres) {
+            genresName.add(genre.getName());
+        }
+        mView.setMovieGenreDuration(new ArrayList<>(genresName), movie.getDuration());
 
         SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
         mView.setMovieReleaseDate(df.format(movie.getReleaseDate()));

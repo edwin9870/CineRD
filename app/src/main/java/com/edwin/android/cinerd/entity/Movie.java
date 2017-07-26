@@ -10,7 +10,7 @@ public class Movie {
 
     private long movieId;
     private String name;
-    private int duration;
+    private short duration;
     private Date releaseDate;
     private String synopsis;
 
@@ -30,11 +30,11 @@ public class Movie {
         this.name = name;
     }
 
-    public int getDuration() {
+    public short getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(short duration) {
         this.duration = duration;
     }
 

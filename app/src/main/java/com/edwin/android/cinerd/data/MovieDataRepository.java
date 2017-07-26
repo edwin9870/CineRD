@@ -5,8 +5,10 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.edwin.android.cinerd.entity.Genre;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.entity.json.Rating;
@@ -196,7 +198,7 @@ public class MovieDataRepository {
                 movie = new com.edwin.android.cinerd.entity.Movie();
                 movie.setMovieId(movieId);
                 movie.setName(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_NAME)));
-                movie.setDuration(movieCursor.getInt(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_DURATION)));
+                movie.setDuration(movieCursor.getShort(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_DURATION)));
                 String releaseDateText = movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
                         .MovieEntry.COLUMN_NAME_RELEASE_DATE));
                 movie.setReleaseDate(DateUtil.getDateFromString(releaseDateText));
@@ -207,6 +209,50 @@ public class MovieDataRepository {
         }finally {
             if(movieCursor != null) {
                 movieCursor.close();
+            }
+        }
+    }
+
+    public List<Genre> getGenresByMovieId(long movieId) {
+        Cursor movieGenreCursor = null;
+        try {
+            List<Genre> genres = new ArrayList<>();
+            movieGenreCursor = mContentResolver.query(CineRdContract.MovieGenreEntry.CONTENT_URI, new
+                            String[]{CineRdContract.MovieGenreEntry.COLUMN_NAME_GENRE_ID},
+                    CineRdContract.MovieGenreEntry.COLUMN_NAME_MOVIE_ID + " = ?", new
+                            String[]{String
+                            .valueOf(movieId)}, null);
+            while (movieGenreCursor.moveToNext()) {
+                short genreId = movieGenreCursor.getShort(movieGenreCursor.getColumnIndex
+                        (CineRdContract.MovieGenreEntry.COLUMN_NAME_GENRE_ID));
+                genres.add(getGenreById(genreId));
+            }
+            return genres;
+        } finally {
+            if(movieGenreCursor != null) {
+                movieGenreCursor.close();
+            }
+        }
+    }
+
+    @Nullable
+    private Genre getGenreById(short genreId) {
+        Cursor genreCursor = null;
+        try {
+            genreCursor = mContentResolver.query(CineRdContract.GenreEntry.CONTENT_URI, null,
+                    CineRdContract
+                            .GenreEntry._ID + " = ?", new String[]{String.valueOf(genreId)}, null);
+
+            if (genreCursor.moveToNext()) {
+                String genreName = genreCursor.getString(genreCursor.getColumnIndex(CineRdContract
+                        .GenreEntry.COLUMN_NAME_NAME));
+                return new Genre(genreId, genreName);
+            } else {
+                return null;
+            }
+        } finally {
+            if(genreCursor != null) {
+                genreCursor.close();
             }
         }
     }
