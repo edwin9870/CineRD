@@ -4,7 +4,6 @@
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
                                                  tools:context="com.edwin.android.cinerd.moviedetail.MovieDetailFragment">
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -38,13 +37,11 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -153,13 +150,6 @@
                 app:layout_constraintRight_toRightOf="@+id/tab_layout"
                 app:layout_constraintTop_toBottomOf="@+id/tab_layout"
                 />
-
-
-
         </android.support.constraint.ConstraintLayout>
-
-
     </android.support.v4.widget.NestedScrollView>
-
-
 </android.support.design.widget.CoordinatorLayout>

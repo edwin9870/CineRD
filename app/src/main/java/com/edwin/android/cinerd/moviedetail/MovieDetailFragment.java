@@ -2,10 +2,14 @@ package com.edwin.android.cinerd.moviedetail;
 
 
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +20,6 @@ import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.adapters.AccountGeneral;
-import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.ViewPagerAdapter;
@@ -54,6 +57,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     ViewPager mViewPager;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
+    @BindView(R.id.toolbar_detail_movie)
+    Toolbar mToolbar;
+    @BindView(R.id.collapsing_toolbar_movie_detail)
+    CollapsingToolbarLayout mCollapsingToolbar;
     private Unbinder mUnbinder;
     private MovieDetailMVP.Presenter mPresenter;
     private MovieScheduleFragment mScheduleFragment;
@@ -74,7 +81,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             mMovieId = getArguments().getLong(ARGUMENT_MOVIE_ID);
         }
     }
@@ -85,17 +92,23 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mCollapsingToolbar.setExpandedTitleColor(getHexColor(android.R.color.transparent));
+
         Log.d(TAG, "Movie ID displayed: " + mMovieId);
         mPresenter.showMovieDetail(mMovieId);
 
         mAdapter = new ViewPagerAdapter(getFragmentManager());
 
         MovieSynopsisFragment movieSynopsisFragment = MovieSynopsisFragment.newInstance(mMovieId);
-        mAdapter.addFragment(movieSynopsisFragment, getActivity().getString(R.string.tab_synopsis_name));
+        mAdapter.addFragment(movieSynopsisFragment, getActivity().getString(R.string
+                .tab_synopsis_name));
 
         mScheduleFragment = MovieScheduleFragment.newInstance(mMovieId, getTag());
         Log.d(TAG, "mScheduleFragment: " + mScheduleFragment.getTag());
-        mAdapter.addFragment(mScheduleFragment, getActivity().getString(R.string.tab_schedule_name));
+        mAdapter.addFragment(mScheduleFragment, getActivity().getString(R.string
+                .tab_schedule_name));
 
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -146,6 +159,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     public void setPresenter(MovieDetailMVP.Presenter presenter) {
         Log.d(TAG, "Setting MovieDetail presenter");
         mPresenter = presenter;
+    }
+
+    private int getHexColor(int colorCode) {
+        int color;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            color = getResources().getColor(colorCode, getActivity().getTheme());
+        } else {
+            color = getResources().getColor(colorCode);
+        }
+        return color;
     }
 
 }

@@ -169,7 +169,8 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
             theatersName.add(new Theater(theaterName, detail.getTheaterId()));
         }
 
-        new SimpleSearchDialogCompat(getActivity(), dialogTitle,
+        SimpleSearchDialogCompat searchDialogCompat = new SimpleSearchDialogCompat
+                (getActivity(), dialogTitle,
                 inputPlaceHolder, null, new ArrayList<Theater>(theatersName),
                 new SearchResultListener<Theater>() {
                     @Override
@@ -184,10 +185,13 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                         MovieScheduleFragment.this.textTheaterName.setText(theaterSearchable
                                 .getTitle());
                         dialog.dismiss();
-                        MovieScheduleFragment.this.movieTheaterInfoLinearLayout.setVisibility(View.VISIBLE);
+                        MovieScheduleFragment.this.movieTheaterInfoLinearLayout.setVisibility
+                                (View.VISIBLE);
 
                     }
-                }).show();
+                });
+        searchDialogCompat.getContext().setTheme(R.style.AppTheme_Dialog_Light_DarkText);
+        searchDialogCompat.show();
     }
 
     public void setMovieTheaterDetail(long movieId, long theaterId, Date availableDate) {

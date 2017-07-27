@@ -27,7 +27,11 @@
 
         <activity
             android:name=".moviedetail.MovieDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".movieposter.MoviePosterActivity"/>
+        </activity>
 
         <provider
             android:name=".data.CineRdContentProvider"
