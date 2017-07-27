@@ -42,4 +42,9 @@ public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
             }
         }.execute();
     }
+
+    @Override
+    public void fabButtonAction() {
+        mView.showMovieAndTheaterDialog();
+    }
 }

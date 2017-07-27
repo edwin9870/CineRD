@@ -5,19 +5,23 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
 import com.edwin.android.cinerd.data.adapters.AccountGeneral;
+import com.edwin.android.cinerd.movieposter.dialog.MovieTheaterDialogFragment;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class MoviePosterActivity extends AppCompatActivity {
+public class MoviePosterActivity extends AppCompatActivity implements
+        MovieTheaterDialogFragment.MovieTheaterDialogListener{
 
     public static final String TAG = MoviePosterActivity.class.getSimpleName();
     @BindView(R.id.floating_button_movie_menu)
@@ -46,9 +50,27 @@ public class MoviePosterActivity extends AppCompatActivity {
                 .inject(this);
 
 
+
         fragmentTransaction.add(R.id.fragment_movie_poster, fragment);
         fragmentTransaction.commit();
     }
 
+    @OnClick(R.id.floating_button_movie_menu)
+    public void onClickFloatingActionButton() {
+        Log.d(TAG, "floatingActionButton clicked");
+        moviePosterPresenter.fabButtonAction();
+    }
 
+
+    @Override
+    public void onClickMovie() {
+        Log.d(TAG, "onClickMovie fired");
+        moviePosterPresenter.mView.onClickMovie();
+    }
+
+    @Override
+    public void onClickTheater() {
+        Log.d(TAG, "onClickTheater fired");
+        moviePosterPresenter.mView.onClickTheater();
+    }
 }

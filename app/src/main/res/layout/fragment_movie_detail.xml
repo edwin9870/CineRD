@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
                 android:layout_marginStart="70dp"
-                android:background="@drawable/icons8_imdb_96"
+                android:background="@drawable/ic_imdb"
                 app:layout_constraintBottom_toTopOf="@+id/text_movie_genre_duration"
                 app:layout_constraintLeft_toRightOf="@+id/text_movie_name"
                 app:layout_constraintTop_toTopOf="@+id/text_movie_name"/>
