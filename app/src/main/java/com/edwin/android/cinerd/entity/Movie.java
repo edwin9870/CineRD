@@ -2,11 +2,13 @@ package com.edwin.android.cinerd.entity;
 
 import java.util.Date;
 
+import ir.mirrajabi.searchdialog.core.Searchable;
+
 /**
  * Created by Edwin Ramirez Ventura on 7/26/2017.
  */
 
-public class Movie {
+public class Movie implements Searchable {
 
     private long movieId;
     private String name;
@@ -79,5 +81,10 @@ public class Movie {
                 ", releaseDate=" + releaseDate +
                 ", synopsis='" + synopsis + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getTitle() {
+        return name;
     }
 }

@@ -1,6 +1,11 @@
 package com.edwin.android.cinerd.moviefinder;
 
+import android.os.AsyncTask;
+
 import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.entity.Movie;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -23,5 +28,21 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
     @Inject
     public void setupListener() {
         mView.setPresenter(this);
+    }
+
+    @Override
+    public void movieNameFilterClicked() {
+        new AsyncTask<Void, Void, List<Movie>>() {
+            @Override
+            protected List<Movie> doInBackground(Void... voids) {
+                List<Movie> movies = MovieFinderPresenter.this.mRepository.getMovies();
+                return movies;
+            }
+
+            @Override
+            protected void onPostExecute(List<Movie> movies) {
+                mView.showMovieFilterDialog(movies);
+            }
+        }.execute();
     }
 }
