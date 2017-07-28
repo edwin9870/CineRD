@@ -5,4 +5,12 @@ package com.edwin.android.cinerd.moviefinder;
  */
 
 public interface MovieFinderMVP {
+
+    interface View {
+        void setPresenter(Presenter presenter);
+    }
+
+    interface Presenter {
+
+    }
 }

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.moviedetail.MovieDetailActivity;
+import com.edwin.android.cinerd.moviefinder.MovieFinderActivity;
 import com.edwin.android.cinerd.movieposter.dialog.MovieTheaterDialogFragment;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
 
@@ -111,6 +112,8 @@ public class MoviePosterFragment extends Fragment implements
     @Override
     public void onClickMovie() {
         Log.d(TAG, "onClickMovie fired");
+        Intent intent = new Intent(getActivity(), MovieFinderActivity.class);
+        getActivity().startActivity(intent);
     }
 
     @Override
