@@ -113,8 +113,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        AccountGeneral.createSyncAccount(getActivity());
-
         return view;
     }
 
