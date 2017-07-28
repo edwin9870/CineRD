@@ -21,10 +21,10 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".moviedetail.MovieDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -56,6 +56,8 @@
                 android:resource="@xml/authenticator"/>
         </service>
 
+        <activity android:name=".moviefinder.MovieFinderActivity">
+        </activity>
     </application>
 
 </manifest>
