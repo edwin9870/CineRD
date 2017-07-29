@@ -4,6 +4,8 @@ package com.edwin.android.cinerd.moviefinder;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.util.DateUtil;
 
 import java.util.ArrayList;
@@ -41,6 +44,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     ImageView mMovieFinderCalendarImageView;
     @BindView(R.id.text_date_filter)
     TextView mTextDateFilter;
+    @BindView(R.id.recycler_view_available_hour)
+    RecyclerView mAvailableHourRecyclerView;
     private MovieFinderMVP.Presenter mPresenter;
 
     public MovieFinderFragment() {
@@ -107,7 +112,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                         Calendar instance = Calendar.getInstance();
                         instance.set(year, monthOfYear, dayOfMonth);
                         Date dateClicked = instance.getTime();
-                        mPresenter.showCalendarDate(getActivity(), dateClicked);
+                        mPresenter.showCalendarDate(getActivity(), mMovieNameFinderEditText
+                                .getText().toString(), dateClicked);
                     }
                 }, year, month, day);
         Date initialDate = new Date();
@@ -121,7 +127,31 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
     @Override
     public void showDateSelected(String message) {
-    mTextDateFilter.setText(message);
+        mTextDateFilter.setText(message);
+    }
+
+    @Override
+    public void showAvailableMovieTime(List<MovieTheaterDetail> movieTheaterDetails) {
+        MovieFinderTimeAdapter adapter = new MovieFinderTimeAdapter(getActivity());
+        List<MovieTheaterDetail> uniqueMovieTheaterDetails = new ArrayList<>();
+        List<Long> existenceTime = new ArrayList<>();
+        for(MovieTheaterDetail movieTheaterDetail : movieTheaterDetails) {
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(movieTheaterDetail.getAvailableDate());
+            int hour = instance.get(Calendar.HOUR);
+            int minute = instance.get(Calendar.MINUTE);
+            long time = hour+minute;
+            if(!existenceTime.contains(time)) {
+                existenceTime.add(time);
+                uniqueMovieTheaterDetails.add(movieTheaterDetail);
+            }
+        }
+
+        adapter.setMovieTheaterDetails(new ArrayList<>(uniqueMovieTheaterDetails));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false);
+        mAvailableHourRecyclerView.setLayoutManager(linearLayoutManager);
+        mAvailableHourRecyclerView.setAdapter(adapter);
     }
 
     @Override

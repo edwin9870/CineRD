@@ -85,9 +85,13 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
     }
 
     @Override
-    public void showCalendarDate(Context context, Date date) {
+    public void showCalendarDate(Context context, String movieName, Date date) {
         String dateToShow = DateFormat.format(context.getString(R.string.date_calendar), date).toString();
         mView.showDateSelected(dateToShow);
+        long movieId = mRepository.getMovieIdByName(movieName);
+        List<MovieTheaterDetail> movieTheaterDetails = mRepository
+                .getMoviesTheaterDetailByMovieIdAvailableDate(movieId, date);
+        mView.showAvailableMovieTime(movieTheaterDetails);
     }
 
     /**
