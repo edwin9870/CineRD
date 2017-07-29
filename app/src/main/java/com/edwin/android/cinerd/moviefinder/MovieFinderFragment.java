@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.util.DateUtil;
 
-import java.nio.LongBuffer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,6 +39,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     Unbinder unbinder;
     @BindView(R.id.image_movie_finder_calendar)
     ImageView mMovieFinderCalendarImageView;
+    @BindView(R.id.text_date_filter)
+    TextView mTextDateFilter;
     private MovieFinderMVP.Presenter mPresenter;
 
     public MovieFinderFragment() {
@@ -103,9 +105,9 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                                           int monthOfYear, int dayOfMonth) {
                         Log.d(TAG, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                         Calendar instance = Calendar.getInstance();
-                        instance.set(year, monthOfYear,dayOfMonth);
+                        instance.set(year, monthOfYear, dayOfMonth);
                         Date dateClicked = instance.getTime();
-
+                        mPresenter.showCalendarDate(getActivity(), dateClicked);
                     }
                 }, year, month, day);
         Date initialDate = new Date();
@@ -115,6 +117,11 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         datePickerDialog.getDatePicker().setMinDate(initialDate.getTime());
         datePickerDialog.getDatePicker().setMaxDate(endDate.getTime());
         datePickerDialog.show();
+    }
+
+    @Override
+    public void showDateSelected(String message) {
+    mTextDateFilter.setText(message);
     }
 
     @Override
@@ -129,12 +136,13 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
             case R.id.edit_text_movie_name_finder:
                 mPresenter.movieNameFilterClicked(getActivity());
                 break;
-            case R.id.image_movie_finder_calendar :
+            case R.id.image_movie_finder_calendar:
                 mPresenter.movieFinderCalendarClicked(getActivity(), mMovieNameFinderEditText
                         .getText().toString());
                 break;
             default:
-                throw new UnsupportedOperationException("Not supported view with the id: "+ view.getId());
+                throw new UnsupportedOperationException("Not supported view with the id: " + view
+                        .getId());
         }
     }
 

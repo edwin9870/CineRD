@@ -2,6 +2,7 @@ package com.edwin.android.cinerd.moviefinder;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.edwin.android.cinerd.R;
@@ -15,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * Created by Edwin Ramirez Ventura on 7/27/2017.
@@ -82,6 +82,12 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
         }.execute();
 
 
+    }
+
+    @Override
+    public void showCalendarDate(Context context, Date date) {
+        String dateToShow = DateFormat.format(context.getString(R.string.date_calendar), date).toString();
+        mView.showDateSelected(dateToShow);
     }
 
     /**
