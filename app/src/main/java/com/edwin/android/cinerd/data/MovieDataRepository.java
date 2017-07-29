@@ -173,8 +173,9 @@ public class MovieDataRepository {
         Cursor movieCursor = null;
         try {
             movieCursor = mContentResolver.query(CineRdContract.MovieEntry
-                    .CONTENT_URI, new String[]{CineRdContract.MovieEntry._ID}, "UPPER(NAME) = ?", new String[]{movieName}, null);
+                    .CONTENT_URI, new String[]{CineRdContract.MovieEntry._ID}, "UPPER(NAME) = ?", new String[]{movieName.toUpperCase()}, null);
 
+            Log.d(TAG, "movieName: " + movieName.toUpperCase());
             if (movieCursor.moveToNext()) {
                 movieId = movieCursor.getLong(movieCursor.getColumnIndex(CineRdContract.MovieEntry._ID));
             }

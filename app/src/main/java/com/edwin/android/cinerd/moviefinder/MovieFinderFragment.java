@@ -17,6 +17,7 @@ import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.util.DateUtil;
 
+import java.nio.LongBuffer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -86,9 +87,11 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         searchDialogCompat.show();
     }
 
+    //TODO: If maxAdditionalDays is greater than -1, don't open Date Dialog
     @Override
-    public void showCalendar() {
+    public void showCalendar(int maxAdditionalDays) {
         Log.d(TAG, "Showing calendar");
+        Log.d(TAG, "maxAdditionalDays: " + maxAdditionalDays);
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -99,12 +102,16 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         Log.d(TAG, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        Calendar instance = Calendar.getInstance();
+                        instance.set(year, monthOfYear,dayOfMonth);
+                        Date dateClicked = instance.getTime();
+
                     }
                 }, year, month, day);
         Date initialDate = new Date();
-        Date endDate = DateUtil.addDay(initialDate, getResources().getInteger(R.integer
-                .max_movie_calendar_additional_days));
-        
+        Date endDate = DateUtil.addDay(initialDate, maxAdditionalDays);
+        Log.d(TAG, "initialDate: " + initialDate);
+        Log.d(TAG, "endDate.getTime(): " + new Date(endDate.getTime()));
         datePickerDialog.getDatePicker().setMinDate(initialDate.getTime());
         datePickerDialog.getDatePicker().setMaxDate(endDate.getTime());
         datePickerDialog.show();
@@ -120,10 +127,11 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.edit_text_movie_name_finder:
-                mPresenter.movieNameFilterClicked();
+                mPresenter.movieNameFilterClicked(getActivity());
                 break;
             case R.id.image_movie_finder_calendar :
-                mPresenter.movieFinderCalendarClicked();
+                mPresenter.movieFinderCalendarClicked(getActivity(), mMovieNameFinderEditText
+                        .getText().toString());
                 break;
             default:
                 throw new UnsupportedOperationException("Not supported view with the id: "+ view.getId());

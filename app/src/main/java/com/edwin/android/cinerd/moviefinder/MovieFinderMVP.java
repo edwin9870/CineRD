@@ -1,5 +1,7 @@
 package com.edwin.android.cinerd.moviefinder;
 
+import android.content.Context;
+
 import com.edwin.android.cinerd.entity.Movie;
 
 import java.util.List;
@@ -13,11 +15,11 @@ public interface MovieFinderMVP {
     interface View {
         void setPresenter(Presenter presenter);
         void showMovieFilterDialog(List<Movie> movies);
-        void showCalendar();
+        void showCalendar(int maxAdditionalDays);
     }
 
     interface Presenter {
-        void movieNameFilterClicked();
-        void movieFinderCalendarClicked();
+        void movieNameFilterClicked(final Context context);
+        void movieFinderCalendarClicked(Context context, String movieName);
     }
 }

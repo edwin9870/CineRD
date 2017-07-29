@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Edwin Ramirez Ventura on 7/21/2017.
@@ -27,6 +28,12 @@ public final class DateUtil {
         df.setTimeZone(tz);
 
         return df.format(date);
+    }
+
+    public static long daysBetweenDates(Date firstDate, Date secondDate) {
+        long firstDateDays = TimeUnit.MILLISECONDS.toDays(firstDate.getTime());
+        long secondDateDays = TimeUnit.MILLISECONDS.toDays(secondDate.getTime());
+        return Math.abs(firstDateDays-secondDateDays);
     }
 
     public static Date getDateFromString(String date) {
