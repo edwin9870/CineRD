@@ -53,6 +53,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         }
         mView.setMovieGenreDuration(new ArrayList<>(genresName), movie.getDuration());
 
+        //TODO: Pass string date to string.xml
         SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
         mView.setMovieReleaseDate(df.format(movie.getReleaseDate()));
         Rating rating = mMovieDataRepository.getRatingByMovieId(movieId);

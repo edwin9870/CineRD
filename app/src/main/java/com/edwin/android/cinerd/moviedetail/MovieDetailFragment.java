@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.data.adapters.AccountGeneral;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.ViewPagerAdapter;

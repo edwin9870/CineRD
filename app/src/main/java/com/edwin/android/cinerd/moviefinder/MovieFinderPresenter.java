@@ -45,4 +45,9 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
             }
         }.execute();
     }
+
+    @Override
+    public void movieFinderCalendarClicked() {
+        mView.showCalendar();
+    }
 }

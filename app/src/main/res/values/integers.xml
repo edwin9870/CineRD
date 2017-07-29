@@ -3,4 +3,6 @@
 
     <!-- Time to sync in seconds-->
     <integer name="time_to_sync">3600</integer>
+
+    <integer name="max_movie_calendar_additional_days">2</integer>
 </resources>

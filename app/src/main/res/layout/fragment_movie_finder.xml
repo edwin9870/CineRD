@@ -6,8 +6,8 @@
               tools:context="com.edwin.android.cinerd.moviefinder.MovieFinderFragment">
 
 
-    <TextView
-        android:id="@+id/text_movie_name_finder"
+    <EditText
+        android:id="@+id/edit_text_movie_name_finder"
         style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,6 +19,16 @@
         android:layout_width="120dp"
         android:layout_height="1dp"
         android:background="#ffff"/>
+
+    <ImageView
+        android:id="@+id/image_movie_finder_calendar"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:visibility="invisible"
+        android:src="@drawable/ic_date_range"/>
 
 
 </LinearLayout>

@@ -13,9 +13,11 @@ public interface MovieFinderMVP {
     interface View {
         void setPresenter(Presenter presenter);
         void showMovieFilterDialog(List<Movie> movies);
+        void showCalendar();
     }
 
     interface Presenter {
         void movieNameFilterClicked();
+        void movieFinderCalendarClicked();
     }
 }
