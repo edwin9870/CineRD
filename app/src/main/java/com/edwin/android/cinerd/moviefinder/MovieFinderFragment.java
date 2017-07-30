@@ -50,6 +50,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     @BindView(R.id.recycler_view_available_movie_theaters)
     RecyclerView mAvailableMovieTheatersRecyclerView;
     private MovieFinderMVP.Presenter mPresenter;
+    private MovieFinderTimeAdapter mMovieFinderTimeAdapter;
+    private MovieFinderTheaterAdapter mMovieFinderTheaterAdapter;
 
     public MovieFinderFragment() {
 
@@ -85,6 +87,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                             @Override
                             public void onSelected(BaseSearchDialogCompat dialog, Movie
                                     movie, int position) {
+                                MovieFinderFragment.this.clearForm();
                                 Toast.makeText(MovieFinderFragment.this.getActivity(), "Movie " +
                                         "name: " + movie.getName() + " selected", Toast
                                         .LENGTH_SHORT).show();
@@ -135,7 +138,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
     @Override
     public void showAvailableMovieTime(List<MovieTheaterDetail> movieTheaterDetails) {
-        MovieFinderTimeAdapter adapter = new MovieFinderTimeAdapter(this, getActivity());
+        mMovieFinderTimeAdapter = new MovieFinderTimeAdapter(this, getActivity());
         List<MovieTheaterDetail> uniqueMovieTheaterDetails = new ArrayList<>();
         List<Long> existenceTime = new ArrayList<>();
         for (MovieTheaterDetail movieTheaterDetail : movieTheaterDetails) {
@@ -150,21 +153,21 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
             }
         }
 
-        adapter.setMovieTheaterDetails(new ArrayList<>(uniqueMovieTheaterDetails));
+        mMovieFinderTimeAdapter.setMovieTheaterDetails(new ArrayList<>(uniqueMovieTheaterDetails));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
         mAvailableHourRecyclerView.setLayoutManager(linearLayoutManager);
-        mAvailableHourRecyclerView.setAdapter(adapter);
+        mAvailableHourRecyclerView.setAdapter(mMovieFinderTimeAdapter);
     }
 
     @Override
     public void showTheaters(List<String> theatersName) {
-        MovieFinderTheaterAdapter adapter = new MovieFinderTheaterAdapter();
-        adapter.setTheatersName(theatersName);
+        mMovieFinderTheaterAdapter = new MovieFinderTheaterAdapter();
+        mMovieFinderTheaterAdapter.setTheatersName(theatersName);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
         mAvailableMovieTheatersRecyclerView.setLayoutManager(linearLayoutManager);
-        mAvailableMovieTheatersRecyclerView.setAdapter(adapter);
+        mAvailableMovieTheatersRecyclerView.setAdapter(mMovieFinderTheaterAdapter);
 
     }
 
@@ -195,5 +198,18 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         Log.d(TAG, "Time clicked");
         mPresenter.showMovieTheaterByDate(movieTheaterDetail.getMovieId(),
                 movieTheaterDetail.getAvailableDate());
+    }
+
+
+    private void clearForm() {
+        mMovieFinderCalendarImageView.setVisibility(View.INVISIBLE);
+        mTextDateFilter.setText("");
+        if(mMovieFinderTimeAdapter != null) {
+            mMovieFinderTimeAdapter.setMovieTheaterDetails(null);
+        }
+        if(mMovieFinderTheaterAdapter != null) {
+            mMovieFinderTheaterAdapter.setTheatersName(null);
+        }
+
     }
 }
