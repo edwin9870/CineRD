@@ -1,7 +1,6 @@
 package com.edwin.android.cinerd.moviefinder;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.util.Log;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieDataRepository;
 import com.edwin.android.cinerd.entity.Movie;
-import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.util.DateUtil;
 

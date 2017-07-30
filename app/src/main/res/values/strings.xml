@@ -25,4 +25,7 @@
     <!-- fragment_movie_finder.xml -->
     <string name="movie_name_finder_filter">Movie Name</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
