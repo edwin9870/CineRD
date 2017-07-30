@@ -34,7 +34,8 @@ import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.SearchResultListener;
 
-public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View {
+public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View,
+        MovieFinderTimeAdapter.MovieFinderTimeLister {
 
     public static final String TAG = MovieFinderFragment.class.getSimpleName();
     @BindView(R.id.edit_text_movie_name_finder)
@@ -46,6 +47,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     TextView mTextDateFilter;
     @BindView(R.id.recycler_view_available_hour)
     RecyclerView mAvailableHourRecyclerView;
+    @BindView(R.id.recycler_view_available_movie_theaters)
+    RecyclerView mAvailableMovieTheatersRecyclerView;
     private MovieFinderMVP.Presenter mPresenter;
 
     public MovieFinderFragment() {
@@ -132,16 +135,16 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
     @Override
     public void showAvailableMovieTime(List<MovieTheaterDetail> movieTheaterDetails) {
-        MovieFinderTimeAdapter adapter = new MovieFinderTimeAdapter(getActivity());
+        MovieFinderTimeAdapter adapter = new MovieFinderTimeAdapter(this, getActivity());
         List<MovieTheaterDetail> uniqueMovieTheaterDetails = new ArrayList<>();
         List<Long> existenceTime = new ArrayList<>();
-        for(MovieTheaterDetail movieTheaterDetail : movieTheaterDetails) {
+        for (MovieTheaterDetail movieTheaterDetail : movieTheaterDetails) {
             Calendar instance = Calendar.getInstance();
             instance.setTime(movieTheaterDetail.getAvailableDate());
             int hour = instance.get(Calendar.HOUR);
             int minute = instance.get(Calendar.MINUTE);
-            long time = hour+minute;
-            if(!existenceTime.contains(time)) {
+            long time = hour + minute;
+            if (!existenceTime.contains(time)) {
                 existenceTime.add(time);
                 uniqueMovieTheaterDetails.add(movieTheaterDetail);
             }
@@ -152,6 +155,17 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                 LinearLayoutManager.VERTICAL, false);
         mAvailableHourRecyclerView.setLayoutManager(linearLayoutManager);
         mAvailableHourRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showTheaters(List<String> theatersName) {
+        MovieFinderTheaterAdapter adapter = new MovieFinderTheaterAdapter();
+        adapter.setTheatersName(theatersName);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false);
+        mAvailableMovieTheatersRecyclerView.setLayoutManager(linearLayoutManager);
+        mAvailableMovieTheatersRecyclerView.setAdapter(adapter);
+
     }
 
     @Override
@@ -176,4 +190,10 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         }
     }
 
+    @Override
+    public void onClick(MovieTheaterDetail movieTheaterDetail) {
+        Log.d(TAG, "Time clicked");
+        mPresenter.showMovieTheaterByDate(movieTheaterDetail.getMovieId(),
+                movieTheaterDetail.getAvailableDate());
+    }
 }

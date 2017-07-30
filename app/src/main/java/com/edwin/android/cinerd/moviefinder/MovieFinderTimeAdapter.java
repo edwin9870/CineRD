@@ -28,9 +28,11 @@ public class MovieFinderTimeAdapter extends RecyclerView.Adapter<MovieFinderTime
 
     public static final String TAG = MovieFinderTimeAdapter.class.getSimpleName();
     private List<MovieTheaterDetail> mMovieTheaterDetails;
+    private MovieFinderTimeLister mListener;
     private Context mContext;
 
-    public MovieFinderTimeAdapter(Context context) {
+    public MovieFinderTimeAdapter(MovieFinderTimeLister lister, Context context) {
+        this.mListener = lister;
         mContext = context;
     }
 
@@ -78,11 +80,17 @@ public class MovieFinderTimeAdapter extends RecyclerView.Adapter<MovieFinderTime
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
+            Log.d(TAG, "view clicked");
+            mListener.onClick(mMovieTheaterDetails.get(adapterPosition));
         }
     }
 
     public void setMovieTheaterDetails(List<MovieTheaterDetail> movieTheaterDetails) {
         this.mMovieTheaterDetails = movieTheaterDetails;
         notifyDataSetChanged();
+    }
+
+    interface MovieFinderTimeLister {
+        void onClick(MovieTheaterDetail movieTheaterDetail);
     }
 }

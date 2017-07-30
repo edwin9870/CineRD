@@ -20,11 +20,13 @@ public interface MovieFinderMVP {
         void showCalendar(int maxAdditionalDays);
         void showDateSelected(String message);
         void showAvailableMovieTime(List<MovieTheaterDetail> movieTheaterDetails);
+        void showTheaters(List<String> theatersName);
     }
 
     interface Presenter {
         void movieNameFilterClicked(final Context context);
         void movieFinderCalendarClicked(Context context, String movieName);
         void showCalendarDate(Context context, String movieName, Date date);
+        void showMovieTheaterByDate(long movieId, Date date);
     }
 }
