@@ -49,7 +49,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         Set<String> genresName = new HashSet<>();
 
         for(Genre genre: genres) {
-            genresName.add(genre.getName());
+            genresName.add(genre.getName().substring(0, 1).toUpperCase() + genre.getName().substring(1));
         }
         mView.setMovieGenreDuration(new ArrayList<>(genresName), movie.getDuration());
 
