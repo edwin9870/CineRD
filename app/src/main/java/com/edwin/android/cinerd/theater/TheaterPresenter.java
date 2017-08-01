@@ -33,16 +33,32 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
     }
 
     @Override
-    public void getMovies() {
+    public void getMovies(final int theaterId) {
         new AsyncTask<Void, Void, List<Movie>>(){
             @Override
             protected List<Movie> doInBackground(Void... voids) {
-                return mRepository.getMovies();
+                return mRepository.getMoviesByTheaterId(theaterId);
             }
             @Override
             protected void onPostExecute(List<Movie> movies) {
                 mView.onReceiveMovies(movies);
             }
         }.execute();
+    }
+
+    @Override
+    public void setActivityTitle(final int mTheaterId) {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... voids) {
+                return mRepository.getTheaterNameById(mTheaterId);
+            }
+
+            @Override
+            protected void onPostExecute(String title) {
+                mView.setActivityTitle(title);
+            }
+        }.execute();
+
     }
 }

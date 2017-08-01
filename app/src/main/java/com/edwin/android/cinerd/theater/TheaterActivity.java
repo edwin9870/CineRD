@@ -16,6 +16,7 @@ import javax.inject.Inject;
 public class TheaterActivity extends AppCompatActivity {
 
     public static final String TAG = TheaterActivity.class.getSimpleName();
+    public static final String BUNDLE_THEATER_ID = "BUNDLE_THEATER_ID";
     @Inject
     TheaterPresenter mPresenter;
 
@@ -24,7 +25,8 @@ public class TheaterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theater);
 
-        TheaterFragment theaterFragment = TheaterFragment.newInstance();
+        int theaterId = getIntent().getExtras().getInt(BUNDLE_THEATER_ID, 0);
+        TheaterFragment theaterFragment = TheaterFragment.newInstance(theaterId);
 
         DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule(new
                 ApplicationModule(getApplication())).build();

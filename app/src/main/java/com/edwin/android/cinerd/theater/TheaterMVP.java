@@ -13,9 +13,11 @@ public interface TheaterMVP {
     interface View {
         void setPresenter(Presenter presenter);
         void onReceiveMovies(List<Movie> movies);
+        void setActivityTitle(String title);
     }
 
     interface Presenter {
-        void getMovies();
+        void getMovies(int theaterId);
+        void setActivityTitle(int mTheaterId);
     }
 }
