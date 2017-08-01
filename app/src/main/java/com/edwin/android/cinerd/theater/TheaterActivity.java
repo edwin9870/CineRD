@@ -3,6 +3,7 @@ package com.edwin.android.cinerd.theater;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,25 +16,34 @@ import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class TheaterActivity extends AppCompatActivity {
 
     public static final String TAG = TheaterActivity.class.getSimpleName();
     public static final String BUNDLE_THEATER_ID = "BUNDLE_THEATER_ID";
     @Inject
     TheaterPresenter mPresenter;
+    @BindView(R.id.floating_button_theater_menu)
+    FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theater);
+        ButterKnife.bind(this);
 
         //int theaterId = getIntent().getExtras().getInt(BUNDLE_THEATER_ID, 0);
         TheaterFragment theaterFragment = TheaterFragment.newInstance(14);
 
-        DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule(new
+        DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule
+                (new
                 ApplicationModule(getApplication())).build();
         DaggerTheaterComponent.builder().databaseComponent(databaseComponent)
-                .theaterPresenterModule(new TheaterPresenterModule(theaterFragment)).build().inject(this);
+                .theaterPresenterModule(new TheaterPresenterModule(theaterFragment)).build()
+                .inject(this);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -51,5 +61,10 @@ public class TheaterActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.floating_button_theater_menu)
+    public void onViewClicked() {
+        mPresenter.onClickfabButton();
     }
 }

@@ -84,4 +84,9 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
             }
         }.execute();
     }
+
+    @Override
+    public void onClickfabButton() {
+        showTheatersDialog();
+    }
 }
