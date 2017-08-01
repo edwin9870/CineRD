@@ -55,7 +55,10 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
                     .into(holder.mMoviePosterImageView);
             Movie movie = mMovies.get(position);
             holder.mMovieNameTextView.setText(movie.getName());
-            Log.d(TAG, "Rating movie: "+ mMovies.get(position).getRating());
+            holder.mMoviePosterImdbValueTextView.setText(movie.getRating().getImdb());
+            holder.mMoviePosterRottenTomatoesValueTextView.setText(movie.getRating().getRottenTomatoes());
+
+            Log.d(TAG, "Rating movie: " + mMovies.get(position).getRating());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +66,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
 
     @Override
     public int getItemCount() {
-        if(null == mMovies) {
+        if (null == mMovies) {
             return 0;
         }
 
@@ -78,6 +81,10 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
         ImageView mMoviePosterImageView;
         @BindView(R.id.text_movie_name)
         TextView mMovieNameTextView;
+        @BindView(R.id.text_movie_poster_imdb_value)
+        TextView mMoviePosterImdbValueTextView;
+        @BindView(R.id.text_movie_poster_rotten_tomatoes_value)
+        TextView mMoviePosterRottenTomatoesValueTextView;
 
         MoviePosterAdapterViewHolder(View itemView) {
             super(itemView);

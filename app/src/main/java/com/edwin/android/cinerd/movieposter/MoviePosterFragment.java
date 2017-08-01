@@ -59,12 +59,14 @@ public class MoviePosterFragment extends Fragment implements
         unbinder = ButterKnife.bind(this, view);
 
         mAdapter = new MoviePosterAdapter(getActivity(), this);
+        //TODO: Pass number columns to integers.xml resource
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
 
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen
                 .space_between_movie_poster);
+        //TODO: Pass number space item decoration integer to integers.xml resource
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(2, spacingInPixels, false));
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setAdapter(mAdapter);

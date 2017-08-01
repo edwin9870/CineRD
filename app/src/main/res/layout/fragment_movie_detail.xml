@@ -78,7 +78,7 @@
                 tools:text="20 July 2015"/>
 
             <ImageView
-                android:id="@+id/text_imdb_label"
+                android:id="@+id/image_imdb"
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,28 +98,28 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/text_rotten_tomatoes_label"
-                app:layout_constraintLeft_toRightOf="@+id/text_imdb_label"
-                app:layout_constraintTop_toTopOf="@+id/text_imdb_label"
+                app:layout_constraintBottom_toTopOf="@+id/image_rotten_tomatoes"
+                app:layout_constraintLeft_toRightOf="@+id/image_imdb"
+                app:layout_constraintTop_toTopOf="@+id/image_imdb"
                 tools:text="7.1"/>
 
             <ImageView
-                android:id="@+id/text_rotten_tomatoes_label"
+                android:id="@+id/image_rotten_tomatoes"
                 android:layout_width="62dp"
                 android:layout_height="47dp"
                 android:background="@drawable/ic_rotten_tomatoes"
-                app:layout_constraintLeft_toLeftOf="@+id/text_imdb_label"
-                app:layout_constraintRight_toRightOf="@+id/text_imdb_label"
-                app:layout_constraintTop_toBottomOf="@+id/text_imdb_label"/>
+                app:layout_constraintLeft_toLeftOf="@+id/image_imdb"
+                app:layout_constraintRight_toRightOf="@+id/image_imdb"
+                app:layout_constraintTop_toBottomOf="@+id/image_imdb"/>
 
             <TextView
                 android:id="@+id/text_rotten_tomatoes_value"
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/text_rotten_tomatoes_label"
-                app:layout_constraintLeft_toRightOf="@+id/text_rotten_tomatoes_label"
-                app:layout_constraintTop_toTopOf="@+id/text_rotten_tomatoes_label"
+                app:layout_constraintBottom_toBottomOf="@+id/image_rotten_tomatoes"
+                app:layout_constraintLeft_toRightOf="@+id/image_rotten_tomatoes"
+                app:layout_constraintTop_toTopOf="@+id/image_rotten_tomatoes"
                 tools:text="91%"/>
 
             <android.support.constraint.Guideline
