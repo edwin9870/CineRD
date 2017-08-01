@@ -26,7 +26,7 @@
 
             <TextView
                 android:id="@+id/text_movie_name"
-                style="@style/TextAppearance.AppCompat.Subhead"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

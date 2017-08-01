@@ -15,6 +15,7 @@ public class Movie implements Searchable {
     private short duration;
     private Date releaseDate;
     private String synopsis;
+    private Rating rating;
 
     public long getMovieId() {
         return movieId;
@@ -56,6 +57,14 @@ public class Movie implements Searchable {
         this.synopsis = synopsis;
     }
 
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,6 +81,7 @@ public class Movie implements Searchable {
         return (int) (movieId ^ (movieId >>> 32));
     }
 
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -80,6 +90,7 @@ public class Movie implements Searchable {
                 ", duration=" + duration +
                 ", releaseDate=" + releaseDate +
                 ", synopsis='" + synopsis + '\'' +
+                ", rating=" + rating +
                 '}';
     }
 

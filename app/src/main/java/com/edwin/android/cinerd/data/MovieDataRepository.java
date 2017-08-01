@@ -259,7 +259,9 @@ public class MovieDataRepository {
             movieCursor = mContentResolver.query(CineRdContract.MovieEntry
                     .CONTENT_URI, null, null, null, null);
             while (movieCursor.moveToNext()) {
-                movies.add(parseMovie(movieCursor));
+                com.edwin.android.cinerd.entity.Movie movie = parseMovie(movieCursor);
+                movie.setRating(getRatingByMovieId(movie.getMovieId()));
+                movies.add(movie);
             }
             return movies;
         }finally {

@@ -14,6 +14,7 @@ import com.edwin.android.cinerd.entity.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +55,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
                     .into(holder.mMoviePosterImageView);
             Movie movie = mMovies.get(position);
             holder.mMovieNameTextView.setText(movie.getName());
+            Log.d(TAG, "Rating movie: "+ mMovies.get(position).getRating());
         } catch (Exception e) {
             e.printStackTrace();
         }
