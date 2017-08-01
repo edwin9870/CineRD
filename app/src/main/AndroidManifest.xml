@@ -19,7 +19,11 @@
         <activity
             android:name=".movieposter.MoviePosterActivity"
             android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".moviedetail.MovieDetailActivity"
@@ -29,6 +33,11 @@
                 android:value=".movieposter.MoviePosterActivity"/>
         </activity>
         <activity android:name=".moviefinder.MovieFinderActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".movieposter.MoviePosterActivity"/>
+        </activity>
+        <activity android:name=".theater.TheaterActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".movieposter.MoviePosterActivity"/>
@@ -56,14 +65,6 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator"/>
         </service>
-
-        <activity android:name=".theater.TheaterActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

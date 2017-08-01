@@ -105,16 +105,6 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(getActivity());
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClickMovie(Movie movie) {
         Log.d(TAG, "Movie clicked: " + movie);
         Intent intent = new Intent(getActivity(), MovieDetailActivity.class);

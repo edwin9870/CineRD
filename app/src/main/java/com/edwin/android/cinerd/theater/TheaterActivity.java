@@ -3,8 +3,10 @@ package com.edwin.android.cinerd.theater;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
@@ -25,8 +27,8 @@ public class TheaterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theater);
 
-        int theaterId = getIntent().getExtras().getInt(BUNDLE_THEATER_ID, 0);
-        TheaterFragment theaterFragment = TheaterFragment.newInstance(theaterId);
+        //int theaterId = getIntent().getExtras().getInt(BUNDLE_THEATER_ID, 0);
+        TheaterFragment theaterFragment = TheaterFragment.newInstance(14);
 
         DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule(new
                 ApplicationModule(getApplication())).build();
@@ -38,5 +40,16 @@ public class TheaterActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.fragment_theater, theaterFragment);
         fragmentTransaction.commit();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                Log.d(TAG, "Navigating up");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

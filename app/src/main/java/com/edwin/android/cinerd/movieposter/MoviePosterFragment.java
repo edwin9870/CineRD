@@ -16,6 +16,7 @@ import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.moviedetail.MovieDetailActivity;
 import com.edwin.android.cinerd.moviefinder.MovieFinderActivity;
 import com.edwin.android.cinerd.movieposter.dialog.MovieTheaterDialogFragment;
+import com.edwin.android.cinerd.theater.TheaterActivity;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
 
 import java.util.List;
@@ -119,5 +120,7 @@ public class MoviePosterFragment extends Fragment implements
     @Override
     public void onClickTheater() {
         Log.d(TAG, "onClickTheater fired");
+        Intent intent = new Intent(getActivity(), TheaterActivity.class);
+        getActivity().startActivity(intent);
     }
 }

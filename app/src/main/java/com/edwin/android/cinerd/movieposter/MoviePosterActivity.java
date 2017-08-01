@@ -20,6 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.edwin.android.cinerd.util.ActivityUtil.parents;
+
 public class MoviePosterActivity extends AppCompatActivity implements
         MovieTheaterDialogFragment.MovieTheaterDialogListener{
 
@@ -32,7 +34,7 @@ public class MoviePosterActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        parents.push(getClass());
         setContentView(R.layout.activity_movie_poster);
         ButterKnife.bind(this);
 
