@@ -1,5 +1,7 @@
 package com.edwin.android.cinerd.theater;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +30,11 @@ public class TheaterActivity extends AppCompatActivity {
                 ApplicationModule(getApplication())).build();
         DaggerTheaterComponent.builder().databaseComponent(databaseComponent)
                 .theaterPresenterModule(new TheaterPresenterModule(theaterFragment)).build().inject(this);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_theater, theaterFragment);
+        fragmentTransaction.commit();
 
     }
 }
