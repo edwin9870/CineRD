@@ -60,6 +60,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     Toolbar mToolbar;
     @BindView(R.id.collapsing_toolbar_movie_detail)
     CollapsingToolbarLayout mCollapsingToolbar;
+    @BindView(R.id.image_movie_detail_poster)
+    ImageView mMovieDetailPosterImageView;
     private Unbinder mUnbinder;
     private MovieDetailMVP.Presenter mPresenter;
     private MovieScheduleFragment mScheduleFragment;
@@ -149,7 +151,9 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     @Override
     public void setBackdropImage(int resourceId) {
         Picasso picasso = Picasso.with(getActivity());
+        //TODO: Add failude image background
         picasso.load(R.drawable.maxmaxbackdrop).fit().into(imageMovieBackdrop);
+        picasso.load(R.drawable.maxmaxposter).fit().into(mMovieDetailPosterImageView);
     }
 
     @Override

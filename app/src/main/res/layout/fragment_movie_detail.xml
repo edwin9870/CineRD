@@ -38,13 +38,26 @@
 
 
     <ImageButton
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_margin="5dp"
+        android:layout_margin="8dp"
         android:background="@drawable/ic_play_circle_filled"
         app:layout_anchor="@id/collapsing_toolbar_movie_detail"
         app:layout_anchorGravity="bottom|right|end"
+        app:layout_collapseMode="parallax"/>
+
+    <ImageView
+        android:id="@+id/image_movie_detail_poster"
+        android:layout_width="128dp"
+        android:layout_height="170dp"
+        android:layout_below="@id/collapsing_toolbar_movie_detail"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/maxmaxposter"
+        android:paddingTop="50dp"
+        app:layout_anchor="@id/collapsing_toolbar_movie_detail"
+        app:layout_anchorGravity="bottom|left|end"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
 
     <android.support.v4.widget.NestedScrollView
@@ -160,7 +173,6 @@
                 app:layout_constraintRight_toRightOf="@+id/tab_layout"
                 app:layout_constraintTop_toBottomOf="@+id/tab_layout"
                 />
-
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
