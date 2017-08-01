@@ -8,9 +8,9 @@ import ir.mirrajabi.searchdialog.core.Searchable;
 
 public class Theater implements Searchable {
     private String mTitle;
-    private long mTheaterId;
+    private int mTheaterId;
 
-    public Theater(String title, long theaterId) {
+    public Theater(String title, int theaterId) {
         mTitle = title;
         mTheaterId = theaterId;
     }
@@ -25,11 +25,11 @@ public class Theater implements Searchable {
         return this;
     }
 
-    public long getTheaterId() {
+    public int getTheaterId() {
         return mTheaterId;
     }
 
-    public void setTheaterId(long theaterId) {
+    public void setTheaterId(int theaterId) {
         this.mTheaterId = theaterId;
     }
 

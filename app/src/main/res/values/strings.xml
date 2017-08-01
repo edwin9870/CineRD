@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">CineRD</string>
 
+    <!-- Activity title -->
+    <string name="theater_activity_title">Theater name</string>
+
     <string name="tab_synopsis_name">SYNOPSIS</string>
     <string name="tab_schedule_name">SCHEDULE</string>
 

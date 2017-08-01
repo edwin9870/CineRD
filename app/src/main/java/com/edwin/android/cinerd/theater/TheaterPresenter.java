@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.edwin.android.cinerd.data.MovieDataRepository;
 import com.edwin.android.cinerd.entity.Movie;
+import com.edwin.android.cinerd.entity.Theater;
 
 import java.util.List;
 
@@ -60,5 +61,27 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
             }
         }.execute();
 
+    }
+
+    @Override
+    public void setActivityTitle(String title) {
+        mView.setActivityTitle(title);
+    }
+
+    @Override
+    public void showTheatersDialog() {
+        new AsyncTask<Void, Void, List<Theater>>() {
+
+            @Override
+            protected List<Theater> doInBackground(Void... voids) {
+                return mRepository.getAllTheaters();
+            }
+
+            @Override
+            protected void onPostExecute(List<Theater> theaters) {
+                super.onPostExecute(theaters);
+                mView.showTheatersDialog(theaters);
+            }
+        }.execute();
     }
 }

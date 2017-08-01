@@ -34,7 +34,6 @@ public class MoviePosterActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parents.push(getClass());
         setContentView(R.layout.activity_movie_poster);
         ButterKnife.bind(this);
 
@@ -55,6 +54,12 @@ public class MoviePosterActivity extends AppCompatActivity implements
 
         fragmentTransaction.add(R.id.fragment_movie_poster, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        parents.push(getClass());
     }
 
     @OnClick(R.id.floating_button_movie_menu)

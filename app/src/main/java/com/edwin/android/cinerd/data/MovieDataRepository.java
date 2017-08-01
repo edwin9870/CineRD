@@ -94,6 +94,29 @@ public class MovieDataRepository {
         return movieTheaterDetailList;
     }
 
+    public List<com.edwin.android.cinerd.entity.Theater> getAllTheaters() {
+
+        Cursor theaterCursor = null;
+        try {
+            theaterCursor = mContentResolver.query(CineRdContract.TheaterEntry.CONTENT_URI, null,
+                    null, null, null);
+            List<com.edwin.android.cinerd.entity.Theater> theaters = new ArrayList<>();
+            while (theaterCursor.moveToNext()) {
+                int theaterId = theaterCursor.getInt(theaterCursor.getColumnIndex(CineRdContract
+                        .TheaterEntry._ID));
+                String theaterName = theaterCursor.getString(theaterCursor.getColumnIndex
+                        (CineRdContract
+                        .TheaterEntry.COLUMN_NAME_NAME));
+                theaters.add(new com.edwin.android.cinerd.entity.Theater(theaterName, theaterId));
+            }
+            return theaters;
+        } finally {
+            if(theaterCursor != null) {
+                theaterCursor.close();
+            }
+        }
+    }
+
     @NonNull
     private MovieTheaterDetail parseMovieTheaterDetail(Cursor movieTheaterDetailCursor) {
         MovieTheaterDetail movieTheaterDetail;
