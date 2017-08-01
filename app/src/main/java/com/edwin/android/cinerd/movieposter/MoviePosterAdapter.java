@@ -95,7 +95,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
         notifyDataSetChanged();
     }
 
-    interface MoviePosterListener {
+    public interface MoviePosterListener {
         void onClickMovie(Movie movie);
     }
 }
