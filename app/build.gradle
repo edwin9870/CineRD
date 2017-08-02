@@ -51,4 +51,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     provided 'javax.annotation:jsr250-api:1.0'
+    compile 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.2'
 }

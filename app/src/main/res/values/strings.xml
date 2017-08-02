@@ -31,4 +31,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- menu's titles -->
+    <string name="menu_action_movie_title">Movies</string>
+    <string name="menu_action_movie_theater_title">Theaters</string>
+
 </resources>

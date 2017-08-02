@@ -22,4 +22,18 @@
         android:src="@drawable/ic_filter_list_white_24px"
         app:layout_anchorGravity="bottom|right|end"/>
 
+    <com.hlab.fabrevealmenu.view.FABRevealMenu
+        android:id="@+id/menu_fab_filter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        app:animateItems="true"
+        app:menuBackgroundColor="#ffffff"
+        app:menuDirection="up"
+        app:menuRes="@menu/menu_filter"
+        app:menuTitleTextColor="#000000"
+        app:showOverlay="true"
+        app:showTitle="true"
+        app:overlayBackground="#80000000"/>
+
 </android.support.design.widget.CoordinatorLayout>
