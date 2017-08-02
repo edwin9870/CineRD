@@ -44,7 +44,12 @@ public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
     }
 
     @Override
-    public void fabButtonAction() {
-        mView.showMovieAndTheaterDialog();
+    public void openMovieFilterActivity() {
+        mView.onClickMovie();
+    }
+
+    @Override
+    public void openTheatersActivity() {
+        mView.onClickTheater();
     }
 }

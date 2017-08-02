@@ -13,13 +13,13 @@ public interface MoviePosterMVP {
     interface View {
         void onReceiveMovies(List<Movie> movies);
         void setPresenter(Presenter presenter);
-        void showMovieAndTheaterDialog();
         void onClickMovie();
         void onClickTheater();
     }
 
     interface Presenter {
         void getMovies();
-        void fabButtonAction();
+        void openMovieFilterActivity();
+        void openTheatersActivity();
     }
 }

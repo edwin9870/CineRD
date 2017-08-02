@@ -1,6 +1,5 @@
 package com.edwin.android.cinerd.movieposter;
 
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.moviedetail.MovieDetailActivity;
 import com.edwin.android.cinerd.moviefinder.MovieFinderActivity;
-import com.edwin.android.cinerd.movieposter.dialog.MovieTheaterDialogFragment;
 import com.edwin.android.cinerd.theater.TheaterActivity;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
 
@@ -98,11 +96,6 @@ public class MoviePosterFragment extends Fragment implements
         Log.d(TAG, "Setting presenter");
     }
 
-    @Override
-    public void showMovieAndTheaterDialog() {
-        DialogFragment dialog = new MovieTheaterDialogFragment();
-        dialog.show(getFragmentManager(), DIALOG_MOVIE_THEATER_DETAIL);
-    }
 
     @Override
     public void onClickMovie(Movie movie) {
