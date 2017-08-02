@@ -4,14 +4,15 @@ package com.edwin.android.cinerd.moviefinder;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
     public static final String TAG = MovieFinderFragment.class.getSimpleName();
     @BindView(R.id.edit_text_movie_name_finder)
-    EditText mMovieNameFinderEditText;
+    TextView mMovieNameFinderTextView;
     Unbinder unbinder;
     @BindView(R.id.image_movie_finder_calendar)
     ImageView mMovieFinderCalendarImageView;
@@ -49,6 +50,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     RecyclerView mAvailableHourRecyclerView;
     @BindView(R.id.recycler_view_available_movie_theaters)
     RecyclerView mAvailableMovieTheatersRecyclerView;
+    @BindView(R.id.toolbar_detail_movie)
+    Toolbar mToolbar;
     private MovieFinderMVP.Presenter mPresenter;
     private MovieFinderTimeAdapter mMovieFinderTimeAdapter;
     private MovieFinderTheaterAdapter mMovieFinderTheaterAdapter;
@@ -67,6 +70,9 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_finder, container, false);
         unbinder = ButterKnife.bind(this, view);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         return view;
     }
 
@@ -91,7 +97,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                                 Toast.makeText(MovieFinderFragment.this.getActivity(), "Movie " +
                                         "name: " + movie.getName() + " selected", Toast
                                         .LENGTH_SHORT).show();
-                                mMovieNameFinderEditText.setText(movie.getName());
+                                mMovieNameFinderTextView.setText(movie.getName());
                                 mMovieFinderCalendarImageView.setVisibility(View.VISIBLE);
                                 dialog.dismiss();
                             }
@@ -118,7 +124,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                         Calendar instance = Calendar.getInstance();
                         instance.set(year, monthOfYear, dayOfMonth);
                         Date dateClicked = instance.getTime();
-                        mPresenter.showCalendarDate(getActivity(), mMovieNameFinderEditText
+                        mPresenter.showCalendarDate(getActivity(), mMovieNameFinderTextView
                                 .getText().toString(), dateClicked);
                     }
                 }, year, month, day);
@@ -184,7 +190,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                 mPresenter.movieNameFilterClicked(getActivity());
                 break;
             case R.id.image_movie_finder_calendar:
-                mPresenter.movieFinderCalendarClicked(getActivity(), mMovieNameFinderEditText
+                mPresenter.movieFinderCalendarClicked(getActivity(), mMovieNameFinderTextView
                         .getText().toString());
                 break;
             default:
@@ -204,10 +210,10 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     private void clearForm() {
         mMovieFinderCalendarImageView.setVisibility(View.INVISIBLE);
         mTextDateFilter.setText("");
-        if(mMovieFinderTimeAdapter != null) {
+        if (mMovieFinderTimeAdapter != null) {
             mMovieFinderTimeAdapter.setMovieTheaterDetails(null);
         }
-        if(mMovieFinderTheaterAdapter != null) {
+        if (mMovieFinderTheaterAdapter != null) {
             mMovieFinderTheaterAdapter.setTheatersName(null);
         }
 
