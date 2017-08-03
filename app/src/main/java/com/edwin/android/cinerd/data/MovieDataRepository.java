@@ -259,6 +259,7 @@ public class MovieDataRepository {
                 .MovieEntry.COLUMN_NAME_BACKDROP_PATH)));
         movie.setPosterUrl(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
                 .MovieEntry.COLUMN_NAME_POSTER_PATH)));
+        movie.setRating(getRatingByMovieId(movie.getMovieId()));
         return movie;
     }
 
@@ -270,7 +271,6 @@ public class MovieDataRepository {
                     .CONTENT_URI, null, null, null, null);
             while (movieCursor.moveToNext()) {
                 com.edwin.android.cinerd.entity.Movie movie = parseMovie(movieCursor);
-                movie.setRating(getRatingByMovieId(movie.getMovieId()));
                 movies.add(movie);
             }
             return movies;
