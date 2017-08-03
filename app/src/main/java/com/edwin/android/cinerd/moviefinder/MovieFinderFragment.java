@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,8 +41,6 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     @BindView(R.id.edit_text_movie_name_finder)
     TextView mMovieNameFinderTextView;
     Unbinder unbinder;
-    @BindView(R.id.image_movie_finder_calendar)
-    ImageView mMovieFinderCalendarImageView;
     @BindView(R.id.text_date_filter)
     TextView mTextDateFilter;
     @BindView(R.id.recycler_view_available_hour)
@@ -98,7 +95,6 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                                         "name: " + movie.getName() + " selected", Toast
                                         .LENGTH_SHORT).show();
                                 mMovieNameFinderTextView.setText(movie.getName());
-                                mMovieFinderCalendarImageView.setVisibility(View.VISIBLE);
                                 dialog.dismiss();
                             }
                         });
@@ -183,13 +179,17 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         unbinder.unbind();
     }
 
-    @OnClick({R.id.edit_text_movie_name_finder, R.id.image_movie_finder_calendar})
+    @OnClick({R.id.edit_text_movie_name_finder, R.id.text_date_filter, R.id.view_line_text_date_filter})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.edit_text_movie_name_finder:
                 mPresenter.movieNameFilterClicked(getActivity());
                 break;
-            case R.id.image_movie_finder_calendar:
+            case R.id.text_date_filter:
+                mPresenter.movieFinderCalendarClicked(getActivity(), mMovieNameFinderTextView
+                        .getText().toString());
+                break;
+            case R.id.view_line_text_date_filter:
                 mPresenter.movieFinderCalendarClicked(getActivity(), mMovieNameFinderTextView
                         .getText().toString());
                 break;
@@ -208,7 +208,6 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
 
     private void clearForm() {
-        mMovieFinderCalendarImageView.setVisibility(View.INVISIBLE);
         mTextDateFilter.setText("");
         if (mMovieFinderTimeAdapter != null) {
             mMovieFinderTimeAdapter.setMovieTheaterDetails(null);

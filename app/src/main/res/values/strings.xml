@@ -34,5 +34,8 @@
     <!-- menu's titles -->
     <string name="menu_action_movie_title">Movies</string>
     <string name="menu_action_movie_theater_title">Theaters</string>
+    <string name="card_view_show_date_title">Choose a date</string>
+    <string name="text_date_filter_hint">Date</string>
+    <string name="card_view_title_choose_a_schedule">Choose a schedule</string>
 
 </resources>
