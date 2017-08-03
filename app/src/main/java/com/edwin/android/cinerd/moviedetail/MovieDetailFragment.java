@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -161,6 +162,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         Log.d(TAG, "Setting MovieDetail presenter");
         mPresenter = presenter;
     }
+
 
     private int getHexColor(int colorCode) {
         int color;

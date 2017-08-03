@@ -27,11 +27,7 @@
         </activity>
         <activity
             android:name=".moviedetail.MovieDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".movieposter.MoviePosterActivity"/>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".moviefinder.MovieFinderActivity"
             android:theme="@style/AppTheme.NoActionBar">

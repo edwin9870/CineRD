@@ -23,7 +23,6 @@ import butterknife.OnClick;
 public class TheaterActivity extends AppCompatActivity {
 
     public static final String TAG = TheaterActivity.class.getSimpleName();
-    public static final String BUNDLE_THEATER_ID = "BUNDLE_THEATER_ID";
     @Inject
     TheaterPresenter mPresenter;
     @BindView(R.id.floating_button_theater_menu)
@@ -35,8 +34,7 @@ public class TheaterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_theater);
         ButterKnife.bind(this);
 
-        //int theaterId = getIntent().getExtras().getInt(BUNDLE_THEATER_ID, 0);
-        TheaterFragment theaterFragment = TheaterFragment.newInstance(14);
+        TheaterFragment theaterFragment = TheaterFragment.newInstance();
 
         DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule
                 (new

@@ -35,7 +35,6 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
 
 
     public static final String TAG = TheaterFragment.class.getSimpleName();
-    public static final String ARGUMENT_THEATER_ID = "ARGUMENT_THEATER_ID";
     @BindView(R.id.recycler_view_theater_movie_poster)
     RecyclerView mRecyclerView;
     Unbinder unbinder;
@@ -45,12 +44,8 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
     public TheaterFragment() {
     }
 
-    public static TheaterFragment newInstance(int theaterId) {
-        TheaterFragment fragment = new TheaterFragment();
-        Bundle arguments = new Bundle();
-        arguments.putInt(ARGUMENT_THEATER_ID, theaterId);
-        fragment.setArguments(arguments);
-        return fragment;
+    public static TheaterFragment newInstance() {
+        return new TheaterFragment();
     }
 
     @Override

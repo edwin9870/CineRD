@@ -20,8 +20,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.edwin.android.cinerd.util.ActivityUtil.parents;
-
 public class MoviePosterActivity extends AppCompatActivity {
 
     public static final String TAG = MoviePosterActivity.class.getSimpleName();
@@ -83,6 +81,5 @@ public class MoviePosterActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        parents.push(getClass());
     }
 }

@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
@@ -27,7 +28,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         long movieId = getIntent().getExtras().getLong(BUNDLE_MOVIE_ID, 0);
 
-        Log.d(TAG, "movieId: "+ movieId);
+        Log.d(TAG, "movieId: " + movieId);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -36,10 +37,21 @@ public class MovieDetailActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.fragment_movie_detail, movieDetailFragment);
         fragmentTransaction.commit();
 
-        DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule(new
+        DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule
+                (new
                 ApplicationModule(getApplication())).build();
         DaggerMovieDetailComponent.builder().databaseComponent(databaseComponent)
-                .movieDetailPresenterModule(new MovieDetailPresenterModule(movieDetailFragment)).build().inject(this);
+                .movieDetailPresenterModule(new MovieDetailPresenterModule(movieDetailFragment))
+                .build().inject(this);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
