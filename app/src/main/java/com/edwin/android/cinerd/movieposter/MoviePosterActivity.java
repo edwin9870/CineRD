@@ -62,7 +62,6 @@ public class MoviePosterActivity extends AppCompatActivity {
         }
 
         AccountGeneral.createSyncAccount(this);
-        MovieSyncAdapter.performSync();
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
