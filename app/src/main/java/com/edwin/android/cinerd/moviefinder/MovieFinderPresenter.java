@@ -13,6 +13,7 @@ import com.edwin.android.cinerd.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -123,7 +124,10 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
             }
         }
         Log.d(TAG, "theatersName: " + theatersName);
-        mView.showTheaters(new ArrayList<>(theatersName));
+
+        List<String> arrayListTheatersName = new ArrayList<>(theatersName);
+        Collections.sort(arrayListTheatersName);
+        mView.showTheaters(arrayListTheatersName);
     }
 
     /**

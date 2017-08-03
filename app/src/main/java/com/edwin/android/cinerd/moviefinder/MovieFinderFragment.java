@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -49,6 +50,12 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     RecyclerView mAvailableMovieTheatersRecyclerView;
     @BindView(R.id.toolbar_detail_movie)
     Toolbar mToolbar;
+    @BindView(R.id.card_view_calendar)
+    CardView mCalendarCardView;
+    @BindView(R.id.card_view_schedule)
+    CardView mScheduleCardView;
+    @BindView(R.id.card_view_movie_theater)
+    CardView mMovieTheaterCardView;
     private MovieFinderMVP.Presenter mPresenter;
     private MovieFinderTimeAdapter mMovieFinderTimeAdapter;
     private MovieFinderTheaterAdapter mMovieFinderTheaterAdapter;
@@ -95,6 +102,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                                         "name: " + movie.getName() + " selected", Toast
                                         .LENGTH_SHORT).show();
                                 mMovieNameFinderTextView.setText(movie.getName());
+                                mCalendarCardView.setVisibility(View.VISIBLE);
                                 dialog.dismiss();
                             }
                         });
@@ -122,6 +130,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                         Date dateClicked = instance.getTime();
                         mPresenter.showCalendarDate(getActivity(), mMovieNameFinderTextView
                                 .getText().toString(), dateClicked);
+                        mScheduleCardView.setVisibility(View.VISIBLE);
+                        mMovieTheaterCardView.setVisibility(View.INVISIBLE);
                     }
                 }, year, month, day);
         Date initialDate = new Date();
@@ -170,6 +180,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                 LinearLayoutManager.VERTICAL, false);
         mAvailableMovieTheatersRecyclerView.setLayoutManager(linearLayoutManager);
         mAvailableMovieTheatersRecyclerView.setAdapter(mMovieFinderTheaterAdapter);
+        mMovieTheaterCardView.setVisibility(View.VISIBLE);
 
     }
 
@@ -179,7 +190,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         unbinder.unbind();
     }
 
-    @OnClick({R.id.edit_text_movie_name_finder, R.id.text_date_filter, R.id.view_line_text_date_filter})
+    @OnClick({R.id.edit_text_movie_name_finder, R.id.text_date_filter, R.id
+            .view_line_text_date_filter})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.edit_text_movie_name_finder:
@@ -208,6 +220,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
 
     private void clearForm() {
+        mScheduleCardView.setVisibility(View.INVISIBLE);
+        mMovieTheaterCardView.setVisibility(View.INVISIBLE);
         mTextDateFilter.setText("");
         if (mMovieFinderTimeAdapter != null) {
             mMovieFinderTimeAdapter.setMovieTheaterDetails(null);
