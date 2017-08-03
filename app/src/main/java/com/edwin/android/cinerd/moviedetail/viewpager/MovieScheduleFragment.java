@@ -117,7 +117,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mMovieTimeRecyclerView.setNestedScrollingEnabled(true);
         mMovieTimeRecyclerView.setAdapter(mMovieTimeFormatAdapter);
 
-        mMovieDataRepository = new MovieDataRepository(getActivity().getContentResolver(), new
+        mMovieDataRepository = new MovieDataRepository(getActivity(), getActivity().getContentResolver(), new
                 MovieCollectorJSON
                 (getActivity()));
 

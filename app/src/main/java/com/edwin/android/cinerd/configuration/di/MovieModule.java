@@ -21,7 +21,7 @@ public class MovieModule {
     @Provides
     @Singleton
     @Named("MovieCollectorJSON")
-    MovieCollector provideMovieCollectorJson(@Named("application context") Context applicationContext) {
+    MovieCollector provideMovieCollectorJson(Context applicationContext) {
         return new MovieCollectorJSON(applicationContext);
     }
 }

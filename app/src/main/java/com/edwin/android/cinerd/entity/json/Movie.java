@@ -26,14 +26,20 @@ public class Movie implements Parcelable {
     private String mSynopsis;
     @SerializedName("theaters")
     private List<Theater> mTheaters;
+    @SerializedName("poster_url")
+    private String mPosterUrl;
+    @SerializedName("backdrop_url")
+    private String mBackdropUrl;
+
 
     protected Movie(Parcel in) {
         mGenre = in.createStringArrayList();
         mName = in.readString();
         mRating = in.readParcelable(Rating.class.getClassLoader());
-        mReleaseDate = new Date(in.readLong());
         mSynopsis = in.readString();
         mTheaters = in.createTypedArrayList(Theater.CREATOR);
+        mPosterUrl = in.readString();
+        mBackdropUrl = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -76,6 +82,14 @@ public class Movie implements Parcelable {
         return mTheaters;
     }
 
+    public String getPosterUrl() {
+        return mPosterUrl;
+    }
+
+    public String getBackdropUrl() {
+        return mBackdropUrl;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -89,6 +103,7 @@ public class Movie implements Parcelable {
                 '}';
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,8 +114,9 @@ public class Movie implements Parcelable {
         parcel.writeStringList(mGenre);
         parcel.writeString(mName);
         parcel.writeParcelable(mRating, i);
-        parcel.writeLong(mReleaseDate.getTime());
         parcel.writeString(mSynopsis);
         parcel.writeTypedList(mTheaters);
+        parcel.writeString(mPosterUrl);
+        parcel.writeString(mBackdropUrl);
     }
 }

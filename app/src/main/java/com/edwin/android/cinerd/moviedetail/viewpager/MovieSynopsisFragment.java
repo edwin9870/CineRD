@@ -60,7 +60,7 @@ public class MovieSynopsisFragment extends Fragment {
         Log.d(TAG, "MovieSynopsis created");
         Log.d(TAG, "Movie synopsis: " + mMovieId);
 
-        MovieDataRepository movieDataRepository = new MovieDataRepository(getActivity()
+        MovieDataRepository movieDataRepository = new MovieDataRepository(getActivity(), getActivity()
                 .getContentResolver(), new
                 MovieCollectorJSON
                 (getActivity()));

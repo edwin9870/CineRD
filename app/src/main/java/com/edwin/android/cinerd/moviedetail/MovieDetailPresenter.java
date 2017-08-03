@@ -41,8 +41,9 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     @Override
     public void showMovieDetail(long movieId) {
         Log.d(TAG, "Start executing showMovieDetail method");
-        mView.setBackdropImage(R.drawable.maxmaxbackdrop);
+
         com.edwin.android.cinerd.entity.Movie movie = mMovieDataRepository.getMovieById(movieId);
+        mView.setImage(movie);
 
         mView.setMovieName(movie.getName());
         List<Genre> genres = mMovieDataRepository.getGenresByMovieId(movieId);

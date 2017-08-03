@@ -3,6 +3,7 @@ package com.edwin.android.cinerd.data;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +16,10 @@ import com.edwin.android.cinerd.entity.json.Rating;
 import com.edwin.android.cinerd.entity.json.Room;
 import com.edwin.android.cinerd.entity.json.Theater;
 import com.edwin.android.cinerd.util.DateUtil;
+import com.edwin.android.cinerd.util.ImageUtil;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -34,11 +38,13 @@ public class MovieDataRepository {
     public static final String TAG = MovieDataRepository.class.getSimpleName();
     public static final String ROTTEN_TOMATOES = "RottenTomatoes";
     public static final String IMDB = "IMDB";
+    private final Context mContext;
     ContentResolver mContentResolver;
     MovieCollector mMovieCollector;
 
     @Inject
-    public MovieDataRepository(ContentResolver contentResolver, MovieCollectorJSON movieCollector) {
+    public MovieDataRepository(Context context, ContentResolver contentResolver, MovieCollectorJSON movieCollector) {
+        this.mContext = context;
         this.mContentResolver = contentResolver;
         this.mMovieCollector = movieCollector;
     }
@@ -249,6 +255,10 @@ public class MovieDataRepository {
                 .MovieEntry.COLUMN_NAME_RELEASE_DATE));
         movie.setReleaseDate(DateUtil.getDateFromString(releaseDateText));
         movie.setSynopsis(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS)));
+        movie.setBackdropUrl(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
+                .MovieEntry.COLUMN_NAME_BACKDROP_PATH)));
+        movie.setPosterUrl(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
+                .MovieEntry.COLUMN_NAME_POSTER_PATH)));
         return movie;
     }
 
@@ -427,10 +437,17 @@ public class MovieDataRepository {
     }
 
     private long persistMovie(Movie movie, ContentValues cv) {
-        long movieId;Cursor cursor = null;
+        long movieId = 0;
+        Cursor cursor = null;
         try {
             cursor = mContentResolver.query(CineRdContract.MovieEntry.CONTENT_URI, null,
                     CineRdContract.MovieEntry.COLUMN_NAME_NAME + " = ?", new String[]{movie.getName()}, null);
+
+
+            String backDropFilePath = ImageUtil.saveImageFromURL(mContext, new URL(movie.getBackdropUrl()));
+            Log.d(TAG, "backDropFilePath: " + backDropFilePath);
+            String posterFilePath = ImageUtil.saveImageFromURL(mContext, new URL(movie.getPosterUrl()));
+            Log.d(TAG, "posterFilePath: " + posterFilePath);
 
             if (cursor != null && cursor.moveToNext()) {
                 movieId = cursor.getLong(cursor.getColumnIndexOrThrow(CineRdContract.MovieEntry
@@ -440,12 +457,15 @@ public class MovieDataRepository {
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_NAME, movie.getName());
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_DURATION, movie.getDuration());
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, DateUtil.formatDateTime(movie.getReleaseDate()));
-
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS, movie.getSynopsis());
+                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_BACKDROP_PATH, backDropFilePath);
+                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_POSTER_PATH, posterFilePath);
 
                 movieId = ContentUris.parseId(mContentResolver.insert(CineRdContract.MovieEntry.CONTENT_URI, cv));
                 Log.d(TAG, "MovieID generated: " + movieId);
             }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         } finally {
             if(cursor != null) {
                 cursor.close();

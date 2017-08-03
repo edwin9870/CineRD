@@ -1,5 +1,7 @@
 package com.edwin.android.cinerd.moviedetail;
 
+import com.edwin.android.cinerd.entity.Movie;
+
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ public interface MovieDetailMVP {
         void setMovieGenreDuration(List<String> genres, Short duration);
         void setMovieReleaseDate(String releaseDate);
         void setRating(String imdb, String rottenTomatoes);
-        void setBackdropImage(int resourceId);
+        void setImage(Movie movie);
         void setPresenter(Presenter presenter);
     }
 

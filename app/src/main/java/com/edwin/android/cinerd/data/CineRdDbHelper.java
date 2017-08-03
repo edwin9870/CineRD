@@ -38,6 +38,8 @@ public class CineRdDbHelper extends SQLiteOpenHelper {
                 MovieEntry.COLUMN_NAME_NAME + " VARCHAR(40) NOT NULL," +
                 MovieEntry.COLUMN_NAME_DURATION + " INT(3) NOT NULL," +
                 MovieEntry.COLUMN_NAME_SYNOPSIS + " TEXT NOT NULL," +
+                MovieEntry.COLUMN_NAME_POSTER_PATH + " TEXT NOT NULL," +
+                MovieEntry.COLUMN_NAME_BACKDROP_PATH + " TEXT NOT NULL," +
                 MovieEntry.COLUMN_NAME_RELEASE_DATE +  " RELEASE_DATE DATETIME NOT NULL);" +
                 "CREATE UNIQUE INDEX MOVIE_NAME_uindex ON "+MovieEntry.TABLE_NAME+" ("+MovieEntry.COLUMN_NAME_NAME+");";
         db.execSQL(SQL_CREATE_MOVIE_TABLE);

@@ -1,5 +1,7 @@
 package com.edwin.android.cinerd.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 import ir.mirrajabi.searchdialog.core.Searchable;
@@ -16,6 +18,8 @@ public class Movie implements Searchable {
     private Date releaseDate;
     private String synopsis;
     private Rating rating;
+    private String posterUrl;
+    private String backdropUrl;
 
     public long getMovieId() {
         return movieId;
@@ -65,6 +69,22 @@ public class Movie implements Searchable {
         this.rating = rating;
     }
 
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
+    }
+
+    public String getBackdropUrl() {
+        return backdropUrl;
+    }
+
+    public void setBackdropUrl(String backdropUrl) {
+        this.backdropUrl = backdropUrl;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,6 +111,8 @@ public class Movie implements Searchable {
                 ", releaseDate=" + releaseDate +
                 ", synopsis='" + synopsis + '\'' +
                 ", rating=" + rating +
+                ", posterUrl='" + posterUrl + '\'' +
+                ", backdropUrl='" + backdropUrl + '\'' +
                 '}';
     }
 

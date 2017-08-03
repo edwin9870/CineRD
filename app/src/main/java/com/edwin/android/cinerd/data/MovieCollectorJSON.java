@@ -24,7 +24,7 @@ public class MovieCollectorJSON implements MovieCollector {
     Context mContext;
 
     @Inject
-    public MovieCollectorJSON(@Named("application context") Context mContext) {
+    public MovieCollectorJSON(Context mContext) {
         this.mContext = mContext;
     }
 

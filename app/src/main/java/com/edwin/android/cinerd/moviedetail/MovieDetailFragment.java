@@ -13,23 +13,26 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
+import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.ViewPagerAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.edwin.android.cinerd.util.ImageUtil.getImageFile;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -150,11 +153,14 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     }
 
     @Override
-    public void setBackdropImage(int resourceId) {
+    public void setImage(Movie movie) {
         Picasso picasso = Picasso.with(getActivity());
         //TODO: Add failude image background
-        picasso.load(R.drawable.maxmaxbackdrop).fit().into(imageMovieBackdrop);
-        picasso.load(R.drawable.maxmaxposter).fit().into(mMovieDetailPosterImageView);
+        File backdropImageFile = getImageFile(getActivity(), movie.getBackdropUrl());
+        picasso.load(backdropImageFile).fit().into(imageMovieBackdrop);
+
+        File posterImageFile = getImageFile(getActivity(), movie.getPosterUrl());
+        picasso.load(posterImageFile).fit().into(mMovieDetailPosterImageView);
     }
 
     @Override
