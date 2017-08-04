@@ -20,6 +20,7 @@ public class Movie implements Searchable {
     private Rating rating;
     private String posterUrl;
     private String backdropUrl;
+    private String trailerUrl;
 
     public long getMovieId() {
         return movieId;
@@ -85,6 +86,14 @@ public class Movie implements Searchable {
         this.backdropUrl = backdropUrl;
     }
 
+    public String getTrailerUrl() {
+        return trailerUrl;
+    }
+
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,7 +110,6 @@ public class Movie implements Searchable {
         return (int) (movieId ^ (movieId >>> 32));
     }
 
-
     @Override
     public String toString() {
         return "Movie{" +
@@ -113,6 +121,7 @@ public class Movie implements Searchable {
                 ", rating=" + rating +
                 ", posterUrl='" + posterUrl + '\'' +
                 ", backdropUrl='" + backdropUrl + '\'' +
+                ", trailerUrl='" + trailerUrl + '\'' +
                 '}';
     }
 

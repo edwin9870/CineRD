@@ -2,6 +2,8 @@ package com.edwin.android.cinerd.moviedetail;
 
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.edwin.android.cinerd.util.ImageUtil.getImageFile;
@@ -66,6 +70,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     CollapsingToolbarLayout mCollapsingToolbar;
     @BindView(R.id.image_movie_detail_poster)
     ImageView mMovieDetailPosterImageView;
+    @BindView(R.id.image_button_play_trailer)
+    ImageButton mPlayTrailerImageButton;
     private Unbinder mUnbinder;
     private MovieDetailMVP.Presenter mPresenter;
     private MovieScheduleFragment mScheduleFragment;
@@ -169,6 +175,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         mPresenter = presenter;
     }
 
+    @Override
+    public void openTrailer(String trailerUrl) {
+        Log.d(TAG, "Movie trailer url: " + trailerUrl);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(trailerUrl));
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
 
     private int getHexColor(int colorCode) {
         int color;
@@ -180,4 +196,9 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         return color;
     }
 
+    @OnClick(R.id.image_button_play_trailer)
+    public void onViewClicked() {
+        Log.d(TAG, "image button play trailer");
+        mPresenter.showTrailer(mMovieId);
+    }
 }

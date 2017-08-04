@@ -259,6 +259,8 @@ public class MovieDataRepository {
                 .MovieEntry.COLUMN_NAME_BACKDROP_PATH)));
         movie.setPosterUrl(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
                 .MovieEntry.COLUMN_NAME_POSTER_PATH)));
+        movie.setTrailerUrl(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
+                .MovieEntry.COLUMN_NAME_TRAILER_URL)));
         movie.setRating(getRatingByMovieId(movie.getMovieId()));
         return movie;
     }
@@ -460,6 +462,7 @@ public class MovieDataRepository {
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS, movie.getSynopsis());
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_BACKDROP_PATH, backDropFilePath);
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_POSTER_PATH, posterFilePath);
+                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_TRAILER_URL, movie.getmTrailerUrl());
 
                 movieId = ContentUris.parseId(mContentResolver.insert(CineRdContract.MovieEntry.CONTENT_URI, cv));
                 Log.d(TAG, "MovieID generated: " + movieId);

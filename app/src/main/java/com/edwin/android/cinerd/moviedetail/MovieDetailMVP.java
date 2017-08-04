@@ -17,10 +17,12 @@ public interface MovieDetailMVP {
         void setRating(String imdb, String rottenTomatoes);
         void setImage(Movie movie);
         void setPresenter(Presenter presenter);
+        void openTrailer(String trailerUrl);
     }
 
     interface Presenter {
         void showMovieDetail(long movieId);
         void getMoviesByDayMovieNameTheaterName(int day, String movieName, String theaterName);
+        void showTrailer(long mMovieId);
     }
 }

@@ -1,10 +1,12 @@
 package com.edwin.android.cinerd.moviedetail;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieDataRepository;
 import com.edwin.android.cinerd.entity.Genre;
+import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Rating;
 
 import java.text.SimpleDateFormat;
@@ -63,6 +65,23 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
 
     @Override
     public void getMoviesByDayMovieNameTheaterName(int day, String movieName, String theaterName) {
+
+    }
+
+    @Override
+    public void showTrailer(final long movieId) {
+        new AsyncTask<Void, Void, Movie>() {
+
+            @Override
+            protected Movie doInBackground(Void... voids) {
+                return mMovieDataRepository.getMovieById(movieId);
+            }
+
+            @Override
+            protected void onPostExecute(Movie movie) {
+                mView.openTrailer(movie.getTrailerUrl());
+            }
+        }.execute();
 
     }
 }

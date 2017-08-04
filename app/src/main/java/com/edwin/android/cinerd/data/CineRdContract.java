@@ -35,6 +35,7 @@ public class CineRdContract {
         public static final String COLUMN_NAME_SYNOPSIS = "SYNOPSIS";
         public static final String COLUMN_NAME_POSTER_PATH = "POSTER_PATH";
         public static final String COLUMN_NAME_BACKDROP_PATH = "BACKDROP_PATH";
+        public static final String COLUMN_NAME_TRAILER_URL = "TRAILER_URL";
     }
 
     public static class FormatEntry implements BaseColumns {

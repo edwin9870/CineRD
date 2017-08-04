@@ -30,6 +30,8 @@ public class Movie implements Parcelable {
     private String mPosterUrl;
     @SerializedName("backdrop_url")
     private String mBackdropUrl;
+    @SerializedName("trailer_url")
+    private String mTrailerUrl;
 
 
     protected Movie(Parcel in) {
@@ -40,6 +42,24 @@ public class Movie implements Parcelable {
         mTheaters = in.createTypedArrayList(Theater.CREATOR);
         mPosterUrl = in.readString();
         mBackdropUrl = in.readString();
+        mTrailerUrl = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringList(mGenre);
+        dest.writeString(mName);
+        dest.writeParcelable(mRating, flags);
+        dest.writeString(mSynopsis);
+        dest.writeTypedList(mTheaters);
+        dest.writeString(mPosterUrl);
+        dest.writeString(mBackdropUrl);
+        dest.writeString(mTrailerUrl);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -90,6 +110,10 @@ public class Movie implements Parcelable {
         return mBackdropUrl;
     }
 
+    public String getmTrailerUrl() {
+        return mTrailerUrl;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -97,26 +121,12 @@ public class Movie implements Parcelable {
                 ", mGenre=" + mGenre +
                 ", mName='" + mName + '\'' +
                 ", mRating=" + mRating +
-                ", mReleaseDate='" + mReleaseDate + '\'' +
+                ", mReleaseDate=" + mReleaseDate +
                 ", mSynopsis='" + mSynopsis + '\'' +
                 ", mTheaters=" + mTheaters +
+                ", mPosterUrl='" + mPosterUrl + '\'' +
+                ", mBackdropUrl='" + mBackdropUrl + '\'' +
+                ", mTrailerUrl='" + mTrailerUrl + '\'' +
                 '}';
-    }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeStringList(mGenre);
-        parcel.writeString(mName);
-        parcel.writeParcelable(mRating, i);
-        parcel.writeString(mSynopsis);
-        parcel.writeTypedList(mTheaters);
-        parcel.writeString(mPosterUrl);
-        parcel.writeString(mBackdropUrl);
     }
 }
