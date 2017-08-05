@@ -117,8 +117,8 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
             if (instance.get(Calendar.HOUR) == hour &&
                     instance.get(Calendar.MINUTE) == minute &&
                     instance.get(Calendar.DAY_OF_YEAR) == dayOfTheYear) {
-                theaterName = mRepository.getTheaterNameById(movieTheaterDetail
-                        .getTheaterId());
+                theaterName = mRepository.getTheaterById(movieTheaterDetail
+                        .getTheaterId()).getTitle();
                 theatersName.add(theaterName);
 
             }

@@ -162,7 +162,7 @@ public class MovieDataRepository {
         return movieTheaterDetail;
     }
 
-    public String getTheaterNameById(int theaterId) {
+    public com.edwin.android.cinerd.entity.Theater getTheaterById(int theaterId) {
         Cursor theaterCursor = null;
 
         try {
@@ -175,7 +175,8 @@ public class MovieDataRepository {
             if (theaterCursor.moveToNext()) {
                 String theaterName = theaterCursor.getString(theaterCursor.getColumnIndex(CineRdContract.TheaterEntry.COLUMN_NAME_NAME));
                 Log.d(TAG, "theaterName: " + theaterName);
-                return theaterName;
+                return new com.edwin.android.cinerd
+                        .entity.Theater(theaterName, theaterId);
             }
             return null;
         } finally {
@@ -720,4 +721,29 @@ public class MovieDataRepository {
         return roomId;
     }
 
+    public List<com.edwin.android.cinerd.entity.Theater> getAllTheatersByMinDate(Date minDate) {
+        Cursor movieTheaterDetailCursor = null;
+
+        try {
+            Set<com.edwin.android.cinerd.entity.Theater> theaters = new HashSet<>();
+            movieTheaterDetailCursor = mContentResolver.query(CineRdContract
+                    .MovieTheaterDetailEntry
+                    .CONTENT_URI, null, " date(" + CineRdContract
+                    .MovieTheaterDetailEntry
+                    .COLUMN_NAME_AVAILABLE_DATE + ") >= date('" + DateUtil.formatDate
+                    (minDate) + "')", null, null);
+
+            while (movieTheaterDetailCursor.moveToNext()) {
+                int theaterId = movieTheaterDetailCursor.getInt(movieTheaterDetailCursor.getColumnIndex
+
+                        (CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_THEATER_ID));
+                theaters.add(getTheaterById(theaterId));
+            }
+            return new ArrayList<>(theaters);
+        } finally {
+            if (movieTheaterDetailCursor != null) {
+                movieTheaterDetailCursor.close();
+            }
+        }
+    }
 }

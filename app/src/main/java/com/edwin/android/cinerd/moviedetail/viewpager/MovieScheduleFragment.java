@@ -166,7 +166,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
         Set<Theater> theatersName = new HashSet<>();
         for (MovieTheaterDetail detail : movieTheaterDetails) {
-            String theaterName = mMovieDataRepository.getTheaterNameById(detail.getTheaterId());
+            String theaterName = mMovieDataRepository.getTheaterById(detail.getTheaterId()).getTitle();
             theatersName.add(new Theater(theaterName, detail.getTheaterId()));
         }
 

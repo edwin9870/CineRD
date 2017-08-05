@@ -23,7 +23,7 @@ public interface TheaterMVP {
         void setActivityTitle(int mTheaterId);
         void setActivityTitle(String title);
         void showTheatersDialog();
-        void onClickfabButton();
+        void onClickFabButton();
 
     }
 }

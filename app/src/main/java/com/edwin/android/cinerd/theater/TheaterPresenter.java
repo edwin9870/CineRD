@@ -7,6 +7,7 @@ import com.edwin.android.cinerd.data.MovieDataRepository;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Theater;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -52,7 +53,7 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
-                return mRepository.getTheaterNameById(mTheaterId);
+                return mRepository.getTheaterById(mTheaterId).getTitle();
             }
 
             @Override
@@ -74,7 +75,7 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
 
             @Override
             protected List<Theater> doInBackground(Void... voids) {
-                return mRepository.getAllTheaters();
+                return mRepository.getAllTheatersByMinDate(new Date());
             }
 
             @Override
@@ -86,7 +87,7 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
     }
 
     @Override
-    public void onClickfabButton() {
+    public void onClickFabButton() {
         showTheatersDialog();
     }
 }

@@ -63,6 +63,6 @@ public class TheaterActivity extends AppCompatActivity {
 
     @OnClick(R.id.floating_button_theater_menu)
     public void onViewClicked() {
-        mPresenter.onClickfabButton();
+        mPresenter.onClickFabButton();
     }
 }
