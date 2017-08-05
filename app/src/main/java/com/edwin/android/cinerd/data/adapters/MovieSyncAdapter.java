@@ -12,7 +12,7 @@ import android.util.Log;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.data.MovieCollector;
-import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
 import com.edwin.android.cinerd.entity.json.Movie;
 
 import java.util.List;

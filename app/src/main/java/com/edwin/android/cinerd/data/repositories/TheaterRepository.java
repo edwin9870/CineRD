@@ -1,10 +1,11 @@
-package com.edwin.android.cinerd.data;
+package com.edwin.android.cinerd.data.repositories;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.edwin.android.cinerd.data.CineRdContract;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.util.DateUtil;
 

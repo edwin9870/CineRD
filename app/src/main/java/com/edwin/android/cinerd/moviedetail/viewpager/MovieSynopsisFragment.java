@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
-import com.edwin.android.cinerd.data.MovieDataRepository;
-import com.edwin.android.cinerd.data.MovieTheaterDetailRepository;
+import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.MovieTheaterDetailRepository;
+import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.entity.Movie;
 
 import butterknife.BindView;
@@ -65,7 +66,7 @@ public class MovieSynopsisFragment extends Fragment {
         MovieTheaterDetailRepository movieTheaterDetailRepository = new
                 MovieTheaterDetailRepository(getActivity());
         MovieDataRepository movieDataRepository = new MovieDataRepository(getActivity(),
-                movieCollectorJSON, movieTheaterDetailRepository);
+                movieCollectorJSON, movieTheaterDetailRepository, new RatingRepository(getActivity()));
 
         Movie movie = movieDataRepository.getMovieById(mMovieId);
         mMovieSynopsisTextView.setText(movie.getSynopsis());

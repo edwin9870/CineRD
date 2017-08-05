@@ -1,9 +1,11 @@
-package com.edwin.android.cinerd.data;
+package com.edwin.android.cinerd.data.repositories;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
+
+import com.edwin.android.cinerd.data.CineRdContract;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -1,4 +1,4 @@
-package com.edwin.android.cinerd.data;
+package com.edwin.android.cinerd.data.repositories;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -9,6 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.edwin.android.cinerd.data.CineRdContract;
+import com.edwin.android.cinerd.data.MovieCollector;
+import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.entity.Genre;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Movie;

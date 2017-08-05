@@ -2,7 +2,7 @@ package com.edwin.android.cinerd.movieposter;
 
 import android.os.AsyncTask;
 
-import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
 import com.edwin.android.cinerd.entity.Movie;
 
 import java.util.List;

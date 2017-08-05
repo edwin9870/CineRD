@@ -3,8 +3,8 @@ package com.edwin.android.cinerd.theater;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.edwin.android.cinerd.data.MovieDataRepository;
-import com.edwin.android.cinerd.data.TheaterRepository;
+import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.TheaterRepository;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Theater;
 

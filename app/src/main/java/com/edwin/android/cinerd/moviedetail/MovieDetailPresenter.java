@@ -5,7 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.entity.Genre;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Rating;
@@ -28,12 +29,15 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     public static final String TAG = MovieDetailPresenter.class.getSimpleName();
     private final MovieDetailMVP.View mView;
     private final MovieDataRepository mMovieDataRepository;
+    private final RatingRepository mRatingRepository;
 
     @Inject
-    public MovieDetailPresenter(MovieDetailMVP.View mView, MovieDataRepository
-            mMovieDataRepository) {
+    public MovieDetailPresenter(MovieDetailMVP.View mView,
+                                MovieDataRepository mMovieDataRepository,
+                                RatingRepository ratingRepository) {
         this.mView = mView;
         this.mMovieDataRepository = mMovieDataRepository;
+        this.mRatingRepository = ratingRepository;
     }
 
     @Inject
@@ -59,7 +63,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
 
         SimpleDateFormat df = new SimpleDateFormat(context.getString(R.string.date_calendar), Locale.US);
         mView.setMovieReleaseDate(df.format(movie.getReleaseDate()));
-        Rating rating = mMovieDataRepository.getRatingByMovieId(movieId);
+        Rating rating = mRatingRepository.getRatingByMovieId(movieId);
         mView.setRating(rating.getImdb(), rating.getRottenTomatoes());
     }
 
