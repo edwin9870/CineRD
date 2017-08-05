@@ -21,5 +21,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Movie.Detail.Text" parent="Base.TextAppearance.AppCompat.Subhead">
+        <item name="android:textColor">#BFFFFFFF</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 
 </resources>

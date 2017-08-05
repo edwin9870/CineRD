@@ -8,4 +8,6 @@
 
     <color name="movieHeaderBackground">#66000000</color>
 
+    <color name="line_color">#ffff</color>
+
 </resources>

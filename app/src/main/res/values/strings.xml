@@ -37,5 +37,7 @@
     <string name="card_view_show_date_title">Choose a date</string>
     <string name="text_date_filter_hint">Date</string>
     <string name="card_view_title_choose_a_schedule">Choose a schedule</string>
+    <string name="card_view_movie_theaters_title">Movie theaters</string>
+
 
 </resources>

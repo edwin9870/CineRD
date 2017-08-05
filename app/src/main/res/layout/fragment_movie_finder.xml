@@ -21,10 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="24dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="24dp">
+            android:paddingBottom="@dimen/content_padding_bottom"
+            android:paddingEnd="@dimen/content_padding_right"
+            android:paddingLeft="@dimen/content_padding_left"
+            android:paddingRight="@dimen/content_padding_right"
+            android:paddingStart="@dimen/content_padding_left"
+            android:paddingTop="@dimen/content_padding_top">
 
             <TextView
                 android:id="@+id/edit_text_movie_name_finder"
@@ -38,7 +40,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#ffff"/>
+                android:background="@color/line_color"/>
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -57,11 +59,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/card_view_movie_finder_margin_right"
+                android:layout_marginLeft="@dimen/card_view_movie_finder_margin_left"
+                android:layout_marginRight="@dimen/card_view_movie_finder_margin_right"
+                android:layout_marginStart="@dimen/card_view_movie_finder_margin_left"
+                android:layout_marginTop="@dimen/card_view_movie_finder_margin_top"
                 android:visibility="invisible"
-                app:contentPadding="16dp">
+                app:contentPadding="@dimen/card_view_movie_finder_padding">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,7 +83,7 @@
                         style="@style/TextAppearance.AppCompat.Subhead"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/text_date_filter_margin_top"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:hint="@string/text_date_filter_hint"
@@ -89,7 +93,7 @@
                         android:id="@+id/view_line_text_date_filter"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#ffffff"/>
+                        android:background="@color/line_color"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -98,11 +102,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/card_view_movie_finder_margin_right"
+                android:layout_marginLeft="@dimen/card_view_movie_finder_margin_left"
+                android:layout_marginRight="@dimen/card_view_movie_finder_margin_right"
+                android:layout_marginStart="@dimen/card_view_movie_finder_margin_left"
+                android:layout_marginTop="@dimen/card_view_movie_finder_margin_top"
                 android:visibility="invisible"
-                app:contentPadding="16dp">
+                app:contentPadding="@dimen/card_view_movie_finder_padding">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -119,7 +125,7 @@
                         android:id="@+id/recycler_view_available_hour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"/>
+                        android:layout_marginTop="@dimen/recycler_view_available_hour_margin_top"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -128,11 +134,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/card_view_movie_finder_margin_right"
+                android:layout_marginLeft="@dimen/card_view_movie_finder_margin_left"
+                android:layout_marginRight="@dimen/card_view_movie_finder_margin_right"
+                android:layout_marginStart="@dimen/card_view_movie_finder_margin_left"
+                android:layout_marginTop="@dimen/card_view_movie_finder_margin_top"
                 android:visibility="invisible"
-                app:contentPadding="16dp"
+                app:contentPadding="@dimen/card_view_movie_finder_padding"
                 >
 
                 <LinearLayout
@@ -144,13 +152,13 @@
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Movie theaters"/>
+                        android:text="@string/card_view_movie_theaters_title"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view_available_movie_theaters"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"/>
+                        android:layout_marginTop="@dimen/recycler_view_available_movie_theaters_margin_top"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -158,4 +166,3 @@
 
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
-
