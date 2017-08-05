@@ -1,5 +1,7 @@
 package com.edwin.android.cinerd.moviedetail;
 
+import android.content.Context;
+
 import com.edwin.android.cinerd.entity.Movie;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public interface MovieDetailMVP {
     }
 
     interface Presenter {
-        void showMovieDetail(long movieId);
+        void showMovieDetail(Context context, long movieId);
         void getMoviesByDayMovieNameTheaterName(int day, String movieName, String theaterName);
         void showTrailer(long mMovieId);
     }

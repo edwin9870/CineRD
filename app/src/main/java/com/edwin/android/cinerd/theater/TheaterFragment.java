@@ -64,8 +64,8 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
         mPresenter.setActivityTitle(getResources().getString(R.string.theater_activity_title));
 
         mAdapter = new MoviePosterAdapter(getActivity(), this);
-        //TODO: Use a integer resource for column size
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), getResources()
+                .getInteger(R.integer.theater_columns));
 
         mRecyclerView.setLayoutManager(gridLayoutManager);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen

@@ -112,7 +112,6 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         searchDialogCompat.show();
     }
 
-    //TODO: If maxAdditionalDays is greater than -1, don't open Date Dialog
     @Override
     public void showCalendar(int maxAdditionalDays) {
         Log.d(TAG, "Showing calendar");

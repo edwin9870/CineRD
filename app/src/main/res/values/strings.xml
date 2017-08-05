@@ -22,16 +22,13 @@
 
     <!-- Date utils-->
     <string name="date_hour_minute">HH:mm</string>
-    <string name="date_calendar">MMMM dd, yyyy</string>
+    <string name="date_calendar" translatable="false">MMMM dd, yyyy</string>
 
     <!-- dialog_movie_theater_filter.xml -->
     <string name="dialog_movie_theater_title">Movie or Movie theater</string>
 
     <!-- fragment_movie_finder.xml -->
     <string name="movie_name_finder_filter">Movie Name</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- menu's titles -->
     <string name="menu_action_movie_title">Movies</string>
@@ -40,6 +37,7 @@
     <string name="text_date_filter_hint">Date</string>
     <string name="card_view_title_choose_a_schedule">Choose a schedule</string>
     <string name="card_view_movie_theaters_title">Movie theaters</string>
+
 
 
 </resources>

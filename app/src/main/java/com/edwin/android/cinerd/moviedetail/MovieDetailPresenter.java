@@ -1,5 +1,6 @@
 package com.edwin.android.cinerd.moviedetail;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -41,7 +42,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     }
 
     @Override
-    public void showMovieDetail(long movieId) {
+    public void showMovieDetail(Context context, long movieId) {
         Log.d(TAG, "Start executing showMovieDetail method");
 
         com.edwin.android.cinerd.entity.Movie movie = mMovieDataRepository.getMovieById(movieId);
@@ -56,8 +57,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         }
         mView.setMovieGenreDuration(new ArrayList<>(genresName), movie.getDuration());
 
-        //TODO: Pass string date to string.xml
-        SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy", Locale.US);
+        SimpleDateFormat df = new SimpleDateFormat(context.getString(R.string.date_calendar), Locale.US);
         mView.setMovieReleaseDate(df.format(movie.getReleaseDate()));
         Rating rating = mMovieDataRepository.getRatingByMovieId(movieId);
         mView.setRating(rating.getImdb(), rating.getRottenTomatoes());

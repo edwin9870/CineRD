@@ -108,7 +108,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         mCollapsingToolbar.setExpandedTitleColor(getHexColor(android.R.color.transparent));
 
         Log.d(TAG, "Movie ID displayed: " + mMovieId);
-        mPresenter.showMovieDetail(mMovieId);
+        mPresenter.showMovieDetail(getActivity(), mMovieId);
 
         mAdapter = new ViewPagerAdapter(getFragmentManager());
 
@@ -161,7 +161,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     @Override
     public void setImage(Movie movie) {
         Picasso picasso = Picasso.with(getActivity());
-        //TODO: Add failude image background
         File backdropImageFile = getImageFile(getActivity(), movie.getBackdropUrl());
         picasso.load(backdropImageFile).fit().into(imageMovieBackdrop);
 

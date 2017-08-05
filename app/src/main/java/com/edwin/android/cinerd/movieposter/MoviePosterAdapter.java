@@ -55,7 +55,6 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter
 
             Picasso picasso = Picasso.with(mContext);
 
-            //TODO: Add failude image background
             picasso.load(getImageFile(mContext, movie.getPosterUrl())).fit()
                     .into(holder.mMoviePosterImageView);
 
