@@ -21,7 +21,6 @@ import com.edwin.android.cinerd.util.ImageUtil;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,21 +35,22 @@ import javax.inject.Singleton;
 @Singleton
 public class MovieDataRepository {
     public static final String TAG = MovieDataRepository.class.getSimpleName();
-    public static final String ROTTEN_TOMATOES = "RottenTomatoes";
-    public static final String IMDB = "IMDB";
     private final Context mContext;
     private final MovieTheaterDetailRepository movieTheaterDetailRepository;
+    private final RatingRepository ratingRepository;
     ContentResolver mContentResolver;
     MovieCollector mMovieCollector;
 
     @Inject
     public MovieDataRepository(Context context,
-                               MovieCollectorJSON movieCollector, MovieTheaterDetailRepository
-                                           movieTheaterDetailRepository) {
+                               MovieCollectorJSON movieCollector,
+                               MovieTheaterDetailRepository movieTheaterDetailRepository,
+                               RatingRepository ratingRepository) {
         this.mContext = context;
         this.mContentResolver = context.getContentResolver();
         this.mMovieCollector = movieCollector;
         this.movieTheaterDetailRepository = movieTheaterDetailRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     public void process(List<Movie> movies) {
@@ -139,7 +139,7 @@ public class MovieDataRepository {
                 .MovieEntry.COLUMN_NAME_POSTER_PATH)));
         movie.setTrailerUrl(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
                 .MovieEntry.COLUMN_NAME_TRAILER_URL)));
-        movie.setRating(getRatingByMovieId(movie.getMovieId()));
+        movie.setRating(ratingRepository.getRatingByMovieId(movie.getMovieId()));
         return movie;
     }
 
@@ -161,52 +161,6 @@ public class MovieDataRepository {
         }
     }
 
-    public com.edwin.android.cinerd.entity.Rating getRatingByMovieId(long movieId) {
-        com.edwin.android.cinerd.entity.Rating rating = new com.edwin.android.cinerd.entity.Rating();
-
-        Cursor movieRatingCursor = mContentResolver.query(CineRdContract.MovieRatingEntry.CONTENT_URI, null,
-                CineRdContract
-                .MovieRatingEntry.COLUMN_NAME_MOVIE_ID + " = ?", new String[]{String.valueOf
-                        (movieId)}, null);
-        rating.setMovieId(movieId);
-
-        while(movieRatingCursor.moveToNext()) {
-            String ratingValue = movieRatingCursor.getString(movieRatingCursor.getColumnIndex
-                    (CineRdContract.MovieRatingEntry.COLUMN_NAME_RATING));
-                short ratingId = movieRatingCursor.getShort(movieRatingCursor.getColumnIndex
-                        (CineRdContract
-                                .MovieRatingEntry.COLUMN_NAME_RATING_PROVIDER));
-                String ratingName = getRatingNameByRatingId(ratingId);
-                if (ratingName.toUpperCase().equals(IMDB)) {
-                    rating.setImdb(ratingValue);
-                } else {
-                    rating.setRottenTomatoes(ratingValue);
-                }
-        }
-        return rating;
-    }
-
-    @Nullable
-    private String getRatingNameByRatingId(short ratingId) {
-        Cursor ratingCursor = null;
-        try {
-            ratingCursor = mContentResolver.query(CineRdContract.RatingEntry.CONTENT_URI, null,
-                    CineRdContract
-                            .RatingEntry._ID + " = ?", new String[]{String.valueOf(ratingId)}, null);
-
-            if(ratingCursor.moveToNext()) {
-                String ratingName = ratingCursor.getString(ratingCursor.getColumnIndex(CineRdContract
-                        .RatingEntry.COLUMN_NAME_NAME));
-                return ratingName;
-            } else {
-                return null;
-            }
-        } finally {
-            if(ratingCursor != null) {
-                ratingCursor.close();
-            }
-        }
-    }
 
     public List<Genre> getGenresByMovieId(long movieId) {
         Cursor movieGenreCursor = null;
@@ -370,8 +324,8 @@ public class MovieDataRepository {
 
     private void persistMovieRating(long movieId, Rating rating) {
 
-        short rottenTomatoesRatingId = persistRating(MovieDataRepository.ROTTEN_TOMATOES);
-        short imdbRattingId = persistRating(MovieDataRepository.IMDB);
+        short rottenTomatoesRatingId = persistRating(RatingRepository.ROTTEN_TOMATOES);
+        short imdbRattingId = persistRating(RatingRepository.IMDB);
 
         ContentValues cv = new ContentValues();
         cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_MOVIE_ID, movieId);
