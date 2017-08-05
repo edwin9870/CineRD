@@ -13,6 +13,8 @@
     <!-- Search dialog movie theater -->
     <string name="movie_theater_search_dialog_title">Find movie theater</string>
     <string name="movie_theater_search_dialog_input_place_holder">Movie theater name</string>
+    <string name="theater_finder_dialog_title">Select a theater</string>
+    <string name="theater_finder_dialog_place_holder">Theater name</string>
 
     <!-- Search dialog movie name filter -->
     <string name="movie_filter_search_dialog_title">Find a movie</string>

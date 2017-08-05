@@ -30,7 +30,6 @@ public class MoviePosterFragment extends Fragment implements
 
 
     public static final String TAG = MoviePosterFragment.class.getSimpleName();
-    public static final String DIALOG_MOVIE_THEATER_DETAIL = "DIALOG_MOVIE_THEATER_DETAIL";
     @BindView(R.id.recycler_view_movie_poster)
     RecyclerView mRecyclerView;
     Unbinder unbinder;

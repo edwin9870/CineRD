@@ -1,12 +1,14 @@
 package com.edwin.android.cinerd.entity;
 
+import android.support.annotation.NonNull;
+
 import ir.mirrajabi.searchdialog.core.Searchable;
 
 /**
  * Created by Edwin Ramirez Ventura on 7/24/2017.
  */
 
-public class Theater implements Searchable {
+public class Theater implements Searchable, Comparable<Theater> {
     private String mTitle;
     private int mTheaterId;
 
@@ -47,5 +49,10 @@ public class Theater implements Searchable {
     @Override
     public int hashCode() {
         return mTitle != null ? mTitle.hashCode() : 0;
+    }
+
+    @Override
+    public int compareTo(@NonNull Theater theater) {
+        return this.mTitle.compareTo(theater.getTitle());
     }
 }

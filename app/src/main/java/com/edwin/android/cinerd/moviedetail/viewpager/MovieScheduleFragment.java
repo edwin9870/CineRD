@@ -24,6 +24,7 @@ import com.edwin.android.cinerd.entity.json.Room;
 import com.edwin.android.cinerd.util.DateUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -169,9 +170,12 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
             theatersName.add(new Theater(theaterName, detail.getTheaterId()));
         }
 
+
+        ArrayList<Theater> theaters = new ArrayList<>(theatersName);
+        Collections.sort(theaters);
         SimpleSearchDialogCompat searchDialogCompat = new SimpleSearchDialogCompat
                 (getActivity(), dialogTitle,
-                inputPlaceHolder, null, new ArrayList<Theater>(theatersName),
+                inputPlaceHolder, null, theaters,
                 new SearchResultListener<Theater>() {
                     @Override
                     public void onSelected(BaseSearchDialogCompat dialog, Theater

@@ -1,6 +1,6 @@
 package com.edwin.android.cinerd.entity;
 
-import com.google.gson.annotations.SerializedName;
+import android.support.annotation.NonNull;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import ir.mirrajabi.searchdialog.core.Searchable;
  * Created by Edwin Ramirez Ventura on 7/26/2017.
  */
 
-public class Movie implements Searchable {
+public class Movie implements Searchable, Comparable<Movie> {
 
     private long movieId;
     private String name;
@@ -128,5 +128,10 @@ public class Movie implements Searchable {
     @Override
     public String getTitle() {
         return name;
+    }
+
+    @Override
+    public int compareTo(@NonNull Movie movie) {
+        return this.name.compareTo(movie.getName());
     }
 }

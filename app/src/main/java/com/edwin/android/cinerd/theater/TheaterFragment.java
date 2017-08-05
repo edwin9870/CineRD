@@ -22,6 +22,7 @@ import com.edwin.android.cinerd.movieposter.MoviePosterAdapter;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -96,10 +97,10 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
 
     @Override
     public void showTheatersDialog(List<Theater> theaters) {
-        //TODO: Save Dialog's title and placeholder in strings.xml resource file
+        Collections.sort(theaters);
         SimpleSearchDialogCompat searchDialogCompat = new SimpleSearchDialogCompat
-                (getActivity(), "Select a theater",
-                        "Theater name", null, new ArrayList<Theater>(theaters),
+                (getActivity(), getString(R.string.theater_finder_dialog_title),
+                        getString(R.string.theater_finder_dialog_place_holder), null, new ArrayList<Theater>(theaters),
                         new SearchResultListener<Theater>() {
                             @Override
                             public void onSelected(BaseSearchDialogCompat dialog, Theater

@@ -24,6 +24,7 @@ import com.edwin.android.cinerd.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -90,6 +91,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     public void showMovieFilterDialog(final List<Movie> movies) {
         String title = getString(R.string.movie_filter_search_dialog_title);
         String placeHolder = getString(R.string.movie_filter_search_dialog_input_place_holder);
+        Collections.sort(movies);
         SimpleSearchDialogCompat searchDialogCompat = new SimpleSearchDialogCompat
                 (getActivity(), title,
                         placeHolder, null, new ArrayList<Movie>(movies),
