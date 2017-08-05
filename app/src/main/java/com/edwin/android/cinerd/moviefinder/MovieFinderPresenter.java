@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.data.TheaterRepository;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.util.DateUtil;
@@ -31,11 +32,13 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
     public static final String TAG = MovieFinderPresenter.class.getSimpleName();
     private final MovieFinderMVP.View mView;
     private final MovieDataRepository mRepository;
+    private final TheaterRepository mTheaterRepository;
 
     @Inject
-    public MovieFinderPresenter(MovieFinderMVP.View view, MovieDataRepository repository) {
+    public MovieFinderPresenter(MovieFinderMVP.View view, MovieDataRepository repository, TheaterRepository theaterRepository) {
         mView = view;
         mRepository = repository;
+        mTheaterRepository = theaterRepository;
     }
 
     @Inject
@@ -117,7 +120,7 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
             if (instance.get(Calendar.HOUR) == hour &&
                     instance.get(Calendar.MINUTE) == minute &&
                     instance.get(Calendar.DAY_OF_YEAR) == dayOfTheYear) {
-                theaterName = mRepository.getTheaterById(movieTheaterDetail
+                theaterName = mTheaterRepository.getTheaterById(movieTheaterDetail
                         .getTheaterId()).getTitle();
                 theatersName.add(theaterName);
 

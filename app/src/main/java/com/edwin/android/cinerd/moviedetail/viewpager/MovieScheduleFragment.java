@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.data.TheaterRepository;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Room;
@@ -63,6 +64,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     private long mMovieId;
     private MovieTimeFormatAdapter mMovieTimeFormatAdapter;
     private MovieDataRepository mMovieDataRepository;
+    private TheaterRepository mTheaterRepository;
 
     public MovieScheduleFragment() {
     }
@@ -121,6 +123,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mMovieDataRepository = new MovieDataRepository(getActivity(), getActivity().getContentResolver(), new
                 MovieCollectorJSON
                 (getActivity()));
+        mTheaterRepository = new TheaterRepository(getActivity());
 
         return view;
     }
@@ -166,7 +169,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
         Set<Theater> theatersName = new HashSet<>();
         for (MovieTheaterDetail detail : movieTheaterDetails) {
-            String theaterName = mMovieDataRepository.getTheaterById(detail.getTheaterId()).getTitle();
+            String theaterName = mTheaterRepository.getTheaterById(detail.getTheaterId()).getTitle();
             theatersName.add(new Theater(theaterName, detail.getTheaterId()));
         }
 

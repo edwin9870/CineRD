@@ -49,10 +49,6 @@ public class MovieDataRepository {
         this.mMovieCollector = movieCollector;
     }
 
-    public List<Movie> getMoviesCollector() {
-        return mMovieCollector.getMovies();
-    }
-
     public void process(List<Movie> movies) {
         cleanMovieSchedule();
 
@@ -100,29 +96,6 @@ public class MovieDataRepository {
         return movieTheaterDetailList;
     }
 
-    public List<com.edwin.android.cinerd.entity.Theater> getAllTheaters() {
-
-        Cursor theaterCursor = null;
-        try {
-            theaterCursor = mContentResolver.query(CineRdContract.TheaterEntry.CONTENT_URI, null,
-                    null, null, null);
-            List<com.edwin.android.cinerd.entity.Theater> theaters = new ArrayList<>();
-            while (theaterCursor.moveToNext()) {
-                int theaterId = theaterCursor.getInt(theaterCursor.getColumnIndex(CineRdContract
-                        .TheaterEntry._ID));
-                String theaterName = theaterCursor.getString(theaterCursor.getColumnIndex
-                        (CineRdContract
-                        .TheaterEntry.COLUMN_NAME_NAME));
-                theaters.add(new com.edwin.android.cinerd.entity.Theater(theaterName, theaterId));
-            }
-            return theaters;
-        } finally {
-            if(theaterCursor != null) {
-                theaterCursor.close();
-            }
-        }
-    }
-
     @NonNull
     private MovieTheaterDetail parseMovieTheaterDetail(Cursor movieTheaterDetailCursor) {
         MovieTheaterDetail movieTheaterDetail;
@@ -161,31 +134,6 @@ public class MovieDataRepository {
 
         return movieTheaterDetail;
     }
-
-    public com.edwin.android.cinerd.entity.Theater getTheaterById(int theaterId) {
-        Cursor theaterCursor = null;
-
-        try {
-            theaterCursor = mContentResolver.query(CineRdContract.TheaterEntry
-                            .CONTENT_URI, null,
-                    CineRdContract.TheaterEntry._ID + " = ?", new String[]{String.valueOf(theaterId)},
-
-                    null);
-
-            if (theaterCursor.moveToNext()) {
-                String theaterName = theaterCursor.getString(theaterCursor.getColumnIndex(CineRdContract.TheaterEntry.COLUMN_NAME_NAME));
-                Log.d(TAG, "theaterName: " + theaterName);
-                return new com.edwin.android.cinerd
-                        .entity.Theater(theaterName, theaterId);
-            }
-            return null;
-        } finally {
-            if(theaterCursor != null) {
-                theaterCursor.close();
-            }
-        }
-    }
-
     public String getFormatNameById(int formatId) {
         String formatName = "";
         Cursor formatCursor = null;
@@ -719,31 +667,5 @@ public class MovieDataRepository {
             }
         }
         return roomId;
-    }
-
-    public List<com.edwin.android.cinerd.entity.Theater> getAllTheatersByMinDate(Date minDate) {
-        Cursor movieTheaterDetailCursor = null;
-
-        try {
-            Set<com.edwin.android.cinerd.entity.Theater> theaters = new HashSet<>();
-            movieTheaterDetailCursor = mContentResolver.query(CineRdContract
-                    .MovieTheaterDetailEntry
-                    .CONTENT_URI, null, " date(" + CineRdContract
-                    .MovieTheaterDetailEntry
-                    .COLUMN_NAME_AVAILABLE_DATE + ") >= date('" + DateUtil.formatDate
-                    (minDate) + "')", null, null);
-
-            while (movieTheaterDetailCursor.moveToNext()) {
-                int theaterId = movieTheaterDetailCursor.getInt(movieTheaterDetailCursor.getColumnIndex
-
-                        (CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_THEATER_ID));
-                theaters.add(getTheaterById(theaterId));
-            }
-            return new ArrayList<>(theaters);
-        } finally {
-            if (movieTheaterDetailCursor != null) {
-                movieTheaterDetailCursor.close();
-            }
-        }
     }
 }

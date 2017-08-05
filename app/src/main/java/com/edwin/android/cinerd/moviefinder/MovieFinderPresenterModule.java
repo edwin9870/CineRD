@@ -7,7 +7,7 @@ import dagger.Provides;
  * Created by Edwin Ramirez Ventura on 7/27/2017.
  */
 
-@Module
+@Module()
 public class MovieFinderPresenterModule {
 
     private MovieFinderMVP.View mView;

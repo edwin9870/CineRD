@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.data.TheaterRepository;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Theater;
 
@@ -20,12 +21,15 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
 
     public static final String TAG = TheaterPresenter.class.getSimpleName();
     private final MovieDataRepository mRepository;
+    private final TheaterRepository mTheaterRepository;
     private TheaterMVP.View mView;
 
     @Inject
-    public TheaterPresenter(MovieDataRepository repository, TheaterMVP.View view) {
+    public TheaterPresenter(MovieDataRepository repository, TheaterRepository theaterRepository,
+                            TheaterMVP.View view) {
         mRepository = repository;
         mView = view;
+        mTheaterRepository = theaterRepository;
     }
 
     @Inject
@@ -36,11 +40,12 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
 
     @Override
     public void getMovies(final int theaterId) {
-        new AsyncTask<Void, Void, List<Movie>>(){
+        new AsyncTask<Void, Void, List<Movie>>() {
             @Override
             protected List<Movie> doInBackground(Void... voids) {
                 return mRepository.getMoviesByTheaterId(theaterId);
             }
+
             @Override
             protected void onPostExecute(List<Movie> movies) {
                 mView.onReceiveMovies(movies);
@@ -53,7 +58,7 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
-                return mRepository.getTheaterById(mTheaterId).getTitle();
+                return mTheaterRepository.getTheaterById(mTheaterId).getTitle();
             }
 
             @Override
@@ -75,7 +80,7 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
 
             @Override
             protected List<Theater> doInBackground(Void... voids) {
-                return mRepository.getAllTheatersByMinDate(new Date());
+                return mTheaterRepository.getAllTheatersByMinDate(new Date());
             }
 
             @Override
