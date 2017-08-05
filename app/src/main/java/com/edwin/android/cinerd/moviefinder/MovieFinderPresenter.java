@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.data.MovieTheaterDetailRepository;
 import com.edwin.android.cinerd.data.TheaterRepository;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
@@ -33,12 +34,16 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
     private final MovieFinderMVP.View mView;
     private final MovieDataRepository mRepository;
     private final TheaterRepository mTheaterRepository;
+    private final MovieTheaterDetailRepository mMovieTheaterDetailRepository;
 
     @Inject
-    public MovieFinderPresenter(MovieFinderMVP.View view, MovieDataRepository repository, TheaterRepository theaterRepository) {
+    public MovieFinderPresenter(MovieFinderMVP.View view, MovieDataRepository repository,
+                                TheaterRepository theaterRepository, MovieTheaterDetailRepository
+                                            movieTheaterDetailRepository) {
         mView = view;
         mRepository = repository;
         mTheaterRepository = theaterRepository;
+        mMovieTheaterDetailRepository = movieTheaterDetailRepository;
     }
 
     @Inject
@@ -53,9 +58,10 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
             protected List<Movie> doInBackground(Void... voids) {
                 List<Movie> movies = MovieFinderPresenter.this.mRepository.getMovies();
                 List<Movie> moviesToReturn = new ArrayList<Movie>();
-                final int maxDayCount = context.getResources().getInteger(R.integer.max_movie_calendar_additional_days);
-                for(Movie movie: movies) {
-                    if(getMaxAvailableDate(movie.getMovieId(), maxDayCount, new Date()) >= 0) {
+                final int maxDayCount = context.getResources().getInteger(R.integer
+                        .max_movie_calendar_additional_days);
+                for (Movie movie : movies) {
+                    if (getMaxAvailableDate(movie.getMovieId(), maxDayCount, new Date()) >= 0) {
                         moviesToReturn.add(movie);
                     }
                 }
@@ -74,7 +80,7 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
         final int maxDays = context.getResources().getInteger(R.integer
                 .max_movie_calendar_additional_days);
         final long movieId = mRepository.getMovieIdByName(movieName);
-        new AsyncTask<Void, Void, Integer>(){
+        new AsyncTask<Void, Void, Integer>() {
 
             @Override
             protected Integer doInBackground(Void... voids) {
@@ -93,17 +99,18 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
 
     @Override
     public void showCalendarDate(Context context, String movieName, Date date) {
-        String dateToShow = DateFormat.format(context.getString(R.string.date_calendar), date).toString();
+        String dateToShow = DateFormat.format(context.getString(R.string.date_calendar), date)
+                .toString();
         mView.showDateSelected(dateToShow);
         long movieId = mRepository.getMovieIdByName(movieName);
-        List<MovieTheaterDetail> movieTheaterDetails = mRepository
+        List<MovieTheaterDetail> movieTheaterDetails = mMovieTheaterDetailRepository
                 .getMoviesTheaterDetailByMovieIdAvailableDate(movieId, date);
         mView.showAvailableMovieTime(movieTheaterDetails);
     }
 
     @Override
     public void showMovieTheaterByDate(long movieId, Date date) {
-        List<MovieTheaterDetail> movieTheaters = mRepository
+        List<MovieTheaterDetail> movieTheaters = mMovieTheaterDetailRepository
                 .getMoviesTheaterDetailByMovieIdAvailableDate(movieId, date);
         Calendar instance = Calendar.getInstance();
 
@@ -134,24 +141,24 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
     }
 
     /**
-     *
-     *
      * @param movieId
      * @param maxDays
      * @param fromDate
-     * @return -1 If it doesn't found a movie with the specific date or greater, otherwise return 0 or greater
+     * @return -1 If it doesn't found a movie with the specific date or greater, otherwise return
+     * 0 or greater
      */
     private int getMaxAvailableDate(long movieId, int maxDays, Date fromDate) {
         int maxDayInList = -1;
-        Log.d(TAG, "movieId: "+ movieId);
-        for (int i = 0; i < maxDays; i++){
+        Log.d(TAG, "movieId: " + movieId);
+        for (int i = 0; i < maxDays; i++) {
             List<MovieTheaterDetail> moviesTheaterDetailByMovieIdAvailableDate =
-                    mRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId,
+                    mMovieTheaterDetailRepository.getMoviesTheaterDetailByMovieIdAvailableDate
+                            (movieId,
                             DateUtil.addDay(fromDate, i));
             Log.d(TAG, "getMaxAvailableDate. fromDate: " + fromDate + ", i: " + i + ", result: "
                     + DateUtil.addDay(fromDate, i) + ". moviesTheaterDetailByMovieIdAvailableDate" +
                     ".size(): " + moviesTheaterDetailByMovieIdAvailableDate.size());
-            if(moviesTheaterDetailByMovieIdAvailableDate.size() > 0) {
+            if (moviesTheaterDetailByMovieIdAvailableDate.size() > 0) {
                 Log.d(TAG, "moviesTheaterDetailByMovieIdAvailableDate.size > 1");
                 maxDayInList = i;
             }

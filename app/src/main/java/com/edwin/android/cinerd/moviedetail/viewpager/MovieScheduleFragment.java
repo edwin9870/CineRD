@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.MovieDataRepository;
+import com.edwin.android.cinerd.data.MovieTheaterDetailRepository;
 import com.edwin.android.cinerd.data.TheaterRepository;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
@@ -43,8 +44,7 @@ import ir.mirrajabi.searchdialog.core.SearchResultListener;
  * Use the {@link MovieScheduleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter
-        .ScheduleDayClicked {
+public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter.ScheduleDayClicked {
 
 
     public static final Date todayDate = new Date();
@@ -65,6 +65,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     private MovieTimeFormatAdapter mMovieTimeFormatAdapter;
     private MovieDataRepository mMovieDataRepository;
     private TheaterRepository mTheaterRepository;
+    private MovieTheaterDetailRepository mMovieTheaterDetailRepository;
 
     public MovieScheduleFragment() {
     }
@@ -120,9 +121,10 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mMovieTimeRecyclerView.setNestedScrollingEnabled(true);
         mMovieTimeRecyclerView.setAdapter(mMovieTimeFormatAdapter);
 
-        mMovieDataRepository = new MovieDataRepository(getActivity(), getActivity().getContentResolver(), new
-                MovieCollectorJSON
-                (getActivity()));
+        mMovieTheaterDetailRepository = new
+                MovieTheaterDetailRepository(getActivity());
+        MovieCollectorJSON movieCollector = new MovieCollectorJSON(getActivity());
+        mMovieDataRepository = new MovieDataRepository(getActivity(), movieCollector, mMovieTheaterDetailRepository);
         mTheaterRepository = new TheaterRepository(getActivity());
 
         return view;
@@ -162,14 +164,15 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         Log.d(TAG, "MovieID: " + mMovieId);
 
         List<MovieTheaterDetail> movieTheaterDetails =
-                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(mMovieId,
+                mMovieTheaterDetailRepository.getMoviesTheaterDetailByMovieIdAvailableDate(mMovieId,
                         dateToShowMovies);
 
         Log.d(TAG, "movieTheaterDetails: " + movieTheaterDetails);
 
         Set<Theater> theatersName = new HashSet<>();
         for (MovieTheaterDetail detail : movieTheaterDetails) {
-            String theaterName = mTheaterRepository.getTheaterById(detail.getTheaterId()).getTitle();
+            String theaterName = mTheaterRepository.getTheaterById(detail.getTheaterId())
+                    .getTitle();
             theatersName.add(new Theater(theaterName, detail.getTheaterId()));
         }
 
@@ -178,25 +181,26 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         Collections.sort(theaters);
         SimpleSearchDialogCompat searchDialogCompat = new SimpleSearchDialogCompat
                 (getActivity(), dialogTitle,
-                inputPlaceHolder, null, theaters,
-                new SearchResultListener<Theater>() {
-                    @Override
-                    public void onSelected(BaseSearchDialogCompat dialog, Theater
-                            theaterSearchable, int position) {
-                        Toast.makeText(MovieScheduleFragment.this.getActivity(),
-                                theaterSearchable.getTitle(),
-                                Toast.LENGTH_SHORT).show();
+                        inputPlaceHolder, null, theaters,
+                        new SearchResultListener<Theater>() {
+                            @Override
+                            public void onSelected(BaseSearchDialogCompat dialog, Theater
+                                    theaterSearchable, int position) {
+                                Toast.makeText(MovieScheduleFragment.this.getActivity(),
+                                        theaterSearchable.getTitle(),
+                                        Toast.LENGTH_SHORT).show();
 
-                        MovieScheduleFragment.this.setMovieTheaterDetail(mMovieId,
-                                theaterSearchable.getTheaterId(), dateToShowMovies);
-                        MovieScheduleFragment.this.textTheaterName.setText(theaterSearchable
-                                .getTitle());
-                        dialog.dismiss();
-                        MovieScheduleFragment.this.movieTheaterInfoLinearLayout.setVisibility
-                                (View.VISIBLE);
+                                MovieScheduleFragment.this.setMovieTheaterDetail(mMovieId,
+                                        theaterSearchable.getTheaterId(), dateToShowMovies);
+                                MovieScheduleFragment.this.textTheaterName.setText(theaterSearchable
+                                        .getTitle());
+                                dialog.dismiss();
+                                MovieScheduleFragment.this.movieTheaterInfoLinearLayout
+                                        .setVisibility
+                                                (View.VISIBLE);
 
-                    }
-                });
+                            }
+                        });
         searchDialogCompat.getContext().setTheme(R.style.AppTheme_Dialog_Light_DarkText);
         searchDialogCompat.show();
     }
@@ -206,7 +210,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         Log.d(TAG, "setMovieTheaterDetail.theaterId: " + theaterId);
         Log.d(TAG, "setMovieTheaterDetail.movieId: " + availableDate);
         List<MovieTheaterDetail> details =
-                mMovieDataRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId,
+                mMovieTheaterDetailRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId,
                         availableDate, theaterId);
         Log.d(TAG, "details: " + details);
         Room room;

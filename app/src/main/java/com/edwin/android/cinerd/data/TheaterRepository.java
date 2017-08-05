@@ -30,6 +30,7 @@ public class TheaterRepository {
 
     @Inject
     public TheaterRepository(Context context) {
+        this.mContext = context;
         mContentResolver = context.getContentResolver();
     }
 
