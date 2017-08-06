@@ -66,26 +66,6 @@ public class MovieDataRepository {
         }
     }
 
-    public String getFormatNameById(int formatId) {
-        String formatName = "";
-        Cursor formatCursor = null;
-        try {
-            formatCursor = mContentResolver.query(CineRdContract.FormatEntry
-
-                    .CONTENT_URI, null, CineRdContract.FormatEntry._ID + "=?", new
-                    String[]{String.valueOf(formatId)}, null);
-            if (formatCursor.moveToNext()) {
-                formatName = formatCursor.getString(formatCursor.getColumnIndex(CineRdContract.FormatEntry.COLUMN_NAME_NAME));
-                Log.d(TAG, "format name: " + formatName);
-            }
-            return formatName;
-        } finally {
-            if(formatCursor != null) {
-                formatCursor.close();
-            }
-        }
-    }
-
 
     public long getMovieIdByName(String movieName) {
         long movieId = -1;

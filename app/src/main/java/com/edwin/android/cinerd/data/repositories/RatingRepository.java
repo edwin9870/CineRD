@@ -17,7 +17,7 @@ import javax.inject.Singleton;
 @Singleton
 public class RatingRepository {
 
-    public static final String TAG = TheaterRepository.class.getSimpleName();
+    public static final String TAG = RatingRepository.class.getSimpleName();
     private final ContentResolver mContentResolver;
     private Context mContext;
 

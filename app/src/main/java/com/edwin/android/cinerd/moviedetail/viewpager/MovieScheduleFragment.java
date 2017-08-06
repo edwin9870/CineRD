@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
+import com.edwin.android.cinerd.data.repositories.FormatRepository;
 import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
 import com.edwin.android.cinerd.data.repositories.MovieTheaterDetailRepository;
 import com.edwin.android.cinerd.data.repositories.RatingRepository;
@@ -45,7 +46,8 @@ import ir.mirrajabi.searchdialog.core.SearchResultListener;
  * Use the {@link MovieScheduleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter.ScheduleDayClicked {
+public class MovieScheduleFragment extends Fragment implements MovieScheduleAdapter
+        .ScheduleDayClicked {
 
 
     public static final Date todayDate = new Date();
@@ -67,6 +69,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     private MovieDataRepository mMovieDataRepository;
     private TheaterRepository mTheaterRepository;
     private MovieTheaterDetailRepository mMovieTheaterDetailRepository;
+    private FormatRepository formatRepository;
 
     public MovieScheduleFragment() {
     }
@@ -124,9 +127,10 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
         mMovieTheaterDetailRepository = new MovieTheaterDetailRepository(getActivity());
         MovieCollectorJSON movieCollector = new MovieCollectorJSON(getActivity());
+        formatRepository = new FormatRepository(getActivity());
         mMovieDataRepository = new MovieDataRepository(getActivity(), movieCollector,
-                                                       mMovieTheaterDetailRepository,
-                                                       new RatingRepository(getActivity()));
+                mMovieTheaterDetailRepository,
+                new RatingRepository(getActivity()));
         mTheaterRepository = new TheaterRepository(getActivity());
 
         return view;
@@ -220,7 +224,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         for (MovieTheaterDetail detail : details) {
             room = new Room();
             room.setmDate(detail.getAvailableDate());
-            room.setmFormat(mMovieDataRepository.getFormatNameById(detail.getFormatId()));
+            room.setmFormat(formatRepository.getFormatNameById(detail.getFormatId()));
             rooms.add(room);
         }
 
