@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.data.repositories.MovieTheaterDetailRepository;
 import com.edwin.android.cinerd.data.repositories.TheaterRepository;
 import com.edwin.android.cinerd.entity.Movie;
@@ -35,15 +36,19 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
     private final MovieDataRepository mRepository;
     private final TheaterRepository mTheaterRepository;
     private final MovieTheaterDetailRepository mMovieTheaterDetailRepository;
+    private final MovieRepository mMovieRepository;
 
     @Inject
-    public MovieFinderPresenter(MovieFinderMVP.View view, MovieDataRepository repository,
-                                TheaterRepository theaterRepository, MovieTheaterDetailRepository
-                                            movieTheaterDetailRepository) {
+    public MovieFinderPresenter(MovieFinderMVP.View view,
+                                MovieDataRepository repository,
+                                TheaterRepository theaterRepository,
+                                MovieTheaterDetailRepository movieTheaterDetailRepository,
+                                MovieRepository movieRepository) {
         mView = view;
         mRepository = repository;
         mTheaterRepository = theaterRepository;
         mMovieTheaterDetailRepository = movieTheaterDetailRepository;
+        mMovieRepository = movieRepository;
     }
 
     @Inject
@@ -56,7 +61,7 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
         new AsyncTask<Void, Void, List<Movie>>() {
             @Override
             protected List<Movie> doInBackground(Void... voids) {
-                List<Movie> movies = MovieFinderPresenter.this.mRepository.getMovies();
+                List<Movie> movies = MovieFinderPresenter.this.mMovieRepository.getMovies();
                 List<Movie> moviesToReturn = new ArrayList<Movie>();
                 final int maxDayCount = context.getResources().getInteger(R.integer
                         .max_movie_calendar_additional_days);
@@ -79,7 +84,7 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
     public void movieFinderCalendarClicked(Context context, final String movieName) {
         final int maxDays = context.getResources().getInteger(R.integer
                 .max_movie_calendar_additional_days);
-        final long movieId = mRepository.getMovieIdByName(movieName);
+        final long movieId = mMovieRepository.getMovieIdByName(movieName);
         new AsyncTask<Void, Void, Integer>() {
 
             @Override
@@ -102,7 +107,7 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
         String dateToShow = DateFormat.format(context.getString(R.string.date_calendar), date)
                 .toString();
         mView.showDateSelected(dateToShow);
-        long movieId = mRepository.getMovieIdByName(movieName);
+        long movieId = mMovieRepository.getMovieIdByName(movieName);
         List<MovieTheaterDetail> movieTheaterDetails = mMovieTheaterDetailRepository
                 .getMoviesTheaterDetailByMovieIdAvailableDate(movieId, date);
         mView.showAvailableMovieTime(movieTheaterDetails);

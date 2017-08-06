@@ -3,6 +3,7 @@ package com.edwin.android.cinerd.movieposter;
 import android.os.AsyncTask;
 
 import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.entity.Movie;
 
 import java.util.List;
@@ -15,13 +16,16 @@ import javax.inject.Inject;
 
 public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
 
+    private final MovieRepository mMovieRepository;
     MoviePosterMVP.View mView;
     private final MovieDataRepository mMovieDataRepository;
 
     @Inject
-    public MoviePosterPresenter(MoviePosterMVP.View view, MovieDataRepository mMovieDataRepository) {
+    public MoviePosterPresenter(MoviePosterMVP.View view, MovieDataRepository mMovieDataRepository,
+                                MovieRepository movieRepository) {
         mView = view;
         this.mMovieDataRepository = mMovieDataRepository;
+        mMovieRepository = movieRepository;
     }
 
     @Inject
@@ -34,7 +38,7 @@ public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
         new AsyncTask<Void, Void, List<Movie>>(){
             @Override
             protected List<Movie> doInBackground(Void... voids) {
-                return mMovieDataRepository.getMovies();
+                return mMovieRepository.getMovies();
             }
             @Override
             protected void onPostExecute(List<Movie> movies) {

@@ -7,6 +7,7 @@ import android.util.Log;
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.repositories.GenreRepository;
 import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.entity.Genre;
 import com.edwin.android.cinerd.entity.Movie;
@@ -32,16 +33,19 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     private final MovieDataRepository mMovieDataRepository;
     private final RatingRepository mRatingRepository;
     private final GenreRepository mGenreRepository;
+    private final MovieRepository mMovieRepository;
 
     @Inject
     public MovieDetailPresenter(MovieDetailMVP.View mView,
                                 MovieDataRepository mMovieDataRepository,
                                 RatingRepository ratingRepository,
-                                GenreRepository genreRepository) {
+                                GenreRepository genreRepository,
+                                MovieRepository movieRepository) {
         this.mView = mView;
         this.mMovieDataRepository = mMovieDataRepository;
         this.mRatingRepository = ratingRepository;
         mGenreRepository = genreRepository;
+        mMovieRepository = movieRepository;
     }
 
     @Inject
@@ -53,7 +57,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     public void showMovieDetail(Context context, long movieId) {
         Log.d(TAG, "Start executing showMovieDetail method");
 
-        com.edwin.android.cinerd.entity.Movie movie = mMovieDataRepository.getMovieById(movieId);
+        com.edwin.android.cinerd.entity.Movie movie = mMovieRepository.getMovieById(movieId);
         mView.setImage(movie);
 
         mView.setMovieName(movie.getName());
@@ -82,7 +86,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
 
             @Override
             protected Movie doInBackground(Void... voids) {
-                return mMovieDataRepository.getMovieById(movieId);
+                return mMovieRepository.getMovieById(movieId);
             }
 
             @Override

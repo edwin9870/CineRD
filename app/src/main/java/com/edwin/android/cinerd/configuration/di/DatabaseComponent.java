@@ -3,6 +3,7 @@ package com.edwin.android.cinerd.configuration.di;
 import com.edwin.android.cinerd.data.repositories.FormatRepository;
 import com.edwin.android.cinerd.data.repositories.GenreRepository;
 import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.data.repositories.MovieTheaterDetailRepository;
 import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.data.repositories.TheaterRepository;
@@ -25,4 +26,5 @@ public interface DatabaseComponent {
     RatingRepository getRatingRepository();
     FormatRepository getFormatRepository();
     GenreRepository getGenreRepository();
+    MovieRepository getMovieRepository();
 }

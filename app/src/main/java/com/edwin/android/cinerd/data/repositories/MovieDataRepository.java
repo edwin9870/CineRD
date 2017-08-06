@@ -6,14 +6,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.edwin.android.cinerd.data.CineRdContract;
 import com.edwin.android.cinerd.data.MovieCollector;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
-import com.edwin.android.cinerd.entity.Genre;
-import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.entity.json.Rating;
 import com.edwin.android.cinerd.entity.json.Room;
@@ -23,10 +20,7 @@ import com.edwin.android.cinerd.util.ImageUtil;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -63,105 +57,6 @@ public class MovieDataRepository {
             Log.d(TAG, "Persisting movie: "+ movie);
             processMovie(movie);
             Log.d(TAG, "Movie persisted");
-        }
-    }
-
-
-    public long getMovieIdByName(String movieName) {
-        long movieId = -1;
-        Cursor movieCursor = null;
-        try {
-            movieCursor = mContentResolver.query(CineRdContract.MovieEntry
-                    .CONTENT_URI, new String[]{CineRdContract.MovieEntry._ID}, "UPPER(NAME) = ?", new String[]{movieName.toUpperCase()}, null);
-
-            Log.d(TAG, "movieName: " + movieName.toUpperCase());
-            if (movieCursor.moveToNext()) {
-                movieId = movieCursor.getLong(movieCursor.getColumnIndex(CineRdContract.MovieEntry._ID));
-            }
-
-            return movieId;
-        }finally {
-            if(movieCursor != null) {
-                movieCursor.close();
-            }
-        }
-    }
-
-    public com.edwin.android.cinerd.entity.Movie getMovieById(long movieId) {
-        com.edwin.android.cinerd.entity.Movie movie = null;
-        Cursor movieCursor = null;
-        try {
-            movieCursor = mContentResolver.query(CineRdContract.MovieEntry
-                    .CONTENT_URI, null, CineRdContract.MovieEntry._ID+" = ?", new String[]{String.valueOf(movieId)}, null);
-            if (movieCursor.moveToNext()) {
-                movie = parseMovie(movieCursor);
-            }
-            return movie;
-        }finally {
-            if(movieCursor != null) {
-                movieCursor.close();
-            }
-        }
-    }
-
-    @NonNull
-    private com.edwin.android.cinerd.entity.Movie parseMovie(Cursor movieCursor) {
-        com.edwin.android.cinerd.entity.Movie movie;
-        movie = new com.edwin.android.cinerd.entity.Movie();
-        movie.setMovieId(movieCursor.getLong(movieCursor.getColumnIndex(CineRdContract.MovieEntry._ID)));
-        movie.setName(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_NAME)));
-        movie.setDuration(movieCursor.getShort(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_DURATION)));
-
-        String releaseDateText = movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
-                .MovieEntry.COLUMN_NAME_RELEASE_DATE));
-        movie.setReleaseDate(DateUtil.getDateFromString(releaseDateText));
-        movie.setSynopsis(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS)));
-        movie.setBackdropUrl(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
-                .MovieEntry.COLUMN_NAME_BACKDROP_PATH)));
-        movie.setPosterUrl(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
-                .MovieEntry.COLUMN_NAME_POSTER_PATH)));
-        movie.setTrailerUrl(movieCursor.getString(movieCursor.getColumnIndex(CineRdContract
-                .MovieEntry.COLUMN_NAME_TRAILER_URL)));
-        movie.setRating(ratingRepository.getRatingByMovieId(movie.getMovieId()));
-        return movie;
-    }
-
-    public List<com.edwin.android.cinerd.entity.Movie> getMovies() {
-        List<com.edwin.android.cinerd.entity.Movie> movies = new ArrayList<>();
-        Cursor movieCursor = null;
-        try {
-            movieCursor = mContentResolver.query(CineRdContract.MovieEntry
-                    .CONTENT_URI, null, null, null, null);
-            while (movieCursor.moveToNext()) {
-                com.edwin.android.cinerd.entity.Movie movie = parseMovie(movieCursor);
-                movies.add(movie);
-            }
-            return movies;
-        }finally {
-            if (movieCursor != null) {
-                movieCursor.close();
-            }
-        }
-    }
-
-    public List<com.edwin.android.cinerd.entity.Movie> getMoviesByTheaterId(int theaterId) {
-        Cursor movieTheaterDetailCursor = null;
-        Set<com.edwin.android.cinerd.entity.Movie> movies = new HashSet<>();
-        try {
-            movieTheaterDetailCursor = mContentResolver.query(CineRdContract
-                    .MovieTheaterDetailEntry
-                    .CONTENT_URI, null, CineRdContract.MovieTheaterDetailEntry
-                    .COLUMN_NAME_THEATER_ID + " = ? ", new String[]{String.valueOf(theaterId)}, null);
-
-            while (movieTheaterDetailCursor.moveToNext()) {
-                MovieTheaterDetail movieTheaterDetail = movieTheaterDetailRepository.parseMovieTheaterDetail(movieTheaterDetailCursor);
-                movies.add(getMovieById(movieTheaterDetail.getMovieId()));
-            }
-            return new ArrayList<>(movies);
-        } finally {
-            if(movieTheaterDetailCursor != null) {
-                movieTheaterDetailCursor.close();
-            }
         }
     }
 

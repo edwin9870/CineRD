@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.data.repositories.TheaterRepository;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Theater;
@@ -22,14 +23,18 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
     public static final String TAG = TheaterPresenter.class.getSimpleName();
     private final MovieDataRepository mRepository;
     private final TheaterRepository mTheaterRepository;
+    private final MovieRepository mMovieRepository;
     private TheaterMVP.View mView;
 
     @Inject
-    public TheaterPresenter(MovieDataRepository repository, TheaterRepository theaterRepository,
-                            TheaterMVP.View view) {
+    public TheaterPresenter(MovieDataRepository repository,
+                            TheaterRepository theaterRepository,
+                            TheaterMVP.View view,
+                            MovieRepository movieRepository) {
         mRepository = repository;
         mView = view;
         mTheaterRepository = theaterRepository;
+        mMovieRepository = movieRepository;
     }
 
     @Inject
@@ -43,7 +48,7 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
         new AsyncTask<Void, Void, List<Movie>>() {
             @Override
             protected List<Movie> doInBackground(Void... voids) {
-                return mRepository.getMoviesByTheaterId(theaterId);
+                return mMovieRepository.getMoviesByTheaterId(theaterId);
             }
 
             @Override
