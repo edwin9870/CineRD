@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.edwin.android.cinerd.R;
+import com.edwin.android.cinerd.data.repositories.GenreRepository;
 import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
 import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.entity.Genre;
@@ -30,14 +31,17 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     private final MovieDetailMVP.View mView;
     private final MovieDataRepository mMovieDataRepository;
     private final RatingRepository mRatingRepository;
+    private final GenreRepository mGenreRepository;
 
     @Inject
     public MovieDetailPresenter(MovieDetailMVP.View mView,
                                 MovieDataRepository mMovieDataRepository,
-                                RatingRepository ratingRepository) {
+                                RatingRepository ratingRepository,
+                                GenreRepository genreRepository) {
         this.mView = mView;
         this.mMovieDataRepository = mMovieDataRepository;
         this.mRatingRepository = ratingRepository;
+        mGenreRepository = genreRepository;
     }
 
     @Inject
@@ -53,7 +57,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         mView.setImage(movie);
 
         mView.setMovieName(movie.getName());
-        List<Genre> genres = mMovieDataRepository.getGenresByMovieId(movieId);
+        List<Genre> genres = mGenreRepository.getGenresByMovieId(movieId);
         Set<String> genresName = new HashSet<>();
 
         for(Genre genre: genres) {

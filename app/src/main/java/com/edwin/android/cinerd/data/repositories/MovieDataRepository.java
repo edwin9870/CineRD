@@ -144,52 +144,6 @@ public class MovieDataRepository {
         }
     }
 
-
-    public List<Genre> getGenresByMovieId(long movieId) {
-        Cursor movieGenreCursor = null;
-        try {
-            List<Genre> genres = new ArrayList<>();
-            movieGenreCursor = mContentResolver.query(CineRdContract.MovieGenreEntry.CONTENT_URI, new
-                            String[]{CineRdContract.MovieGenreEntry.COLUMN_NAME_GENRE_ID},
-                    CineRdContract.MovieGenreEntry.COLUMN_NAME_MOVIE_ID + " = ?", new
-                            String[]{String
-                            .valueOf(movieId)}, null);
-            while (movieGenreCursor.moveToNext()) {
-                short genreId = movieGenreCursor.getShort(movieGenreCursor.getColumnIndex
-                        (CineRdContract.MovieGenreEntry.COLUMN_NAME_GENRE_ID));
-                genres.add(getGenreById(genreId));
-            }
-            return genres;
-        } finally {
-            if(movieGenreCursor != null) {
-                movieGenreCursor.close();
-            }
-        }
-    }
-
-    @Nullable
-    private Genre getGenreById(short genreId) {
-        Cursor genreCursor = null;
-        try {
-            genreCursor = mContentResolver.query(CineRdContract.GenreEntry.CONTENT_URI, null,
-                    CineRdContract
-                            .GenreEntry._ID + " = ?", new String[]{String.valueOf(genreId)}, null);
-
-            if (genreCursor.moveToNext()) {
-                String genreName = genreCursor.getString(genreCursor.getColumnIndex(CineRdContract
-                        .GenreEntry.COLUMN_NAME_NAME));
-                return new Genre(genreId, genreName);
-            } else {
-                return null;
-            }
-        } finally {
-            if(genreCursor != null) {
-                genreCursor.close();
-            }
-        }
-    }
-
-
     public List<com.edwin.android.cinerd.entity.Movie> getMoviesByTheaterId(int theaterId) {
         Cursor movieTheaterDetailCursor = null;
         Set<com.edwin.android.cinerd.entity.Movie> movies = new HashSet<>();
