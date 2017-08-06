@@ -6,6 +6,8 @@
 
     <color name="colorAccent">#63D84F</color>
 
-    <color name="movieHeaderBackground">#B3000000</color>
+    <color name="movieHeaderBackground">#66000000</color>
+
+    <color name="line_color">#ffff</color>
 
 </resources>

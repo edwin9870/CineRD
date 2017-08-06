@@ -17,25 +17,70 @@
 
         <FrameLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/movieHeaderBackground" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/movieHeaderBackground"
-            android:padding="8dp"
+            android:orientation="vertical"
+            android:padding="@dimen/linear_movie_poster_content_padding"
             >
 
             <TextView
                 android:id="@+id/text_movie_name"
-                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingBottom="@dimen/text_movie_name_padding_bottom"
-                android:paddingLeft="@dimen/text_movie_name_padding_left"
-                android:paddingRight="@dimen/text_movie_name_padding_right"
-                android:paddingTop="@dimen/text_movie_name_padding_top"
-                android:textColor="#FFFFFF"
+                android:textColor="#E6FFFFFF"
+                android:textSize="18sp"
                 tools:text="Wonder Woman"/>
-        </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_movie_poster_imdb_value"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#BFFFFFFF"
+                    tools:text="7.1"/>
+
+                <ImageView
+                    android:id="@+id/image_movie_poster_imdb"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="@dimen/image_movie_poster_imdb_width"
+                    android:layout_height="@dimen/image_movie_poster_imdb_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/image_movie_poster_imdb_margin_left"
+                    android:background="@drawable/ic_imdb"/>
+
+                <TextView
+                    android:id="@+id/text_movie_poster_rotten_tomatoes_value"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/text_movie_poster_rotten_tomatoes_value_margin_left"
+                    android:textColor="#BFFFFFFF"
+                    tools:text="91%"/>
+
+
+                <ImageView
+                    android:id="@+id/image_movie_poster_rotten_tomatoes"
+                    android:layout_width="@dimen/image_movie_poster_rotten_tomatoes_width"
+                    android:layout_height="@dimen/image_movie_poster_rotten_tomatoes_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/image_movie_poster_rotten_tomatoes_margin_left"
+                    android:layout_marginStart="@dimen/image_movie_poster_rotten_tomatoes_margin_left"
+                    android:background="@drawable/ic_rotten_tomatoes"/>
+            </LinearLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

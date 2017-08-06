@@ -1,31 +1,58 @@
-
 package com.edwin.android.cinerd.entity;
 
-import java.util.List;
-import javax.annotation.Generated;
-import com.google.gson.annotations.SerializedName;
+import android.support.annotation.NonNull;
 
-@Generated("net.hexar.json2pojo")
-public class Theater {
+import ir.mirrajabi.searchdialog.core.Searchable;
 
-    @SerializedName("name")
-    private String mName;
-    @SerializedName("room")
-    private List<Room> mRoom;
+/**
+ * Created by Edwin Ramirez Ventura on 7/24/2017.
+ */
 
-    public String getName() {
-        return mName;
-    }
+public class Theater implements Searchable, Comparable<Theater> {
+    private String mTitle;
+    private int mTheaterId;
 
-    public List<Room> getRoom() {
-        return mRoom;
+    public Theater(String title, int theaterId) {
+        mTitle = title;
+        mTheaterId = theaterId;
     }
 
     @Override
-    public String toString() {
-        return "Theater{" +
-                "mName='" + mName + '\'' +
-                ", mRoom=" + mRoom +
-                '}';
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public Theater setTitle(String title) {
+        mTitle = title;
+        return this;
+    }
+
+    public int getTheaterId() {
+        return mTheaterId;
+    }
+
+    public void setTheaterId(int theaterId) {
+        this.mTheaterId = theaterId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Theater that = (Theater) o;
+
+        return mTitle != null ? mTitle.equals(that.mTitle) : that.mTitle == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return mTitle != null ? mTitle.hashCode() : 0;
+    }
+
+    @Override
+    public int compareTo(@NonNull Theater theater) {
+        return this.mTitle.compareTo(theater.getTitle());
     }
 }

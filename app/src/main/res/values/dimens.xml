@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="image_movie_poster_height">300dp</dimen>
+    <dimen name="image_movie_poster_height">260dp</dimen>
 
     <!-- item_movie_list.xml-->
     <dimen name="space_between_movie_poster">8dp</dimen>
@@ -8,4 +8,69 @@
     <dimen name="text_movie_name_padding_left">8dp</dimen>
     <dimen name="text_movie_name_padding_right">@dimen/text_movie_name_padding_left</dimen>
     <dimen name="text_movie_name_padding_top">12dp</dimen>
+
+    <!-- item_movie_time_format.xml -->
+    <dimen name="text_movie_format_margin_left">24dp</dimen>
+
+    <dimen name="margin_default_size">16dp</dimen>
+
+    <!-- fragment_movie_detail.xml -->
+    <dimen name="movie_detail_poster_height">250dp</dimen>
+    <dimen name="trailer_button_size_height">72dp</dimen>
+    <dimen name="trailer_button_size_width">@dimen/trailer_button_size_height</dimen>
+    <dimen name="trailer_button_margin">8dp</dimen>
+    <dimen name="image_movie_detail_poster_width">128dp</dimen>
+    <dimen name="image_movie_detail_poster_height">170dp</dimen>
+    <dimen name="image_movie_detail_poster_margin">8dp</dimen>
+    <dimen name="image_movie_detail_info_padding">24dp</dimen>
+    <dimen name="text_text_movie_name_margin_left">144dp</dimen>
+    <dimen name="text_movie_genre_duration_width">0dp</dimen>
+    <dimen name="movie_detail_imdb_icon_width">32dp</dimen>
+    <dimen name="movie_detail_imdb_icon_height">@dimen/movie_detail_imdb_icon_width</dimen>
+    <dimen name="movie_detail_imdb_icon_margin_left">4dp</dimen>
+    <dimen name="text_rotten_tomatoes_value_margin_left">24dp</dimen>
+    <dimen name="image_rotten_tomatoes_width">42dp</dimen>
+    <dimen name="image_rotten_tomatoes_height">32dp</dimen>
+    <dimen name="tab_layout_margin_top">-14dp</dimen>
+
+    <!-- fragment_movie_finder.xml -->
+    <dimen name="content_padding_bottom">24dp</dimen>
+    <dimen name="content_padding_top">@dimen/content_padding_bottom</dimen>
+    <dimen name="content_padding_left">16dp</dimen>
+    <dimen name="content_padding_right">16dp</dimen>
+    <dimen name="card_view_movie_finder_margin_left">16dp</dimen>
+    <dimen name="card_view_movie_finder_margin_right">@dimen/card_view_movie_finder_margin_left</dimen>
+    <dimen name="card_view_movie_finder_margin_top">24dp</dimen>
+    <dimen name="card_view_movie_finder_padding">16dp</dimen>
+    <dimen name="text_date_filter_margin_top">24dp</dimen>
+    <dimen name="recycler_view_available_hour_margin_top">24dp</dimen>
+    <dimen name="recycler_view_available_movie_theaters_margin_top">24dp</dimen>
+
+    <!-- fragment_movie_poster.xml -->
+    <dimen name="recycler_view_movie_poster_padding">16dp</dimen>
+
+    <!-- fragment_movie_schedule.xml -->
+    <dimen name="line_behind_theater_name_width">120dp</dimen>
+    <dimen name="recycler_view_movie_time_height">150dp</dimen>
+
+    <!-- fragment_theater.xml -->
+    <dimen name="recycler_view_theater_movie_poster_padding">8dp</dimen>
+
+    <!-- item_movie_finder_time.xml -->
+    <dimen name="text_movie_finder_time_width">60dp</dimen>
+    <dimen name="text_movie_finder_time_height">35dp</dimen>
+
+    <!-- item_movie_list.xml -->
+    <dimen name="linear_movie_poster_content_padding">8dp</dimen>
+    <dimen name="image_movie_poster_imdb_width">32dp</dimen>
+    <dimen name="image_movie_poster_imdb_height">32dp</dimen>
+    <dimen name="image_movie_poster_imdb_margin_left">4dp</dimen>
+    <dimen name="text_movie_poster_rotten_tomatoes_value_margin_left">16dp</dimen>
+    <dimen name="image_movie_poster_rotten_tomatoes_width">42dp</dimen>
+    <dimen name="image_movie_poster_rotten_tomatoes_height">32dp</dimen>
+    <dimen name="image_movie_poster_rotten_tomatoes_margin_left">4dp</dimen>
+
+    <!-- item_movie_theater.xml -->
+    <dimen name="text_movie_finder_theater_name_margin_top">8dp</dimen>
+
 </resources>

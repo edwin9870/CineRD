@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="?attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/text_movie_finder_time"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="@dimen/text_movie_finder_time_width"
+        android:layout_height="@dimen/text_movie_finder_time_height"
+        android:background="@drawable/ic_circle_schedule"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        tools:text="18:00"/>
+
+</FrameLayout>

@@ -5,6 +5,9 @@
       "duration": 80,
       "release_date": "2012-04-23T18:25:43.511Z",
       "synopsis": "alakslkalslsaslksalklas",
+      "poster_url": "https://image.tmdb.org/t/p/w185/dCgm7efXDmiABSdWDHBDBx2jwmn.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/ypyeMfKydpyuuTMdp36rMlkGDUL.jpg",
+      "trailer_url": "https://www.youtube.com/watch?v=Skpu5HaVkOc",
       "rating": {"imdb": "7.1","rottentomatoes": "90%"},
       "genre": ["comedy", "action"],
       "theaters": [{
@@ -45,6 +48,9 @@
       "duration": 120,
       "release_date": "2017-04-23T18:25:43.511Z",
       "synopsis": "Wonnnnnnnnnnnnnnnn",
+      "poster_url": "https://image.tmdb.org/t/p/w185/imekS7f1OuHyUP2LAiTEM0zBzUz.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/hA5oCgvgCxj5MEWcLpjXXTwEANF.jpg",
+      "trailer_url": "https://www.youtube.com/watch?v=1Q8fG0TtVAY",
       "rating": {"imdb": "9.1","rottentomatoes": "100%"},
       "genre": ["comedy", "action"],
       "theaters": [{

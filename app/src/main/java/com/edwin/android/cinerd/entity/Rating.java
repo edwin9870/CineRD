@@ -1,30 +1,44 @@
-
 package com.edwin.android.cinerd.entity;
 
-import javax.annotation.Generated;
-import com.google.gson.annotations.SerializedName;
+/**
+ * Created by Edwin Ramirez Ventura on 7/26/2017.
+ */
 
-@Generated("net.hexar.json2pojo")
 public class Rating {
+    private long movieId;
+    private String rottenTomatoes;
+    private String imdb;
 
-    @SerializedName("imdb")
-    private String mImdb;
-    @SerializedName("rottentomatoes")
-    private String mRottentomatoes;
-
-    public String getImdb() {
-        return mImdb;
+    public long getMovieId() {
+        return movieId;
     }
 
-    public String getRottentomatoes() {
-        return mRottentomatoes;
+    public void setMovieId(long movieId) {
+        this.movieId = movieId;
+    }
+
+    public String getRottenTomatoes() {
+        return rottenTomatoes;
+    }
+
+    public void setRottenTomatoes(String rottenTomatoes) {
+        this.rottenTomatoes = rottenTomatoes;
+    }
+
+    public String getImdb() {
+        return imdb;
+    }
+
+    public void setImdb(String imdb) {
+        this.imdb = imdb;
     }
 
     @Override
     public String toString() {
         return "Rating{" +
-                "mImdb='" + mImdb + '\'' +
-                ", mRottentomatoes='" + mRottentomatoes + '\'' +
+                "movieId=" + movieId +
+                ", rottenTomatoes='" + rottenTomatoes + '\'' +
+                ", imdb='" + imdb + '\'' +
                 '}';
     }
 }

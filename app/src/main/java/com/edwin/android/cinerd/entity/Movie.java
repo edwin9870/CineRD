@@ -1,67 +1,137 @@
-
 package com.edwin.android.cinerd.entity;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
-import java.util.List;
-import javax.annotation.Generated;
-import com.google.gson.annotations.SerializedName;
 
-@Generated("net.hexar.json2pojo")
-public class Movie {
+import ir.mirrajabi.searchdialog.core.Searchable;
 
-    @SerializedName("duration")
-    private Long mDuration;
-    @SerializedName("genre")
-    private List<String> mGenre;
-    @SerializedName("name")
-    private String mName;
-    @SerializedName("rating")
-    private Rating mRating;
-    @SerializedName("release_date")
-    private Date mReleaseDate;
-    @SerializedName("synopsis")
-    private String mSynopsis;
-    @SerializedName("theaters")
-    private List<Theater> mTheaters;
+/**
+ * Created by Edwin Ramirez Ventura on 7/26/2017.
+ */
 
-    public Long getDuration() {
-        return mDuration;
+public class Movie implements Searchable, Comparable<Movie> {
+
+    private long movieId;
+    private String name;
+    private short duration;
+    private Date releaseDate;
+    private String synopsis;
+    private Rating rating;
+    private String posterUrl;
+    private String backdropUrl;
+    private String trailerUrl;
+
+    public long getMovieId() {
+        return movieId;
     }
 
-    public List<String> getGenre() {
-        return mGenre;
+    public void setMovieId(long movieId) {
+        this.movieId = movieId;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
-    public Rating getRating() {
-        return mRating;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public short getDuration() {
+        return duration;
+    }
+
+    public void setDuration(short duration) {
+        this.duration = duration;
     }
 
     public Date getReleaseDate() {
-        return mReleaseDate;
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getSynopsis() {
-        return mSynopsis;
+        return synopsis;
     }
 
-    public List<Theater> getTheaters() {
-        return mTheaters;
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
+
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
+    }
+
+    public String getBackdropUrl() {
+        return backdropUrl;
+    }
+
+    public void setBackdropUrl(String backdropUrl) {
+        this.backdropUrl = backdropUrl;
+    }
+
+    public String getTrailerUrl() {
+        return trailerUrl;
+    }
+
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Movie movie = (Movie) o;
+
+        return movieId == movie.movieId;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (movieId ^ (movieId >>> 32));
     }
 
     @Override
     public String toString() {
         return "Movie{" +
-                "mDuration=" + mDuration +
-                ", mGenre=" + mGenre +
-                ", mName='" + mName + '\'' +
-                ", mRating=" + mRating +
-                ", mReleaseDate='" + mReleaseDate + '\'' +
-                ", mSynopsis='" + mSynopsis + '\'' +
-                ", mTheaters=" + mTheaters +
+                "movieId=" + movieId +
+                ", name='" + name + '\'' +
+                ", duration=" + duration +
+                ", releaseDate=" + releaseDate +
+                ", synopsis='" + synopsis + '\'' +
+                ", rating=" + rating +
+                ", posterUrl='" + posterUrl + '\'' +
+                ", backdropUrl='" + backdropUrl + '\'' +
+                ", trailerUrl='" + trailerUrl + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getTitle() {
+        return name;
+    }
+
+    @Override
+    public int compareTo(@NonNull Movie movie) {
+        return this.name.compareTo(movie.getName());
     }
 }

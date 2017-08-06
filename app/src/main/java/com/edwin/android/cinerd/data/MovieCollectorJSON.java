@@ -2,8 +2,8 @@ package com.edwin.android.cinerd.data;
 
 import android.content.Context;
 
-import com.edwin.android.cinerd.entity.Movie;
-import com.edwin.android.cinerd.entity.Movies;
+import com.edwin.android.cinerd.entity.json.Movie;
+import com.edwin.android.cinerd.entity.json.Movies;
 import com.edwin.android.cinerd.util.JsonUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,7 +24,7 @@ public class MovieCollectorJSON implements MovieCollector {
     Context mContext;
 
     @Inject
-    public MovieCollectorJSON(@Named("application context") Context mContext) {
+    public MovieCollectorJSON(Context mContext) {
         this.mContext = mContext;
     }
 

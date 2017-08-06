@@ -1,13 +1,31 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/seance_500</item>
         <item name="colorPrimaryDark">@color/seance_700</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/seance_500</item>
+        <item name="colorPrimaryDark">@color/seance_700</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Dialog.Light.DarkText" parent="Theme.AppCompat.Light.DialogWhenLarge">
+        <item name="colorPrimary">@color/seance_500</item>
+        <item name="colorPrimaryDark">@color/seance_700</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Movie.Detail.Text" parent="Base.TextAppearance.AppCompat.Subhead">
+        <item name="android:textColor">#BFFFFFFF</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
 
 </resources>

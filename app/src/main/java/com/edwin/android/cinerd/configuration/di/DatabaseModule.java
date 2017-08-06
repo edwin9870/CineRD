@@ -16,7 +16,7 @@ import dagger.Provides;
 @Module
 public class DatabaseModule {
     @Provides @Singleton
-    ContentResolver provideContentResolver(@Named("application context") Context applicationContext) {
+    ContentResolver provideContentResolver(Context applicationContext) {
         return applicationContext.getContentResolver();
     }
 }

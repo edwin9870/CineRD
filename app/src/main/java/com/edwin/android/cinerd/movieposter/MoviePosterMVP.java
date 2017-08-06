@@ -13,9 +13,13 @@ public interface MoviePosterMVP {
     interface View {
         void onReceiveMovies(List<Movie> movies);
         void setPresenter(Presenter presenter);
+        void onClickMovie();
+        void onClickTheater();
     }
 
     interface Presenter {
         void getMovies();
+        void openMovieFilterActivity();
+        void openTheatersActivity();
     }
 }

@@ -3,19 +3,24 @@ package com.edwin.android.cinerd.data;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.edwin.android.cinerd.entity.Movie;
-import com.edwin.android.cinerd.entity.Rating;
-import com.edwin.android.cinerd.entity.Room;
-import com.edwin.android.cinerd.entity.Theater;
+import com.edwin.android.cinerd.data.repositories.RatingRepository;
+import com.edwin.android.cinerd.entity.json.Movie;
+import com.edwin.android.cinerd.entity.json.Rating;
+import com.edwin.android.cinerd.entity.json.Room;
+import com.edwin.android.cinerd.entity.json.Theater;
+import com.edwin.android.cinerd.util.DateUtil;
+import com.edwin.android.cinerd.util.ImageUtil;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 /**
@@ -23,21 +28,17 @@ import javax.inject.Singleton;
  */
 
 @Singleton
-public class MovieDataRepository {
-    public static final String TAG = MovieDataRepository.class.getSimpleName();
-    public static final String ROTTEN_TOMATOES = "RottenTomatoes";
-    public static final String IMDB = "IMDB";
+public class ProcessMovies {
+    public static final String TAG = ProcessMovies.class.getSimpleName();
+    private final Context mContext;
     ContentResolver mContentResolver;
     MovieCollector mMovieCollector;
 
     @Inject
-    public MovieDataRepository(ContentResolver contentResolver, MovieCollectorJSON movieCollector) {
-        this.mContentResolver = contentResolver;
+    public ProcessMovies(Context context, MovieCollectorJSON movieCollector) {
+        this.mContext = context;
+        this.mContentResolver = context.getContentResolver();
         this.mMovieCollector = movieCollector;
-    }
-
-    public List<Movie> getMovies() {
-        return mMovieCollector.getMovies();
     }
 
     public void process(List<Movie> movies) {
@@ -49,7 +50,6 @@ public class MovieDataRepository {
             Log.d(TAG, "Movie persisted");
         }
     }
-
 
     private int cleanMovieSchedule() {
         int rowsDeleted = mContentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,
@@ -72,10 +72,17 @@ public class MovieDataRepository {
     }
 
     private long persistMovie(Movie movie, ContentValues cv) {
-        long movieId;Cursor cursor = null;
+        long movieId = 0;
+        Cursor cursor = null;
         try {
             cursor = mContentResolver.query(CineRdContract.MovieEntry.CONTENT_URI, null,
                     CineRdContract.MovieEntry.COLUMN_NAME_NAME + " = ?", new String[]{movie.getName()}, null);
+
+
+            String backDropFilePath = ImageUtil.saveImageFromURL(mContext, new URL(movie.getBackdropUrl()));
+            Log.d(TAG, "backDropFilePath: " + backDropFilePath);
+            String posterFilePath = ImageUtil.saveImageFromURL(mContext, new URL(movie.getPosterUrl()));
+            Log.d(TAG, "posterFilePath: " + posterFilePath);
 
             if (cursor != null && cursor.moveToNext()) {
                 movieId = cursor.getLong(cursor.getColumnIndexOrThrow(CineRdContract.MovieEntry
@@ -84,13 +91,17 @@ public class MovieDataRepository {
             } else {
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_NAME, movie.getName());
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_DURATION, movie.getDuration());
-                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, movie.getReleaseDate().toString());
-
+                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, DateUtil.formatDateTime(movie.getReleaseDate()));
                 cv.put(CineRdContract.MovieEntry.COLUMN_NAME_SYNOPSIS, movie.getSynopsis());
+                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_BACKDROP_PATH, backDropFilePath);
+                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_POSTER_PATH, posterFilePath);
+                cv.put(CineRdContract.MovieEntry.COLUMN_NAME_TRAILER_URL, movie.getmTrailerUrl());
 
                 movieId = ContentUris.parseId(mContentResolver.insert(CineRdContract.MovieEntry.CONTENT_URI, cv));
                 Log.d(TAG, "MovieID generated: " + movieId);
             }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         } finally {
             if(cursor != null) {
                 cursor.close();
@@ -136,8 +147,8 @@ public class MovieDataRepository {
 
     private void persistMovieRating(long movieId, Rating rating) {
 
-        short rottenTomatoesRatingId = persistRating(MovieDataRepository.ROTTEN_TOMATOES);
-        short imdbRattingId = persistRating(MovieDataRepository.IMDB);
+        short rottenTomatoesRatingId = persistRating(RatingRepository.ROTTEN_TOMATOES);
+        short imdbRattingId = persistRating(RatingRepository.IMDB);
 
         ContentValues cv = new ContentValues();
         cv.put(CineRdContract.MovieRatingEntry.COLUMN_NAME_MOVIE_ID, movieId);
@@ -235,8 +246,10 @@ public class MovieDataRepository {
         cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_MOVIE_ID, movieId);
         cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_THEATER_ID, theaterId);
         cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_ROOM_ID, roomId);
-        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE, room.getDate()
-                .toString());
+
+        Log.d(TAG, "room.getDate: " + room.getDate());
+        Log.d(TAG, "DateUtil.formatDateTime(room.getDate()): " + DateUtil.formatDateTime(room.getDate()));
+        cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE, DateUtil.formatDateTime(room.getDate()));
         if(subtitleId > 0) {
             cv.put(CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_SUBTITLE_ID,
                     subtitleId);
@@ -339,5 +352,4 @@ public class MovieDataRepository {
         }
         return roomId;
     }
-
 }
