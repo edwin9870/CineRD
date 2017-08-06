@@ -1,4 +1,4 @@
-package com.edwin.android.cinerd.data.repositories;
+package com.edwin.android.cinerd.data;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -8,9 +8,7 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.edwin.android.cinerd.data.CineRdContract;
-import com.edwin.android.cinerd.data.MovieCollector;
-import com.edwin.android.cinerd.data.MovieCollectorJSON;
+import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.entity.json.Rating;
 import com.edwin.android.cinerd.entity.json.Room;
@@ -30,24 +28,17 @@ import javax.inject.Singleton;
  */
 
 @Singleton
-public class MovieDataRepository {
-    public static final String TAG = MovieDataRepository.class.getSimpleName();
+public class ProcessMovies {
+    public static final String TAG = ProcessMovies.class.getSimpleName();
     private final Context mContext;
-    private final MovieTheaterDetailRepository movieTheaterDetailRepository;
-    private final RatingRepository ratingRepository;
     ContentResolver mContentResolver;
     MovieCollector mMovieCollector;
 
     @Inject
-    public MovieDataRepository(Context context,
-                               MovieCollectorJSON movieCollector,
-                               MovieTheaterDetailRepository movieTheaterDetailRepository,
-                               RatingRepository ratingRepository) {
+    public ProcessMovies(Context context, MovieCollectorJSON movieCollector) {
         this.mContext = context;
         this.mContentResolver = context.getContentResolver();
         this.mMovieCollector = movieCollector;
-        this.movieTheaterDetailRepository = movieTheaterDetailRepository;
-        this.ratingRepository = ratingRepository;
     }
 
     public void process(List<Movie> movies) {

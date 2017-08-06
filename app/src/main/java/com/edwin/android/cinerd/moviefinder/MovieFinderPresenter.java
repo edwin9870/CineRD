@@ -6,7 +6,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.ProcessMovies;
 import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.data.repositories.MovieTheaterDetailRepository;
 import com.edwin.android.cinerd.data.repositories.TheaterRepository;
@@ -33,14 +33,14 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
 
     public static final String TAG = MovieFinderPresenter.class.getSimpleName();
     private final MovieFinderMVP.View mView;
-    private final MovieDataRepository mRepository;
+    private final ProcessMovies mRepository;
     private final TheaterRepository mTheaterRepository;
     private final MovieTheaterDetailRepository mMovieTheaterDetailRepository;
     private final MovieRepository mMovieRepository;
 
     @Inject
     public MovieFinderPresenter(MovieFinderMVP.View view,
-                                MovieDataRepository repository,
+                                ProcessMovies repository,
                                 TheaterRepository theaterRepository,
                                 MovieTheaterDetailRepository movieTheaterDetailRepository,
                                 MovieRepository movieRepository) {

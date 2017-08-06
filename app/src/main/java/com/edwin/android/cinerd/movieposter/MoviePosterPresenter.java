@@ -2,7 +2,7 @@ package com.edwin.android.cinerd.movieposter;
 
 import android.os.AsyncTask;
 
-import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.ProcessMovies;
 import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.entity.Movie;
 
@@ -18,10 +18,10 @@ public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
 
     private final MovieRepository mMovieRepository;
     MoviePosterMVP.View mView;
-    private final MovieDataRepository mMovieDataRepository;
+    private final ProcessMovies mMovieDataRepository;
 
     @Inject
-    public MoviePosterPresenter(MoviePosterMVP.View view, MovieDataRepository mMovieDataRepository,
+    public MoviePosterPresenter(MoviePosterMVP.View view, ProcessMovies mMovieDataRepository,
                                 MovieRepository movieRepository) {
         mView = view;
         this.mMovieDataRepository = mMovieDataRepository;

@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.data.MovieCollectorJSON;
-import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
 import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.data.repositories.MovieTheaterDetailRepository;
 import com.edwin.android.cinerd.data.repositories.RatingRepository;
@@ -63,13 +61,9 @@ public class MovieSynopsisFragment extends Fragment {
         Log.d(TAG, "MovieSynopsis created");
         Log.d(TAG, "Movie synopsis: " + mMovieId);
 
-        MovieCollectorJSON movieCollectorJSON = new MovieCollectorJSON(getActivity());
-        MovieTheaterDetailRepository movieTheaterDetailRepository = new
-                MovieTheaterDetailRepository(getActivity());
+        MovieTheaterDetailRepository movieTheaterDetailRepository = new MovieTheaterDetailRepository(getActivity());
         RatingRepository ratingRe = new RatingRepository(getActivity());
         MovieRepository movieRepository = new MovieRepository(getActivity(), ratingRe, movieTheaterDetailRepository);
-        MovieDataRepository movieDataRepository = new MovieDataRepository(getActivity(),
-                movieCollectorJSON, movieTheaterDetailRepository, ratingRe);
 
         Movie movie = movieRepository.getMovieById(mMovieId);
         mMovieSynopsisTextView.setText(movie.getSynopsis());

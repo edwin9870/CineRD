@@ -2,7 +2,7 @@ package com.edwin.android.cinerd.configuration.di;
 
 import com.edwin.android.cinerd.data.repositories.FormatRepository;
 import com.edwin.android.cinerd.data.repositories.GenreRepository;
-import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.ProcessMovies;
 import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.data.repositories.MovieTheaterDetailRepository;
 import com.edwin.android.cinerd.data.repositories.RatingRepository;
@@ -20,7 +20,7 @@ import dagger.Component;
 @Singleton
 public interface DatabaseComponent {
     void inject(MovieSyncAdapter activity);
-    MovieDataRepository getMetadataRepository();
+    ProcessMovies getMetadataRepository();
     TheaterRepository getTheaterRepository();
     MovieTheaterDetailRepository getMovieTheaterDetailRepository();
     RatingRepository getRatingRepository();

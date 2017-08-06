@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.data.repositories.GenreRepository;
-import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.ProcessMovies;
 import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.entity.Genre;
@@ -30,14 +30,14 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
 
     public static final String TAG = MovieDetailPresenter.class.getSimpleName();
     private final MovieDetailMVP.View mView;
-    private final MovieDataRepository mMovieDataRepository;
+    private final ProcessMovies mMovieDataRepository;
     private final RatingRepository mRatingRepository;
     private final GenreRepository mGenreRepository;
     private final MovieRepository mMovieRepository;
 
     @Inject
     public MovieDetailPresenter(MovieDetailMVP.View mView,
-                                MovieDataRepository mMovieDataRepository,
+                                ProcessMovies mMovieDataRepository,
                                 RatingRepository ratingRepository,
                                 GenreRepository genreRepository,
                                 MovieRepository movieRepository) {

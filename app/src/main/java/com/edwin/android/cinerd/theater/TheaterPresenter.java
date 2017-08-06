@@ -3,7 +3,7 @@ package com.edwin.android.cinerd.theater;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.ProcessMovies;
 import com.edwin.android.cinerd.data.repositories.MovieRepository;
 import com.edwin.android.cinerd.data.repositories.TheaterRepository;
 import com.edwin.android.cinerd.entity.Movie;
@@ -21,13 +21,13 @@ import javax.inject.Inject;
 public class TheaterPresenter implements TheaterMVP.Presenter {
 
     public static final String TAG = TheaterPresenter.class.getSimpleName();
-    private final MovieDataRepository mRepository;
+    private final ProcessMovies mRepository;
     private final TheaterRepository mTheaterRepository;
     private final MovieRepository mMovieRepository;
     private TheaterMVP.View mView;
 
     @Inject
-    public TheaterPresenter(MovieDataRepository repository,
+    public TheaterPresenter(ProcessMovies repository,
                             TheaterRepository theaterRepository,
                             TheaterMVP.View view,
                             MovieRepository movieRepository) {

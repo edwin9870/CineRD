@@ -16,11 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
-import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.repositories.FormatRepository;
-import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
 import com.edwin.android.cinerd.data.repositories.MovieTheaterDetailRepository;
-import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.data.repositories.TheaterRepository;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
@@ -66,7 +63,6 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     private MovieScheduleAdapter mAdapter;
     private long mMovieId;
     private MovieTimeFormatAdapter mMovieTimeFormatAdapter;
-    private MovieDataRepository mMovieDataRepository;
     private TheaterRepository mTheaterRepository;
     private MovieTheaterDetailRepository mMovieTheaterDetailRepository;
     private FormatRepository formatRepository;
@@ -126,11 +122,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mMovieTimeRecyclerView.setAdapter(mMovieTimeFormatAdapter);
 
         mMovieTheaterDetailRepository = new MovieTheaterDetailRepository(getActivity());
-        MovieCollectorJSON movieCollector = new MovieCollectorJSON(getActivity());
         formatRepository = new FormatRepository(getActivity());
-        mMovieDataRepository = new MovieDataRepository(getActivity(), movieCollector,
-                mMovieTheaterDetailRepository,
-                new RatingRepository(getActivity()));
         mTheaterRepository = new TheaterRepository(getActivity());
 
         return view;

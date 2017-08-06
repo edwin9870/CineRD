@@ -12,7 +12,7 @@ import android.util.Log;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.data.MovieCollector;
-import com.edwin.android.cinerd.data.repositories.MovieDataRepository;
+import com.edwin.android.cinerd.data.ProcessMovies;
 import com.edwin.android.cinerd.entity.json.Movie;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import javax.inject.Named;
 public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
     public static final String TAG = MovieSyncAdapter.class.getSimpleName();
     @Inject
-    MovieDataRepository mMovieDataRepository;
+    ProcessMovies mMovieDataRepository;
     @Inject @Named("MovieCollectorJSON")
     MovieCollector mMovieCollector;
 
