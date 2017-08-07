@@ -51,6 +51,9 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     public static final String TAG = MovieScheduleFragment.class.getSimpleName();
     public static final String ARGUMENT_MOVIE_ID = "MOVIE";
     public static final String ARGUMENT_HOST_FRAGMENT_TAG = "ARGUMENT_HOST_FRAGMENT_TAG";
+    public static final String BUNDLE_SELECTED_DATE = "BUNDLE_SELECTED_DATE";
+    public static final String BUNDLE_SELECTED_THEATER_ID = "BUNDLE_SELECTED_THEATER_ID";
+    public static final String BUNDLE_SELECTED_THEATER_TITLE = "BUNDLE_SELECTED_THEATER_TITLE";
     Unbinder unbinder;
     @BindView(R.id.recycler_view_movie_schedule)
     RecyclerView mRecyclerView;
@@ -66,6 +69,9 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     private TheaterRepository mTheaterRepository;
     private MovieTheaterDetailRepository mMovieTheaterDetailRepository;
     private FormatRepository formatRepository;
+    private String mSelectedTheaterTitle;
+    private int mSelectedTheaterId;
+    private Date mSelectedDate;
 
     public MovieScheduleFragment() {
     }
@@ -92,7 +98,28 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         if (getArguments() != null) {
             mMovieId = getArguments().getLong(ARGUMENT_MOVIE_ID);
         }
+    }
 
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        if(savedInstanceState != null) {
+            Log.d(TAG, "Getting values previously saved");
+            long selectedDateLong = savedInstanceState.getLong(BUNDLE_SELECTED_DATE);
+            mSelectedTheaterId = savedInstanceState.getInt(BUNDLE_SELECTED_THEATER_ID);
+            mSelectedTheaterTitle = savedInstanceState.getString(BUNDLE_SELECTED_THEATER_TITLE);
+            Log.d(TAG, "onViewStateRestored method. mSelectedDateLong: " + selectedDateLong);
+            Log.d(TAG, "onViewStateRestored method. mSelectedTheaterId: " + mSelectedTheaterId);
+            Log.d(TAG, "onViewStateRestored method. mSelectedTheaterTitle: " + mSelectedTheaterTitle);
+
+            if(selectedDateLong > 0 && mSelectedTheaterId > 0 && mSelectedTheaterTitle != null) {
+                Log.d(TAG, "Restoring view");
+                mSelectedDate = new Date(selectedDateLong);
+                setMovieTheaterDetail(mMovieId, mSelectedTheaterId, mSelectedDate);
+                textTheaterName.setText(mSelectedTheaterTitle);
+                movieTheaterInfoLinearLayout.setVisibility(View.VISIBLE);
+            }
+        }
+        super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
@@ -188,10 +215,13 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                                         theaterSearchable.getTitle(),
                                         Toast.LENGTH_SHORT).show();
 
+                                mSelectedTheaterId = theaterSearchable.getTheaterId();
+                                mSelectedDate = dateToShowMovies;
                                 MovieScheduleFragment.this.setMovieTheaterDetail(mMovieId,
-                                        theaterSearchable.getTheaterId(), dateToShowMovies);
-                                MovieScheduleFragment.this.textTheaterName.setText(theaterSearchable
-                                        .getTitle());
+                                        mSelectedTheaterId, mSelectedDate);
+                                mSelectedTheaterTitle = theaterSearchable
+                                        .getTitle();
+                                MovieScheduleFragment.this.textTheaterName.setText(mSelectedTheaterTitle);
                                 dialog.dismiss();
                                 MovieScheduleFragment.this.movieTheaterInfoLinearLayout
                                         .setVisibility
@@ -221,8 +251,25 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         }
 
         mMovieTimeFormatAdapter.setRooms(rooms);
-
-
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Log.d(TAG, "onSaveInstanceState method. mSelectedDate: " + mSelectedDate);
+        Log.d(TAG, "onSaveInstanceState method. mSelectedTheaterId: " + mSelectedTheaterId);
+        Log.d(TAG, "onSaveInstanceState method. mSelectedTheaterTitle: " + mSelectedTheaterTitle);
+
+        if(mSelectedDate != null) {
+            outState.putLong(BUNDLE_SELECTED_DATE, mSelectedDate.getTime());
+        }
+        if(mSelectedTheaterId > 0) {
+
+            outState.putInt(BUNDLE_SELECTED_THEATER_ID, mSelectedTheaterId);
+        }
+        if(mSelectedTheaterTitle != null) {
+            outState.putString(BUNDLE_SELECTED_THEATER_TITLE, mSelectedTheaterTitle);
+        }
+
+        super.onSaveInstanceState(outState);
+    }
 }
