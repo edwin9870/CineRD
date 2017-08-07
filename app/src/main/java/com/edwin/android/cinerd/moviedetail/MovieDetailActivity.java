@@ -37,6 +37,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.fragment_movie_detail, movieDetailFragment);
         fragmentTransaction.commit();
 
+        Log.d(TAG, "Injection movie poster presenter");
         DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule
                 (new
                 ApplicationModule(getApplication())).build();

@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.edwin.android.cinerd.R;
@@ -63,10 +64,18 @@ public class MoviePosterActivity extends AppCompatActivity {
 
         AccountGeneral.createSyncAccount(this);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MoviePosterFragment fragment = MoviePosterFragment.newInstance();
+        MoviePosterFragment fragment = (MoviePosterFragment) getFragmentManager().findFragmentById(R.id.fragment_movie_poster);
 
+        Log.d(TAG, "fragment: "+ fragment);
+        if(fragment == null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragment = MoviePosterFragment.newInstance();
+            fragmentTransaction.add(R.id.fragment_movie_poster, fragment);
+            fragmentTransaction.commit();
+        }
+
+        Log.d(TAG, "Injection movie poster presenter");
         DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule
                 (new
                 ApplicationModule(getApplication())).build();
@@ -75,8 +84,6 @@ public class MoviePosterActivity extends AppCompatActivity {
                 .inject(this);
 
 
-        fragmentTransaction.add(R.id.fragment_movie_poster, fragment);
-        fragmentTransaction.commit();
     }
 
     @Override
