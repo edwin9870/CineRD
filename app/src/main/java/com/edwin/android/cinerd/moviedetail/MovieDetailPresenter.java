@@ -22,6 +22,8 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import static com.edwin.android.cinerd.util.StringUtil.capitalizeFirstWord;
+
 /**
  * Created by Edwin Ramirez Ventura on 7/14/2017.
  */
@@ -65,7 +67,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         Set<String> genresName = new HashSet<>();
 
         for(Genre genre: genres) {
-            genresName.add(genre.getName().substring(0, 1).toUpperCase() + genre.getName().substring(1));
+            genresName.add(capitalizeFirstWord(genre.getName()));
         }
         mView.setMovieGenreDuration(new ArrayList<>(genresName), movie.getDuration());
 

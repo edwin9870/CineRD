@@ -34,7 +34,15 @@ public class TheaterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_theater);
         ButterKnife.bind(this);
 
-        TheaterFragment theaterFragment = TheaterFragment.newInstance();
+        TheaterFragment theaterFragment = (TheaterFragment) getFragmentManager().findFragmentById(R.id.fragment_theater);
+
+        if(theaterFragment == null) {
+            theaterFragment = TheaterFragment.newInstance();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_theater, theaterFragment);
+            fragmentTransaction.commit();
+        }
 
         DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule
                 (new
@@ -42,11 +50,6 @@ public class TheaterActivity extends AppCompatActivity {
         DaggerTheaterComponent.builder().databaseComponent(databaseComponent)
                 .theaterPresenterModule(new TheaterPresenterModule(theaterFragment)).build()
                 .inject(this);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_theater, theaterFragment);
-        fragmentTransaction.commit();
 
     }
 
