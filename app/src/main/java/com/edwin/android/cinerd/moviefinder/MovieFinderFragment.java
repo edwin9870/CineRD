@@ -41,6 +41,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
     public static final String TAG = MovieFinderFragment.class.getSimpleName();
     public static final String BUNDLE_MOVIE_NAME_FINDER_ID = "BUNDLE_MOVIE_NAME_FINDER_ID";
+    public static final String BUNDLE_DATE_FILTER_TEXT_ID = "BUNDLE_DATE_FILTER_TEXT_ID";
     @BindView(R.id.edit_text_movie_name_finder)
     TextView mMovieNameFinderTextView;
     Unbinder unbinder;
@@ -86,10 +87,15 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     public void onViewStateRestored(Bundle savedInstanceState) {
         if(savedInstanceState != null) {
             String movieNameFinder = savedInstanceState.getString(BUNDLE_MOVIE_NAME_FINDER_ID);
-
             if(movieNameFinder != null) {
                 mMovieNameFinderTextView.setText(movieNameFinder);
                 mCalendarCardView.setVisibility(View.VISIBLE);
+            }
+
+            String dateFilter = savedInstanceState.getString(BUNDLE_DATE_FILTER_TEXT_ID);
+            if(dateFilter != null) {
+                mTextDateFilter.setText(dateFilter);
+                mScheduleCardView.setVisibility(View.VISIBLE);
             }
         }
 
@@ -238,6 +244,10 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     public void onSaveInstanceState(Bundle outState) {
         if(mMovieNameFinderTextView.getText().toString().length() > 0) {
             outState.putString(BUNDLE_MOVIE_NAME_FINDER_ID, mMovieNameFinderTextView.getText().toString());
+        }
+
+        if(mTextDateFilter.getText().toString().length() > 0) {
+            outState.putString(BUNDLE_DATE_FILTER_TEXT_ID, mTextDateFilter.getText().toString());
         }
 
         super.onSaveInstanceState(outState);
