@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -26,6 +27,7 @@ import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.ViewPagerAdapter;
+import com.edwin.android.cinerd.views.WrapContentViewPager;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -61,7 +63,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     @BindView(R.id.text_rotten_tomatoes_value)
     TextView textRottenTomatoesValue;
     @BindView(R.id.pager_tab_content)
-    ViewPager mViewPager;
+    WrapContentViewPager mViewPager;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
     @BindView(R.id.toolbar_detail_movie)
@@ -72,6 +74,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     ImageView mMovieDetailPosterImageView;
     @BindView(R.id.image_button_play_trailer)
     ImageButton mPlayTrailerImageButton;
+    @BindView(R.id.app_bar_movie_detail)
+    AppBarLayout mAppBar;
     private Unbinder mUnbinder;
     private MovieDetailMVP.Presenter mPresenter;
     private MovieScheduleFragment mScheduleFragment;
@@ -107,6 +111,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mCollapsingToolbar.setExpandedTitleColor(getHexColor(android.R.color.transparent));
 
+
         Log.d(TAG, "Movie ID displayed: " + mMovieId);
         mPresenter.showMovieDetail(getActivity(), mMovieId);
 
@@ -124,6 +129,35 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mViewPager.reMeasureCurrentPage(mViewPager.getCurrentItem());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        mAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if(Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
+                    mPlayTrailerImageButton.setVisibility(View.INVISIBLE);
+                    mMovieDetailPosterImageView.setVisibility(View.INVISIBLE);
+                } else {
+                    mPlayTrailerImageButton.setVisibility(View.VISIBLE);
+                    mMovieDetailPosterImageView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         return view;
     }
 
