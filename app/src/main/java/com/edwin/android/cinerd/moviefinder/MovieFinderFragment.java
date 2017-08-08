@@ -42,6 +42,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     public static final String TAG = MovieFinderFragment.class.getSimpleName();
     public static final String BUNDLE_MOVIE_NAME_FINDER_ID = "BUNDLE_MOVIE_NAME_FINDER_ID";
     public static final String BUNDLE_DATE_FILTER_TEXT_ID = "BUNDLE_DATE_FILTER_TEXT_ID";
+    public static final String BUNDLE_SCHEDULE_TIME_RECYCLER_VIEW_ID = "BUNDLE_SCHEDULE_TIME_RECYCLER_VIEW_ID";
     @BindView(R.id.edit_text_movie_name_finder)
     TextView mMovieNameFinderTextView;
     Unbinder unbinder;
@@ -62,6 +63,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     private MovieFinderMVP.Presenter mPresenter;
     private MovieFinderTimeAdapter mMovieFinderTimeAdapter;
     private MovieFinderTheaterAdapter mMovieFinderTheaterAdapter;
+    private List<MovieTheaterDetail> mUniqueMovieTheaterDetails;
 
     public MovieFinderFragment() {
 
@@ -80,6 +82,12 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mMovieFinderTimeAdapter = new MovieFinderTimeAdapter(this, getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false);
+        mAvailableHourRecyclerView.setLayoutManager(linearLayoutManager);
+        mAvailableHourRecyclerView.setAdapter(mMovieFinderTimeAdapter);
+
         return view;
     }
 
@@ -95,10 +103,18 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
             String dateFilter = savedInstanceState.getString(BUNDLE_DATE_FILTER_TEXT_ID);
             if(dateFilter != null) {
                 mTextDateFilter.setText(dateFilter);
+
+                mUniqueMovieTheaterDetails = savedInstanceState
+                        .getParcelableArrayList(BUNDLE_SCHEDULE_TIME_RECYCLER_VIEW_ID);
+
+                if(mUniqueMovieTheaterDetails != null) {
+                    Log.d(TAG, "Restoring Recycler View movie time");
+                    mMovieFinderTimeAdapter.setMovieTheaterDetails(mUniqueMovieTheaterDetails);
+                }
+
                 mScheduleCardView.setVisibility(View.VISIBLE);
             }
         }
-
         super.onViewStateRestored(savedInstanceState);
     }
 
@@ -172,8 +188,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
     @Override
     public void showAvailableMovieTime(List<MovieTheaterDetail> movieTheaterDetails) {
-        mMovieFinderTimeAdapter = new MovieFinderTimeAdapter(this, getActivity());
-        List<MovieTheaterDetail> uniqueMovieTheaterDetails = new ArrayList<>();
+
+        mUniqueMovieTheaterDetails = new ArrayList<>();
         List<Long> existenceTime = new ArrayList<>();
         for (MovieTheaterDetail movieTheaterDetail : movieTheaterDetails) {
             Calendar instance = Calendar.getInstance();
@@ -183,15 +199,11 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
             long time = hour + minute;
             if (!existenceTime.contains(time)) {
                 existenceTime.add(time);
-                uniqueMovieTheaterDetails.add(movieTheaterDetail);
+                mUniqueMovieTheaterDetails.add(movieTheaterDetail);
             }
         }
 
-        mMovieFinderTimeAdapter.setMovieTheaterDetails(new ArrayList<>(uniqueMovieTheaterDetails));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.VERTICAL, false);
-        mAvailableHourRecyclerView.setLayoutManager(linearLayoutManager);
-        mAvailableHourRecyclerView.setAdapter(mMovieFinderTimeAdapter);
+        mMovieFinderTimeAdapter.setMovieTheaterDetails(new ArrayList<>(mUniqueMovieTheaterDetails));
     }
 
     @Override
@@ -248,6 +260,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
         if(mTextDateFilter.getText().toString().length() > 0) {
             outState.putString(BUNDLE_DATE_FILTER_TEXT_ID, mTextDateFilter.getText().toString());
+            outState.putParcelableArrayList(BUNDLE_SCHEDULE_TIME_RECYCLER_VIEW_ID, new ArrayList<>(mUniqueMovieTheaterDetails));
         }
 
         super.onSaveInstanceState(outState);
