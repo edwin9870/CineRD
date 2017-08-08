@@ -13,7 +13,6 @@ import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
 import com.edwin.android.cinerd.data.adapters.AccountGeneral;
-import com.edwin.android.cinerd.data.adapters.MovieSyncAdapter;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
 

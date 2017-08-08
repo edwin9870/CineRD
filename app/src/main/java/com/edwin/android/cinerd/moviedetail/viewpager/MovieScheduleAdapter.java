@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.edwin.android.cinerd.R;
+import com.edwin.android.cinerd.util.DateUtil;
+import com.edwin.android.cinerd.util.ResourceUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -24,11 +26,14 @@ import butterknife.ButterKnife;
 public class MovieScheduleAdapter extends RecyclerView.Adapter<MovieScheduleAdapter.MoviePosterAdapterViewHolder> {
 
     public static final String TAG = MovieScheduleAdapter.class.getSimpleName();
+    private final Context mContext;
     private List<Date> mDates;
     private ScheduleDayClicked scheduleDayClicked;
+    private Date mSelectedDate;
 
-    public MovieScheduleAdapter(ScheduleDayClicked scheduleDayClicked) {
+    public MovieScheduleAdapter(Context context, ScheduleDayClicked scheduleDayClicked) {
         this.scheduleDayClicked = scheduleDayClicked;
+        mContext = context;
     }
 
     @Override
@@ -49,6 +54,13 @@ public class MovieScheduleAdapter extends RecyclerView.Adapter<MovieScheduleAdap
 
         holder.mScheduleDayNameTextView.setText(dayName.toString().toUpperCase());
         holder.mScheduleDayTextView.setText(dayNumber);
+
+        Log.d(TAG, "mSelectedDate: " + mSelectedDate + ", date: " + date);
+        if(mSelectedDate != null && DateUtil.areSameDay(date, mSelectedDate)) {
+            Log.d(TAG, "Setting holder TextView color");
+            holder.mScheduleDayNameTextView.setTextColor(ResourceUtil.getResourceColor(mContext, R.color.colorAccent));
+            holder.mScheduleDayTextView.setTextColor(ResourceUtil.getResourceColor(mContext, R.color.colorAccent));
+        }
 
         Log.d(TAG, "Setup schedule day and name");
     }
@@ -76,16 +88,17 @@ public class MovieScheduleAdapter extends RecyclerView.Adapter<MovieScheduleAdap
 
         @Override
         public void onClick(View view) {
-            scheduleDayClicked.onClickDay(mDates.get(getAdapterPosition()));
+            scheduleDayClicked.onClickDay(view, mDates.get(getAdapterPosition()));
         }
     }
 
-    public void setDates(List<Date> dates) {
+    public void setDates(List<Date> dates, Date selectedDate) {
         this.mDates = dates;
+        mSelectedDate = selectedDate;
         notifyDataSetChanged();
     }
 
     public interface ScheduleDayClicked {
-        void onClickDay(Date date);
+        void onClickDay(View view, Date date);
     }
 }

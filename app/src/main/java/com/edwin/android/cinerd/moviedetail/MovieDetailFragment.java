@@ -4,7 +4,6 @@ package com.edwin.android.cinerd.moviedetail;
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -39,6 +38,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.edwin.android.cinerd.util.ImageUtil.getImageFile;
+import static com.edwin.android.cinerd.util.ResourceUtil.getResourceColor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -109,7 +109,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mCollapsingToolbar.setExpandedTitleColor(getHexColor(android.R.color.transparent));
+        mCollapsingToolbar.setExpandedTitleColor(getResourceColor(getActivity(), android.R.color.transparent));
 
 
         Log.d(TAG, "Movie ID displayed: " + mMovieId);
@@ -216,17 +216,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivity(intent);
         }
-    }
-
-
-    private int getHexColor(int colorCode) {
-        int color;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            color = getResources().getColor(colorCode, getActivity().getTheme());
-        } else {
-            color = getResources().getColor(colorCode);
-        }
-        return color;
     }
 
     @OnClick(R.id.image_button_play_trailer)

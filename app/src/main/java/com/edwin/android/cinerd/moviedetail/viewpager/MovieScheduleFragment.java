@@ -4,6 +4,7 @@ package com.edwin.android.cinerd.moviedetail.viewpager;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.entity.json.Room;
 import com.edwin.android.cinerd.util.DateUtil;
+import com.edwin.android.cinerd.util.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,6 +56,8 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     public static final String BUNDLE_SELECTED_DATE = "BUNDLE_SELECTED_DATE";
     public static final String BUNDLE_SELECTED_THEATER_ID = "BUNDLE_SELECTED_THEATER_ID";
     public static final String BUNDLE_SELECTED_THEATER_TITLE = "BUNDLE_SELECTED_THEATER_TITLE";
+    public static final String BUNDLE_RECYCLER_VIEW_ID = "BUNDLE_RECYCLER_VIEW_ID";
+
     Unbinder unbinder;
     @BindView(R.id.recycler_view_movie_schedule)
     RecyclerView mRecyclerView;
@@ -71,6 +75,9 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     private FormatRepository formatRepository;
     private String mSelectedTheaterTitle;
     private int mSelectedTheaterId;
+    private TextView mSelectedScheduleDayNameTextView;
+    private TextView mSelectedScheduleDayTextView;
+    private int mOriginalTextColor;
     private Date mSelectedDate;
 
     public MovieScheduleFragment() {
@@ -100,8 +107,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         }
     }
 
-    @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
+    private void restorePreviousState(Bundle savedInstanceState) {
         if(savedInstanceState != null) {
             Log.d(TAG, "Getting values previously saved");
             long selectedDateLong = savedInstanceState.getLong(BUNDLE_SELECTED_DATE);
@@ -113,13 +119,21 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
 
             if(selectedDateLong > 0 && mSelectedTheaterId > 0 && mSelectedTheaterTitle != null) {
                 Log.d(TAG, "Restoring view");
+                Log.d(TAG, "mMovieId: "+ mMovieId);
                 mSelectedDate = new Date(selectedDateLong);
                 setMovieTheaterDetail(mMovieId, mSelectedTheaterId, mSelectedDate);
                 textTheaterName.setText(mSelectedTheaterTitle);
                 movieTheaterInfoLinearLayout.setVisibility(View.VISIBLE);
             }
+
+            Parcelable recyclerViewState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_VIEW_ID);
+
+            if(recyclerViewState != null) {
+                Log.d(TAG, "restoring RecyclerView state");
+                mRecyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+            }
+
         }
-        super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
@@ -127,7 +141,7 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_schedule, container, false);
         unbinder = ButterKnife.bind(this, view);
-        mAdapter = new MovieScheduleAdapter(this);
+        mAdapter = new MovieScheduleAdapter(getActivity(), this);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
 
@@ -135,9 +149,6 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setAdapter(mAdapter);
-        List<Date> dates = getDates();
-        mAdapter.setDates(dates);
-
 
         mMovieTimeFormatAdapter = new MovieTimeFormatAdapter(getActivity());
 
@@ -152,6 +163,11 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         formatRepository = new FormatRepository(getActivity());
         mTheaterRepository = new TheaterRepository(getActivity());
 
+
+        restorePreviousState(savedInstanceState);
+
+        List<Date> dates = getDates();
+        mAdapter.setDates(dates, mSelectedDate);
         return view;
     }
 
@@ -171,14 +187,15 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     }
 
     @Override
-    public void onClickDay(Date date) {
+    public void onClickDay(View view, Date date) {
         Log.d(TAG, "Date clicked: " + date);
-        showMovieTheaterDetail(date);
+        showMovieTheaterDetail(view, date);
     }
 
-    public void showMovieTheaterDetail(final Date dateToShowMovies) {
+    public void showMovieTheaterDetail(final View dateViewClicked, final Date dateToShowMovies) {
         Log.d(TAG, "Theater name clicked");
         Log.d(TAG, "Movie data: " + mMovieId);
+
 
         String dialogTitle = MovieScheduleFragment.this.getString(R.string
                 .movie_theater_search_dialog_title);
@@ -226,11 +243,28 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
                                 MovieScheduleFragment.this.movieTheaterInfoLinearLayout
                                         .setVisibility
                                                 (View.VISIBLE);
+                                changeScheduleSelectedDayColor(dateViewClicked);
 
                             }
                         });
         searchDialogCompat.getContext().setTheme(R.style.AppTheme_Dialog_Light_DarkText);
         searchDialogCompat.show();
+    }
+
+    private void changeScheduleSelectedDayColor(View dateViewClicked) {
+        mOriginalTextColor = ((TextView) dateViewClicked.findViewById(R.id.text_schedule_day_name)).getCurrentTextColor();
+        TextView currentScheduleDayNameTextView = dateViewClicked.findViewById(R.id.text_schedule_day_name);
+        TextView currentScheduleDayTextView = dateViewClicked.findViewById(R.id.text_schedule_day);
+
+        currentScheduleDayNameTextView.setTextColor(ResourceUtil.getResourceColor(getActivity(), R.color.colorAccent));
+        currentScheduleDayTextView.setTextColor(ResourceUtil.getResourceColor(getActivity(), R.color.colorAccent));
+
+        if(mSelectedScheduleDayTextView != null && mSelectedScheduleDayNameTextView != null) {
+            mSelectedScheduleDayTextView.setTextColor(mOriginalTextColor);
+            mSelectedScheduleDayNameTextView.setTextColor(mOriginalTextColor);
+        }
+        mSelectedScheduleDayNameTextView = dateViewClicked.findViewById(R.id.text_schedule_day_name);
+        mSelectedScheduleDayTextView = dateViewClicked.findViewById(R.id.text_schedule_day);
     }
 
     public void setMovieTheaterDetail(long movieId, long theaterId, Date availableDate) {
@@ -269,6 +303,9 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         if(mSelectedTheaterTitle != null) {
             outState.putString(BUNDLE_SELECTED_THEATER_TITLE, mSelectedTheaterTitle);
         }
+
+        Parcelable mRecyclerViewState = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(BUNDLE_RECYCLER_VIEW_ID, mRecyclerViewState);
 
         super.onSaveInstanceState(outState);
     }

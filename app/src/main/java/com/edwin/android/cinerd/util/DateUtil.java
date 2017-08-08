@@ -57,4 +57,13 @@ public final class DateUtil {
         return df.format(date);
     }
 
+    public static boolean areSameDay(Date firstDate, Date secondDate) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(firstDate);
+        cal2.setTime(secondDate);
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+    }
+
 }
