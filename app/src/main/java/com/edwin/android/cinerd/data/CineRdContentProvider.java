@@ -320,6 +320,12 @@ public class CineRdContentProvider extends ContentProvider {
             case MOVIE_THEATER_DETAIL:
                 tasksDeleted = db.delete(CineRdContract.MovieTheaterDetailEntry.TABLE_NAME, selection, selectionArgs);
                 break;
+            case MOVIE_GENRE:
+                tasksDeleted = db.delete(CineRdContract.MovieGenreEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case MOVIE_RATING:
+                tasksDeleted = db.delete(CineRdContract.MovieRatingEntry.TABLE_NAME, selection, selectionArgs);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

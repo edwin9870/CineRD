@@ -54,6 +54,8 @@ public class ProcessMovies {
     private int cleanMovieSchedule() {
         int rowsDeleted = mContentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,
                 null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.MovieGenreEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.MovieRatingEntry.CONTENT_URI, null, null);
         Log.d(TAG, "rows deleted: "+ rowsDeleted);
         return rowsDeleted;
     }

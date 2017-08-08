@@ -82,7 +82,7 @@ public class MoviePosterActivity extends AppCompatActivity {
         DaggerMoviePosterComponent.builder().databaseComponent(databaseComponent)
                 .moviePosterPresenterModule(new MoviePosterPresenterModule(fragment)).build()
                 .inject(this);
-
+        MovieSyncAdapter.performSync();
 
     }
 
