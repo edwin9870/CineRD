@@ -43,6 +43,10 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     public static final String BUNDLE_MOVIE_NAME_FINDER_ID = "BUNDLE_MOVIE_NAME_FINDER_ID";
     public static final String BUNDLE_DATE_FILTER_TEXT_ID = "BUNDLE_DATE_FILTER_TEXT_ID";
     public static final String BUNDLE_SCHEDULE_TIME_RECYCLER_VIEW_ID = "BUNDLE_SCHEDULE_TIME_RECYCLER_VIEW_ID";
+
+    public static final String BUNDLE_THEATERS_NAME_RECYCLER_VIEW_ID = "BUNDLE_THEATERS_NAME_RECYCLER_VIEW_ID";
+
+
     @BindView(R.id.edit_text_movie_name_finder)
     TextView mMovieNameFinderTextView;
     Unbinder unbinder;
@@ -64,6 +68,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     private MovieFinderTimeAdapter mMovieFinderTimeAdapter;
     private MovieFinderTheaterAdapter mMovieFinderTheaterAdapter;
     private List<MovieTheaterDetail> mUniqueMovieTheaterDetails;
+    private List<String> mTheatersNameToShow;
 
     public MovieFinderFragment() {
 
@@ -88,6 +93,12 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         mAvailableHourRecyclerView.setLayoutManager(linearLayoutManager);
         mAvailableHourRecyclerView.setAdapter(mMovieFinderTimeAdapter);
 
+        mMovieFinderTheaterAdapter = new MovieFinderTheaterAdapter();
+        LinearLayoutManager linearLayoutManagerTheater = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false);
+        mAvailableMovieTheatersRecyclerView.setLayoutManager(linearLayoutManagerTheater);
+        mAvailableMovieTheatersRecyclerView.setAdapter(mMovieFinderTheaterAdapter);
+
         return view;
     }
 
@@ -103,17 +114,22 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
             String dateFilter = savedInstanceState.getString(BUNDLE_DATE_FILTER_TEXT_ID);
             if(dateFilter != null) {
                 mTextDateFilter.setText(dateFilter);
+            }
 
-                mUniqueMovieTheaterDetails = savedInstanceState
-                        .getParcelableArrayList(BUNDLE_SCHEDULE_TIME_RECYCLER_VIEW_ID);
-
-                if(mUniqueMovieTheaterDetails != null) {
-                    Log.d(TAG, "Restoring Recycler View movie time");
-                    mMovieFinderTimeAdapter.setMovieTheaterDetails(mUniqueMovieTheaterDetails);
-                }
-
+            mUniqueMovieTheaterDetails = savedInstanceState.getParcelableArrayList(BUNDLE_SCHEDULE_TIME_RECYCLER_VIEW_ID);
+            if(mUniqueMovieTheaterDetails != null) {
+                Log.d(TAG, "Restoring Recycler View movie time");
+                mMovieFinderTimeAdapter.setMovieTheaterDetails(mUniqueMovieTheaterDetails);
                 mScheduleCardView.setVisibility(View.VISIBLE);
             }
+
+            mTheatersNameToShow = savedInstanceState.getStringArrayList(BUNDLE_THEATERS_NAME_RECYCLER_VIEW_ID);
+
+            if(mTheatersNameToShow != null) {
+                showTheaters(mTheatersNameToShow);
+            }
+
+
         }
         super.onViewStateRestored(savedInstanceState);
     }
@@ -208,12 +224,8 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
 
     @Override
     public void showTheaters(List<String> theatersName) {
-        mMovieFinderTheaterAdapter = new MovieFinderTheaterAdapter();
-        mMovieFinderTheaterAdapter.setTheatersName(theatersName);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.VERTICAL, false);
-        mAvailableMovieTheatersRecyclerView.setLayoutManager(linearLayoutManager);
-        mAvailableMovieTheatersRecyclerView.setAdapter(mMovieFinderTheaterAdapter);
+        mTheatersNameToShow = theatersName;
+        mMovieFinderTheaterAdapter.setTheatersName(mTheatersNameToShow);
         mMovieTheaterCardView.setVisibility(View.VISIBLE);
 
     }
@@ -261,6 +273,10 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         if(mTextDateFilter.getText().toString().length() > 0) {
             outState.putString(BUNDLE_DATE_FILTER_TEXT_ID, mTextDateFilter.getText().toString());
             outState.putParcelableArrayList(BUNDLE_SCHEDULE_TIME_RECYCLER_VIEW_ID, new ArrayList<>(mUniqueMovieTheaterDetails));
+        }
+
+        if(mTheatersNameToShow != null && mTheatersNameToShow.size() > 0) {
+            outState.putStringArrayList(BUNDLE_THEATERS_NAME_RECYCLER_VIEW_ID, new ArrayList<>(mTheatersNameToShow));
         }
 
         super.onSaveInstanceState(outState);
