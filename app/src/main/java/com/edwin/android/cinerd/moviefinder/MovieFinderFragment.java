@@ -40,6 +40,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         MovieFinderTimeAdapter.MovieFinderTimeLister {
 
     public static final String TAG = MovieFinderFragment.class.getSimpleName();
+    public static final String BUNDLE_MOVIE_NAME_FINDER_ID = "BUNDLE_MOVIE_NAME_FINDER_ID";
     @BindView(R.id.edit_text_movie_name_finder)
     TextView mMovieNameFinderTextView;
     Unbinder unbinder;
@@ -79,6 +80,20 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         return view;
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        if(savedInstanceState != null) {
+            String movieNameFinder = savedInstanceState.getString(BUNDLE_MOVIE_NAME_FINDER_ID);
+
+            if(movieNameFinder != null) {
+                mMovieNameFinderTextView.setText(movieNameFinder);
+                mCalendarCardView.setVisibility(View.VISIBLE);
+            }
+        }
+
+        super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
@@ -219,6 +234,14 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                 movieTheaterDetail.getAvailableDate());
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if(mMovieNameFinderTextView.getText().toString().length() > 0) {
+            outState.putString(BUNDLE_MOVIE_NAME_FINDER_ID, mMovieNameFinderTextView.getText().toString());
+        }
+
+        super.onSaveInstanceState(outState);
+    }
 
     private void clearForm() {
         mScheduleCardView.setVisibility(View.INVISIBLE);

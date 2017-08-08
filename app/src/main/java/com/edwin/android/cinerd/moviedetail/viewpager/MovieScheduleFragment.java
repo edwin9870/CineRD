@@ -178,6 +178,30 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
     }
 
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Log.d(TAG, "onSaveInstanceState method. mSelectedDate: " + mSelectedDate);
+        Log.d(TAG, "onSaveInstanceState method. mSelectedTheaterId: " + mSelectedTheaterId);
+        Log.d(TAG, "onSaveInstanceState method. mSelectedTheaterTitle: " + mSelectedTheaterTitle);
+
+        if(mSelectedDate != null) {
+            outState.putLong(BUNDLE_SELECTED_DATE, mSelectedDate.getTime());
+        }
+        if(mSelectedTheaterId > 0) {
+
+            outState.putInt(BUNDLE_SELECTED_THEATER_ID, mSelectedTheaterId);
+        }
+        if(mSelectedTheaterTitle != null) {
+            outState.putString(BUNDLE_SELECTED_THEATER_TITLE, mSelectedTheaterTitle);
+        }
+
+        Parcelable mRecyclerViewState = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(BUNDLE_RECYCLER_VIEW_ID, mRecyclerViewState);
+
+        super.onSaveInstanceState(outState);
+    }
+
+
     private List<Date> getDates() {
         List<Date> dates = new ArrayList<>();
         dates.add(todayDate);
@@ -287,26 +311,4 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         mMovieTimeFormatAdapter.setRooms(rooms);
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        Log.d(TAG, "onSaveInstanceState method. mSelectedDate: " + mSelectedDate);
-        Log.d(TAG, "onSaveInstanceState method. mSelectedTheaterId: " + mSelectedTheaterId);
-        Log.d(TAG, "onSaveInstanceState method. mSelectedTheaterTitle: " + mSelectedTheaterTitle);
-
-        if(mSelectedDate != null) {
-            outState.putLong(BUNDLE_SELECTED_DATE, mSelectedDate.getTime());
-        }
-        if(mSelectedTheaterId > 0) {
-
-            outState.putInt(BUNDLE_SELECTED_THEATER_ID, mSelectedTheaterId);
-        }
-        if(mSelectedTheaterTitle != null) {
-            outState.putString(BUNDLE_SELECTED_THEATER_TITLE, mSelectedTheaterTitle);
-        }
-
-        Parcelable mRecyclerViewState = mRecyclerView.getLayoutManager().onSaveInstanceState();
-        outState.putParcelable(BUNDLE_RECYCLER_VIEW_ID, mRecyclerViewState);
-
-        super.onSaveInstanceState(outState);
-    }
 }
