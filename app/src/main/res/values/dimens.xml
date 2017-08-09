@@ -72,5 +72,7 @@
 
     <!-- item_movie_theater.xml -->
     <dimen name="text_movie_finder_theater_name_margin_top">8dp</dimen>
+    <dimen name="progress_bar_loading_indicator_width">42dp</dimen>
+    <dimen name="progress_bar_loading_indicator_height">42dp</dimen>
 
 </resources>

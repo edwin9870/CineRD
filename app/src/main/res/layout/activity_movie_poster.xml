@@ -36,4 +36,12 @@
         app:showTitle="true"
         app:overlayBackground="#80000000"/>
 
+    <ProgressBar
+        android:id="@+id/progress_bar_loading_indicator"
+        android:layout_width="@dimen/progress_bar_loading_indicator_width"
+        android:layout_height="@dimen/progress_bar_loading_indicator_height"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
 </android.support.design.widget.CoordinatorLayout>
