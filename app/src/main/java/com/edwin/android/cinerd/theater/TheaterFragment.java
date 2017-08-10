@@ -75,8 +75,8 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
             mRecyclerView.setLayoutManager(gridLayoutManager);
             int spacingInPixels = getResources().getDimensionPixelSize(R.dimen
                     .space_between_movie_poster);
-            //TODO: Pass number to integers.xml resource
-            mRecyclerView.addItemDecoration(new SpacesItemDecoration(2, spacingInPixels, false));
+            mRecyclerView.addItemDecoration(new SpacesItemDecoration(getResources().getInteger(R
+                    .integer.movie_poster_space_item), spacingInPixels, false));
             mRecyclerView.setHasFixedSize(false);
             mRecyclerView.setAdapter(mAdapter);
 
