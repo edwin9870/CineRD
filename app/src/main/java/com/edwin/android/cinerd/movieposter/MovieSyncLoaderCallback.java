@@ -1,0 +1,67 @@
+package com.edwin.android.cinerd.movieposter;
+
+import android.app.LoaderManager;
+import android.content.Context;
+import android.content.Loader;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
+
+/**
+ * Created by Edwin Ramirez Ventura on 8/9/2017.
+ */
+
+public class MovieSyncLoaderCallback implements LoaderManager.LoaderCallbacks<Void> {
+
+    public static final String TAG = MovieSyncLoaderCallback.class.getSimpleName();
+    private Context mContext;
+    private ProgressBar mProgressBar;
+    private FloatingActionButton mFloatingButtonMovieMenu;
+    private MoviePosterActivity moviePosterActivity;
+    private DatabaseComponent mDatabaseComponent;
+
+    public MovieSyncLoaderCallback(Context mContext, ProgressBar mProgressBar,
+                                   FloatingActionButton mFloatingButtonMovieMenu, MoviePosterActivity moviePosterActivity, DatabaseComponent mDatabaseComponent) {
+        this.mContext = mContext;
+        this.mProgressBar = mProgressBar;
+        this.mFloatingButtonMovieMenu = mFloatingButtonMovieMenu;
+        this.moviePosterActivity = moviePosterActivity;
+        this.mDatabaseComponent = mDatabaseComponent;
+    }
+
+
+    @Override
+    public Loader<Void> onCreateLoader(int i, Bundle bundle) {
+        mFloatingButtonMovieMenu.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+        return new MovieSyncLoader(mContext);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Void> loader, Void aVoid) {
+        Log.d(TAG, "Finish manual sync");
+        final int WHAT = 1;
+        Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                if(msg.what == WHAT) {
+                    moviePosterActivity.addFragment(mDatabaseComponent);
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    moviePosterActivity.addFragment(mDatabaseComponent);
+                };
+            }
+        };
+        handler.sendEmptyMessage(WHAT);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Void> loader) {
+
+    }
+}
