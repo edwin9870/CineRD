@@ -53,7 +53,7 @@ public class MovieSyncLoaderCallback implements LoaderManager.LoaderCallbacks<Vo
                 if(msg.what == WHAT) {
                     moviePosterActivity.addFragment(mDatabaseComponent);
                     mProgressBar.setVisibility(View.INVISIBLE);
-                    moviePosterActivity.addFragment(mDatabaseComponent);
+                    mFloatingButtonMovieMenu.setVisibility(View.VISIBLE);
                 };
             }
         };
