@@ -3,6 +3,7 @@ package com.edwin.android.cinerd.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.edwin.android.cinerd.data.CineRdContract.FormatEntry;
 import com.edwin.android.cinerd.data.CineRdContract.GenreEntry;
@@ -22,16 +23,18 @@ import com.edwin.android.cinerd.data.CineRdContract.TheaterEntry;
 
 public class CineRdDbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "cine_rd.db";
     public static final String TAG = CineRdDbHelper.class.getSimpleName();
 
     public CineRdDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        Log.d(TAG, "CineRdDbHelper constructor called");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "onCreate called");
         final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " +
                 MovieEntry.TABLE_NAME + " (" +
                 MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -134,6 +137,6 @@ public class CineRdDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        Log.d(TAG, "onUpgrade called");
     }
 }
