@@ -52,10 +52,17 @@ public class ProcessMovies {
     }
 
     private int cleanMovieSchedule() {
-        int rowsDeleted = mContentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,
-                null, null);
+        int rowsDeleted = mContentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,null, null);
         rowsDeleted += mContentResolver.delete(CineRdContract.MovieGenreEntry.CONTENT_URI, null, null);
         rowsDeleted += mContentResolver.delete(CineRdContract.MovieRatingEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.FormatEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.GenreEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.LanguageEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.MovieEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.RatingEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.RoomEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.SubtitleEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.TheaterEntry.CONTENT_URI, null, null);
         Log.d(TAG, "rows deleted: "+ rowsDeleted);
         return rowsDeleted;
     }
