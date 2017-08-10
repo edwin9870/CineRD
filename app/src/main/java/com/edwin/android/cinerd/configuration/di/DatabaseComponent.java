@@ -8,6 +8,7 @@ import com.edwin.android.cinerd.data.repositories.MovieTheaterDetailRepository;
 import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.data.repositories.TheaterRepository;
 import com.edwin.android.cinerd.data.adapters.MovieSyncAdapter;
+import com.edwin.android.cinerd.movieposter.MovieSyncLoader;
 
 import javax.inject.Singleton;
 
@@ -20,6 +21,7 @@ import dagger.Component;
 @Singleton
 public interface DatabaseComponent {
     void inject(MovieSyncAdapter activity);
+    void inject(MovieSyncLoader activity);
     ProcessMovies getMetadataRepository();
     TheaterRepository getTheaterRepository();
     MovieTheaterDetailRepository getMovieTheaterDetailRepository();

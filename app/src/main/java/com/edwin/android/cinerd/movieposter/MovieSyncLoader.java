@@ -5,11 +5,17 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.edwin.android.cinerd.configuration.di.ApplicationModule;
+import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
+import com.edwin.android.cinerd.data.MovieCollector;
 import com.edwin.android.cinerd.data.MovieCollectorJSON;
 import com.edwin.android.cinerd.data.ProcessMovies;
 import com.edwin.android.cinerd.entity.json.Movie;
 
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Created by Edwin Ramirez Ventura on 8/9/2017.
@@ -20,6 +26,10 @@ public class MovieSyncLoader extends AsyncTaskLoader<Void> {
     public static final String TAG = MovieSyncLoader.class.getSimpleName();
     private final Context mContext;
     private boolean loaded;
+    @Inject
+    ProcessMovies mMovieDataRepository;
+    @Inject @Named("MovieCollectorJSON")
+    MovieCollector mMovieCollector;
 
     public MovieSyncLoader(Context context) {
         super(context);
@@ -38,11 +48,11 @@ public class MovieSyncLoader extends AsyncTaskLoader<Void> {
     @Override
     public Void loadInBackground() {
         Log.d(TAG, "Starting to load data");
-        MovieCollectorJSON collector = new MovieCollectorJSON(mContext);
-        List<Movie> movies = collector.getMovies();
+        DaggerDatabaseComponent.builder().applicationModule(new ApplicationModule(mContext
+                .getApplicationContext())).build().inject(this);
+        List<Movie> movies = mMovieCollector.getMovies();
         Log.d(TAG, "mMovieCollector.getMoviesCollector(): " + movies);
-        ProcessMovies processMovies = new ProcessMovies(mContext, collector);
-        processMovies.process(movies);
+        mMovieDataRepository.process(movies);
         return null;
     }
 
