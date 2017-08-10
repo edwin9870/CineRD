@@ -262,6 +262,7 @@ public class CineRdContentProvider extends ContentProvider {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
+        db.close();
         return uriToReturn;
     }
 
@@ -357,7 +358,7 @@ public class CineRdContentProvider extends ContentProvider {
         if (tasksDeleted != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-
+        db.close();
         return tasksDeleted;
     }
 
