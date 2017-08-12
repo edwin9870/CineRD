@@ -3,6 +3,7 @@ package com.edwin.android.cinerd.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.edwin.android.cinerd.data.CineRdContract.FormatEntry;
 import com.edwin.android.cinerd.data.CineRdContract.GenreEntry;
@@ -22,24 +23,26 @@ import com.edwin.android.cinerd.data.CineRdContract.TheaterEntry;
 
 public class CineRdDbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 3;
-    public static final String DATABASE_NAME = "cine_rd.db";
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "cineRd.db";
     public static final String TAG = CineRdDbHelper.class.getSimpleName();
 
     public CineRdDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        Log.d(TAG, "CineRdDbHelper constructor called");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "onCreate called");
         final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " +
                 MovieEntry.TABLE_NAME + " (" +
                 MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 MovieEntry.COLUMN_NAME_NAME + " VARCHAR(40) NOT NULL," +
                 MovieEntry.COLUMN_NAME_DURATION + " INT(3) NOT NULL," +
                 MovieEntry.COLUMN_NAME_SYNOPSIS + " TEXT NOT NULL," +
-                MovieEntry.COLUMN_NAME_POSTER_PATH + " TEXT NOT NULL," +
-                MovieEntry.COLUMN_NAME_BACKDROP_PATH + " TEXT NOT NULL," +
+                MovieEntry.COLUMN_NAME_POSTER_PATH + " TEXT," +
+                MovieEntry.COLUMN_NAME_BACKDROP_PATH + " TEXT," +
                 MovieEntry.COLUMN_NAME_TRAILER_URL + " TEXT NOT NULL," +
                 MovieEntry.COLUMN_NAME_RELEASE_DATE +  " RELEASE_DATE DATETIME NOT NULL);" +
                 "CREATE UNIQUE INDEX MOVIE_NAME_uindex ON "+MovieEntry.TABLE_NAME+" ("+MovieEntry.COLUMN_NAME_NAME+");";
@@ -107,7 +110,7 @@ public class CineRdDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_ROOM_TABLE = "CREATE TABLE " +
                 RoomEntry.TABLE_NAME + " (" +
                 RoomEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                RoomEntry.COLUMN_NAME_NUMBER + " INTEGER(20) NOT NULL," +
+                RoomEntry.COLUMN_NAME_NAME + " VARCHAR(10) NOT NULL," +
                 RoomEntry.COLUMN_NAME_THEATER_ID + " INTEGER NOT NULL," +
                 " CONSTRAINT ROOM_THEATER_ID_fk FOREIGN KEY ("+RoomEntry.COLUMN_NAME_THEATER_ID+") REFERENCES "+ TheaterEntry.TABLE_NAME+" ("+TheaterEntry._ID+"));";
         db.execSQL(SQL_CREATE_ROOM_TABLE);
@@ -134,6 +137,6 @@ public class CineRdDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        Log.d(TAG, "onUpgrade called");
     }
 }

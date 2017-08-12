@@ -6,6 +6,7 @@
                                                  tools:context="com.edwin.android.cinerd.moviedetail.MovieDetailFragment">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_movie_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -30,7 +31,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
-
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -75,18 +75,18 @@
             <TextView
                 android:id="@+id/text_movie_name"
                 style="@style/TextAppearance.AppCompat.Headline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/text_movie_name_width"
+                android:layout_height="@dimen/text_movie_name_height"
                 android:layout_marginLeft="@dimen/text_text_movie_name_margin_left"
                 android:layout_marginStart="@dimen/text_text_movie_name_margin_left"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Wonder Woman"/>
+                tools:text="Spider-Man: Homeco"/>
 
             <TextView
                 android:id="@+id/text_movie_genre_duration"
                 style="@style/Movie.Detail.Text"
-                android:layout_width="@dimen/text_movie_genre_duration_width"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@+id/text_movie_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_movie_name"
@@ -135,19 +135,9 @@
                 app:layout_constraintLeft_toRightOf="@+id/text_rotten_tomatoes_value"
                 app:layout_constraintTop_toTopOf="@+id/text_rotten_tomatoes_value"/>
 
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline_movie_detail_divisor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="101dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="448dp"/>
-
-            <android.support.v4.view.ViewPager
+            <com.edwin.android.cinerd.views.WrapContentViewPager
                 android:id="@+id/pager_tab_content"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintLeft_toLeftOf="@+id/tab_layout"
@@ -161,9 +151,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tab_layout_margin_top"
                 app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@id/image_rotten_tomatoes"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline_movie_detail_divisor"
                 app:tabGravity="fill"
                 app:tabMode="fixed"/>
 

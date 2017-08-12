@@ -11,6 +11,7 @@ import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
+import com.edwin.android.cinerd.movieposter.MoviePosterFragment;
 
 import javax.inject.Inject;
 
@@ -30,13 +31,18 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         Log.d(TAG, "movieId: " + movieId);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MovieDetailFragment movieDetailFragment = MovieDetailFragment.newInstance(movieId);
+        MovieDetailFragment movieDetailFragment = (MovieDetailFragment) getFragmentManager().findFragmentById(R.id.fragment_movie_detail);
 
-        fragmentTransaction.add(R.id.fragment_movie_detail, movieDetailFragment);
-        fragmentTransaction.commit();
+        if(movieDetailFragment == null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            movieDetailFragment = MovieDetailFragment.newInstance(movieId);
 
+            fragmentTransaction.add(R.id.fragment_movie_detail, movieDetailFragment);
+            fragmentTransaction.commit();
+        }
+
+        Log.d(TAG, "Injection movie poster presenter");
         DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule
                 (new
                 ApplicationModule(getApplication())).build();

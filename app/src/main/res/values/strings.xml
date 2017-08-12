@@ -38,6 +38,13 @@
     <string name="card_view_title_choose_a_schedule">Choose a schedule</string>
     <string name="card_view_movie_theaters_title">Movie theaters</string>
 
+    <string name="loading_movies">Loading movie information, it may take several seconds.</string>
 
+    <string name="no_internet_to_play_video">There is not internet for playing the video.</string>
+    <string name="no_internet_connection_to_load_movie_information">Internet connection must be available for loading movie information the first time</string>
+    <string name="no_internet_connection_to_update_movie_information">Internet connection must be available for updating movie information</string>
+
+    <!-- menu_item_refresh_action.xml -->
+    <string name="menu_item_refresh_action">Refresh</string>
 
 </resources>

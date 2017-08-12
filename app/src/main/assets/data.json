@@ -1,84 +1,3356 @@
 {
   "movies": [
     {
-      "name":"Fast and Furious 7",
-      "duration": 80,
-      "release_date": "2012-04-23T18:25:43.511Z",
-      "synopsis": "alakslkalslsaslksalklas",
-      "poster_url": "https://image.tmdb.org/t/p/w185/dCgm7efXDmiABSdWDHBDBx2jwmn.jpg",
-      "backdrop_url": "https://image.tmdb.org/t/p/w342/ypyeMfKydpyuuTMdp36rMlkGDUL.jpg",
-      "trailer_url": "https://www.youtube.com/watch?v=Skpu5HaVkOc",
-      "rating": {"imdb": "7.1","rottentomatoes": "90%"},
-      "genre": ["comedy", "action"],
-      "theaters": [{
-        "name": "MegaPlex 10",
-        "room": [{
-          "number": "5",
-          "format": "2D",
-          "language": "espanish",
-          "date": "2012-04-23T18:00:00.511Z"
-        },{
-          "number": "5",
-          "format": "2D",
-          "language": "espanish",
-          "date": "2012-04-23T20:00:00.511Z"
-        },
-          {
-            "number": "2",
-            "format": "3D",
-            "language": "english",
-            "subtitle": "espanish",
-            "date": "2012-04-23T18:00:00.511Z"
-          }]
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/rsMoCKhVsxfX7AL9CAw999fd3MA.jpg",
+      "duration": 85,
+      "genre": [
+        "Horror",
+        "Thriller"
+      ],
+      "name": "Amityville: The Awakening",
+      "poster_url": "https://image.tmdb.org/t/p/w185/d2BmX5YJchuDdnI3UL0mj3PtmaG.jpg",
+      "rating": {
+        "imdb": "5.5"
       },
+      "release_date": "2017-06-30T00:00:00.000Z",
+      "synopsis": "Una ambiciosa becaria en un programa de noticias dirige a un equipo de periodistas, clérigos e investigadores paranormales en una investigación sobre el caso más famoso de casas embrujadas en el mundo.",
+      "theaters": [
         {
-          "name": "Sambil",
+          "name": "Cinema Centro (Malecón)",
           "room": [
             {
-              "number": "2",
-              "format": "3D",
-              "language": "english",
-              "subtitle": "espanish",
-              "date": "2012-04-23T18:00:00.511Z"
-            }]
-        }]
+              "date": "2017-08-12T21:40:35.017Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T21:40:35.135Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        }
+      ],
+      "trailer_url": "https://www.youtube.com/watch?v=pCN3Ouo-Hys"
     },
     {
-      "name":"Wonder Woman",
-      "duration": 120,
-      "release_date": "2017-04-23T18:25:43.511Z",
-      "synopsis": "Wonnnnnnnnnnnnnnnn",
-      "poster_url": "https://image.tmdb.org/t/p/w185/imekS7f1OuHyUP2LAiTEM0zBzUz.jpg",
-      "backdrop_url": "https://image.tmdb.org/t/p/w342/hA5oCgvgCxj5MEWcLpjXXTwEANF.jpg",
-      "trailer_url": "https://www.youtube.com/watch?v=1Q8fG0TtVAY",
-      "rating": {"imdb": "9.1","rottentomatoes": "100%"},
-      "genre": ["comedy", "action"],
-      "theaters": [{
-        "name": "Galeria 360",
-        "room": [{
-          "number": "5",
-          "format": "2D",
-          "language": "espanish",
-          "date": "2012-04-23T18:00:00.511Z"
-        },
-          {
-            "number": "2",
-            "format": "3D",
-            "language": "english",
-            "subtitle": "english",
-            "date": "2012-04-23T18:00:00.511Z"
-          }]
+      "duration": 100,
+      "genre": [
+        "Drama"
+      ],
+      "name": "Carpinteros",
+      "poster_url": "https://image.tmdb.org/t/p/w185/kB9eOphlhQkBETUnxAfgGZbzbwc.jpg",
+      "rating": {
+        "imdb": "7.9",
+        "rottenTomatoes": "83"
       },
+      "release_date": "2017-01-23T00:00:00.000Z",
+      "synopsis": "“Carpinteros” trata sobre las realidades que viven los internos en las cárceles Najayo Hombres, Najayo Mujeres y La Victoria.",
+      "theaters": [
         {
-          "name": "Sambil",
+          "name": "Novo Centro (Fine Arts)",
           "room": [
             {
-              "number": "2",
+              "date": "2017-08-12T16:50:47.386Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:50:47.386Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/kiIIOJbV8BCyatCmXqOdJEUXW3u.jpg",
+      "duration": 115,
+      "genre": [
+        "Comedy",
+        "Drama"
+      ],
+      "name": "Two is a Family",
+      "poster_url": "https://image.tmdb.org/t/p/w185/muwaDIv5cLv2Z07CZFWOsL7lYuO.jpg",
+      "rating": {
+        "imdb": "7.4"
+      },
+      "release_date": "2016-12-07T00:00:00.000Z",
+      "synopsis": "Samuel vive la vida sin responsabilidades en la playa en el sur de Francia. Hasta que un día, una de sus antiguos amores le deja en los brazos a un bebé de pocos meses, Gloria: su hija. Incapaz de cuidar de un bebé y decidido a devolverle la niña a su madre, Samuel se va a a Londres para tratar de encontrarla pero no tiene éxito. Remake de 'No se aceptan devoluciones' (2013), la película mexicana más exitosa de la historia.",
+      "theaters": [
+        {
+          "name": "Novo Centro (Fine Arts)",
+          "room": [
+            {
+              "date": "2017-08-12T16:30:56.697Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:30:56.698Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ],
+      "trailer_url": "https://www.youtube.com/watch?v=OAt0mmfW8S4"
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/fudEG1VUWuOqleXv6NwCExK0VLy.jpg",
+      "duration": 107,
+      "genre": [
+        "Action",
+        "Drama",
+        "History",
+        "Thriller",
+        "War"
+      ],
+      "name": "Dunkirk",
+      "poster_url": "https://image.tmdb.org/t/p/w185/cUqEgoP6kj8ykfNjJx3Tl5zHCcN.jpg",
+      "rating": {
+        "imdb": "8.5",
+        "rottenTomatoes": "79"
+      },
+      "release_date": "2017-07-19T00:00:00.000Z",
+      "synopsis": "Año 1940, en plena II Guerra Mundial. En las playas de Dunkerque, cientos de miles de soldados de las tropas británicas y francesas se encuentran rodeadas por el avance del ejército alemán, que ha invadido Francia. Atrapados en la playa, con el mar cortándoles el paso, las tropas se enfrentan a una situación angustiosa que empeora a medida que el enemigo se acerca.",
+      "theaters": [
+        {
+          "name": "Acropolis",
+          "room": [
+            {
+              "date": "2017-08-12T16:45:04.458Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:45:04.459Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bávaro San Juan Shopping Center",
+          "room": [
+            {
+              "date": "2017-08-12T16:50:04.465Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:50:04.465Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bellaterra Stgo (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T19:00:04.467Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T19:00:04.468Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Casa de Campo (La Marina)",
+          "room": [
+            {
+              "date": "2017-08-12T21:15:04.470Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:15:04.470Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T15:30:04.473Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:30:04.473Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T21:40:04.480Z",
+              "format": "CxC",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:40:04.480Z",
+              "format": "CxC",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T15:10:04.483Z",
+              "format": "VIP",
+              "language": "English",
+              "name": "16",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:10:04.483Z",
+              "format": "VIP",
+              "language": "English",
+              "name": "16",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Premium at Silver Sun",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:04.485Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:50:04.486Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Cinema Centro (Malecón)",
+          "room": [
+            {
+              "date": "2017-08-12T21:30:04.488Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T21:30:04.488Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "Coral Mall",
+          "room": [
+            {
+              "date": "2017-08-12T16:45:04.495Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T16:45:04.495Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "Diamond Mall (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T21:35:04.497Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T21:35:04.497Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "Galería 360",
+          "room": [
+            {
+              "date": "2017-08-12T16:40:04.498Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:40:04.499Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Hollywood 7 Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T16:40:04.500Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            },
+            {
+              "date": "2017-08-13T16:40:04.502Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            }
+          ]
+        },
+        {
+          "name": "Island Cinemas (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T21:20:04.517Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T21:20:04.517Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "La Romana (Hollywood Plaza)",
+          "room": [
+            {
+              "date": "2017-08-12T16:50:04.523Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T16:50:04.529Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "Las Colinas Mall Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T19:00:04.535Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T19:00:04.535Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Megacentro (Megaplex 10)",
+          "room": [
+            {
+              "date": "2017-08-12T16:00:04.536Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T16:00:04.537Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Blue Mall",
+          "room": [
+            {
+              "date": "2017-08-12T17:15:04.550Z",
+              "format": "IMA",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:15:04.550Z",
+              "format": "IMA",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T14:45:04.552Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T14:45:04.552Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Stgo Plaza Internac. (Cinema Cibao)",
+          "room": [
+            {
+              "date": "2017-08-12T16:00:04.554Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:00:04.554Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ],
+      "trailer_url": "https://www.youtube.com/watch?v=PC460OxDNhc"
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/vc8bCGjdVp0UbMNLzHnHSLRbBWQ.jpg",
+      "duration": 133,
+      "genre": [
+        "Action",
+        "Adventure",
+        "Science Fiction"
+      ],
+      "name": "Spider-Man: Homecoming",
+      "poster_url": "https://image.tmdb.org/t/p/w185/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
+      "rating": {
+        "imdb": "7.9",
+        "rottenTomatoes": "92"
+      },
+      "release_date": "2017-07-05T00:00:00.000Z",
+      "synopsis": "En la película veremos como Peter (Tom Holland) vuelve a casa emocionado después de su experiencia con los Vengadores en Capitán América: Civil War. Allí vive con su tía May (Marisa Tomei), bajo la atenta mirada de su nuevo mentor Tony Stark (Robert Downey Jr.). Peter trata de volver a su rutina diaria, aunque siempre distraído en sus pensamientos, intentando demostrar que es alguien más que el amigable vecino Spider-Man. Pero cuando alguien conocido como el Buitre emerge como villano, todo lo que Peter considera más importante en su vida se verá amenazado.",
+      "theaters": [
+        {
+          "name": "Av. Venezuela (Palacio del Cine )",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:14.456Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T17:00:14.456Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Bella Vista Mall (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T18:00:14.457Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T18:00:14.457Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Bella Vista Mall (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T21:20:14.458Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:20:14.458Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bellaterra Stgo (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T16:20:14.459Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:20:14.459Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T17:55:14.460Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:55:14.461Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Cinema Centro (Malecón)",
+          "room": [
+            {
+              "date": "2017-08-12T17:55:14.462Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            },
+            {
+              "date": "2017-08-13T17:55:14.462Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            }
+          ]
+        },
+        {
+          "name": "Coral Mall",
+          "room": [
+            {
+              "date": "2017-08-12T17:55:14.463Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            },
+            {
+              "date": "2017-08-13T17:55:14.463Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            }
+          ]
+        },
+        {
+          "name": "Diamond Mall (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T15:40:14.464Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T15:40:14.464Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Galería 360",
+          "room": [
+            {
+              "date": "2017-08-12T18:00:14.466Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "10",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T18:00:14.466Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "10",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Hollywood 7 Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T21:00:14.467Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T21:00:14.468Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "Island Cinemas (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T18:30:14.469Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T18:30:14.469Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Las Colinas Mall Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T17:55:14.470Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            },
+            {
+              "date": "2017-08-13T17:55:14.470Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            }
+          ]
+        },
+        {
+          "name": "Megacentro (Megaplex 10)",
+          "room": [
+            {
+              "date": "2017-08-12T17:55:14.471Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T17:55:14.472Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Ágora Mall",
+          "room": [
+            {
+              "date": "2017-08-12T18:40:14.473Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T18:40:14.473Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Blue Mall",
+          "room": [
+            {
+              "date": "2017-08-12T20:00:14.474Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T20:00:14.474Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Multiplaza Higüey",
+          "room": [
+            {
+              "date": "2017-08-12T22:00:14.476Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T22:00:14.476Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Occidental Mall",
+          "room": [
+            {
+              "date": "2017-08-12T16:20:14.477Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T16:20:14.477Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T14:00:14.479Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T14:00:14.479Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T21:30:14.480Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T21:30:14.480Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T20:40:14.482Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T20:40:14.482Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T22:00:14.483Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T22:00:14.483Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "San Francisco (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T21:10:14.485Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "C",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:10:14.485Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "C",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ],
+      "trailer_url": "https://www.youtube.com/watch?v=rk-dF1lIbIg"
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/kTrgxhRSj2sun89bDbnGCPBiey6.jpg",
+      "duration": 86,
+      "genre": [
+        "Animation",
+        "Comedy",
+        "Family"
+      ],
+      "name": "The Emoji Movie",
+      "poster_url": "https://image.tmdb.org/t/p/w185/f5pF4OYzh4wb1dYL2ARQNdqUsEZ.jpg",
+      "rating": {
+        "imdb": "1.7",
+        "rottenTomatoes": "8"
+      },
+      "release_date": "2017-07-28T00:00:00.000Z",
+      "synopsis": "Los protagonistas habitarán la misteriosa tierra de Textopolis, donde todos los emojis favoritos de la gente cobran vida, mientras esperan ser seleccionados por el usuario del teléfono. Todos los personajes tienen una sola expresión facial a excepción de Gen (TJ Miller), un emoji que nació sin filtro y se llena de múltiples expresiones. Para lograr ser normal, Gen se embarcará en una aventura o “app-ventura”, junto a sus amigos Hi-5 (James Corden) y Jailbreak (Ilana Glazer). Pero pronto, una gran amenaza hará que el destino de estos personajes dependa de los tres amigos, teniendo que salvar su mundo antes que sea borrado por completo.",
+      "theaters": [
+        {
+          "name": "Acropolis",
+          "room": [
+            {
+              "date": "2017-08-12T16:30:25.151Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T16:30:25.151Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "Av. Venezuela (Palacio del Cine )",
+          "room": [
+            {
+              "date": "2017-08-12T17:30:25.152Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T17:30:25.152Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Bávaro San Juan Shopping Center",
+          "room": [
+            {
+              "date": "2017-08-12T17:25:25.153Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            },
+            {
+              "date": "2017-08-13T17:25:25.154Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            }
+          ]
+        },
+        {
+          "name": "Bella Vista Mall (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T17:30:25.155Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T17:30:25.155Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Bellaterra Stgo (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T16:00:25.156Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:00:25.156Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Casa de Campo (La Marina)",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:25.158Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:00:25.158Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T14:10:25.159Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T14:10:25.159Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "CC Premium at Silver Sun",
+          "room": [
+            {
+              "date": "2017-08-12T16:20:25.167Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T16:20:25.167Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Cinema Centro (Malecón)",
+          "room": [
+            {
+              "date": "2017-08-12T17:30:25.168Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T17:30:25.168Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "Coral Mall",
+          "room": [
+            {
+              "date": "2017-08-12T16:30:25.169Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T16:30:25.169Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "Diamond Mall (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T16:25:25.170Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T16:25:25.171Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Galería 360",
+          "room": [
+            {
+              "date": "2017-08-12T16:20:25.172Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T16:20:25.172Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Hollywood 7 Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:25.173Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:00:25.173Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Island Cinemas (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T16:35:25.174Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            },
+            {
+              "date": "2017-08-13T16:35:25.174Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            }
+          ]
+        },
+        {
+          "name": "La Romana (Hollywood Plaza)",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:25.176Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T17:00:25.176Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Las Colinas Mall Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T16:30:25.177Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T16:30:25.177Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Megacentro (Megaplex 10)",
+          "room": [
+            {
+              "date": "2017-08-12T16:30:25.178Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T16:30:25.178Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Ágora Mall",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:25.179Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T15:50:25.179Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Ágora Mall",
+          "room": [
+            {
+              "date": "2017-08-12T15:20:25.183Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T15:20:25.183Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Ágora Mall",
+          "room": [
+            {
+              "date": "2017-08-12T14:45:25.184Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T14:45:25.184Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Blue Mall",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:25.185Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            },
+            {
+              "date": "2017-08-13T17:00:25.186Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Blue Mall",
+          "room": [
+            {
+              "date": "2017-08-12T20:15:25.187Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T20:15:25.193Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Multiplaza Higüey",
+          "room": [
+            {
+              "date": "2017-08-12T15:30:25.194Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:30:25.194Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Occidental Mall",
+          "room": [
+            {
+              "date": "2017-08-12T17:30:25.195Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T17:30:25.195Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T15:20:25.196Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            },
+            {
+              "date": "2017-08-13T15:20:25.196Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T14:00:25.198Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T14:00:25.198Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "San Francisco (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T17:20:25.199Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "C"
+            },
+            {
+              "date": "2017-08-13T17:20:25.199Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "C"
+            }
+          ]
+        },
+        {
+          "name": "Stgo Plaza Internac. (Cinema Cibao)",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:25.200Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:00:25.200Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ],
+      "trailer_url": "https://www.youtube.com/watch?v=KFv5bgIOlg4"
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/puV2PFq42VQPItaygizgag8jrXa.jpg",
+      "duration": 96,
+      "genre": [
+        "Adventure",
+        "Animation",
+        "Comedy",
+        "Family",
+        "Science Fiction"
+      ],
+      "name": "Despicable Me 3",
+      "poster_url": "https://image.tmdb.org/t/p/w185/5qcUGqWoWhEsoQwNUrtf3y3fcWn.jpg",
+      "rating": {
+        "imdb": "6.4",
+        "rottenTomatoes": "61"
+      },
+      "release_date": "2017-06-15T00:00:00.000Z",
+      "synopsis": "Nuevas aventuras de Gru, Lucy, sus adorables hijas Margo, Edith y Agnes y por supuesto los Minions. En esta ocasión veremos como el gemelo de Gru, desparecido hace muchísimos años, emerge, lo que ocasionará una enorme rivalidad entre hermanos.",
+      "theaters": [
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T14:00:34.533Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T14:00:34.533Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Cinema Centro (Malecón)",
+          "room": [
+            {
+              "date": "2017-08-12T16:35:34.533Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T16:35:34.533Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "Coral Mall",
+          "room": [
+            {
+              "date": "2017-08-12T16:15:34.534Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "09"
+            },
+            {
+              "date": "2017-08-13T16:15:34.534Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "09"
+            }
+          ]
+        },
+        {
+          "name": "Diamond Mall (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T16:30:34.534Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T16:30:34.534Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "Galería 360",
+          "room": [
+            {
+              "date": "2017-08-12T16:00:34.536Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "10"
+            },
+            {
+              "date": "2017-08-13T16:00:34.536Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "10"
+            }
+          ]
+        },
+        {
+          "name": "Island Cinemas (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T17:10:34.537Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T17:10:34.537Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "La Romana (Hollywood Plaza)",
+          "room": [
+            {
+              "date": "2017-08-12T15:40:34.538Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            },
+            {
+              "date": "2017-08-13T15:40:34.538Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            }
+          ]
+        },
+        {
+          "name": "Las Colinas Mall Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:34.538Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T17:00:34.538Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Megacentro (Megaplex 10)",
+          "room": [
+            {
+              "date": "2017-08-12T16:10:34.539Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            },
+            {
+              "date": "2017-08-13T16:10:34.539Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            }
+          ]
+        },
+        {
+          "name": "Stgo Plaza Internac. (Cinema Cibao)",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:34.540Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:00:34.541Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ],
+      "trailer_url": "https://www.youtube.com/watch?v=euz-KBBfAAo"
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/ulMscezy9YX0bhknvJbZoUgQxO5.jpg",
+      "duration": 142,
+      "genre": [
+        "Drama",
+        "Science Fiction",
+        "War"
+      ],
+      "name": "War for the Planet of the Apes",
+      "poster_url": "https://image.tmdb.org/t/p/w185/y52mjaCLoJJzxfcDDlksKDngiDx.jpg",
+      "rating": {
+        "imdb": "7.9",
+        "rottenTomatoes": "93"
+      },
+      "release_date": "2017-07-11T00:00:00.000Z",
+      "synopsis": "César y sus monos son forzados a encarar un conflicto mortal contra un ejército de humanos liderado por un brutal coronel. Después de sufrir pérdidas enormes, César lucha con sus instintos más oscuros en una búsqueda por vengar a su especie. Cuando finalmente se encuentren, Cesar y el Coronel protagonizarán una batalla que pondrá en juego el futuro de ambas especies y el del mismo planeta. Tercera película de la nueva saga de El Planeta de los Simios.",
+      "theaters": [
+        {
+          "name": "Acropolis",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.319Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:50:45.319Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Acropolis",
+          "room": [
+            {
+              "date": "2017-08-12T20:30:45.321Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T20:30:45.321Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Av. Venezuela (Palacio del Cine )",
+          "room": [
+            {
+              "date": "2017-08-12T17:15:45.321Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:15:45.323Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bávaro San Juan Shopping Center",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.324Z",
               "format": "3D",
-              "language": "english",
-              "subtitle": "espanish",
-              "date": "2012-04-23T18:00:00.511Z"
-            }]
-        }]
-    }]
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:50:45.325Z",
+              "format": "3D",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bávaro San Juan Shopping Center",
+          "room": [
+            {
+              "date": "2017-08-12T20:35:45.326Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T20:35:45.326Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bella Vista Mall (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T17:40:45.327Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:40:45.327Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bellaterra Stgo (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:45.328Z",
+              "format": "3D",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:00:45.328Z",
+              "format": "3D",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Casa de Campo (La Marina)",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.329Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:50:45.329Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T15:25:45.330Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "12",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:25:45.330Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "12",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T15:05:45.331Z",
+              "format": "4DX",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:05:45.331Z",
+              "format": "4DX",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T14:20:45.332Z",
+              "format": "CxC",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T14:20:45.332Z",
+              "format": "CxC",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T14:50:45.333Z",
+              "format": "VIP",
+              "language": "English",
+              "name": "14",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T14:50:45.333Z",
+              "format": "VIP",
+              "language": "English",
+              "name": "14",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Premium at Silver Sun",
+          "room": [
+            {
+              "date": "2017-08-12T15:25:45.334Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:25:45.334Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Premium at Silver Sun",
+          "room": [
+            {
+              "date": "2017-08-12T20:30:45.335Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T20:30:45.335Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Cinema Centro (Malecón)",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.336Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            },
+            {
+              "date": "2017-08-13T15:50:45.336Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            }
+          ]
+        },
+        {
+          "name": "Coral Mall",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.337Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T15:50:45.337Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Coral Mall",
+          "room": [
+            {
+              "date": "2017-08-12T20:25:45.338Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "09"
+            },
+            {
+              "date": "2017-08-13T20:25:45.338Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "09"
+            }
+          ]
+        },
+        {
+          "name": "Diamond Mall (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.342Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T15:50:45.342Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Diamond Mall (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T17:30:45.343Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:30:45.343Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Galería 360",
+          "room": [
+            {
+              "date": "2017-08-12T15:25:45.344Z",
+              "format": "CxC",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:25:45.345Z",
+              "format": "CxC",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Galería 360",
+          "room": [
+            {
+              "date": "2017-08-12T17:20:45.347Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:20:45.347Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Hollywood 7 Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T18:30:45.348Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T18:30:45.348Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Island Cinemas (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T18:45:45.349Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T18:45:45.349Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "La Romana (Hollywood Plaza)",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.350Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T15:50:45.350Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "La Romana (Hollywood Plaza)",
+          "room": [
+            {
+              "date": "2017-08-12T17:40:45.357Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:40:45.357Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "La Romana (Hollywood Plaza)",
+          "room": [
+            {
+              "date": "2017-08-12T17:30:45.358Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T17:30:45.358Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "Las Colinas Mall Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.359Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T15:50:45.359Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "Las Colinas Mall Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T20:30:45.360Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T20:30:45.360Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Megacentro (Megaplex 10)",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.365Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            },
+            {
+              "date": "2017-08-13T15:50:45.365Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "06"
+            }
+          ]
+        },
+        {
+          "name": "Megacentro (Megaplex 10)",
+          "room": [
+            {
+              "date": "2017-08-12T20:20:45.365Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            },
+            {
+              "date": "2017-08-13T20:20:45.365Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Ágora Mall",
+          "room": [
+            {
+              "date": "2017-08-12T17:25:45.366Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:25:45.366Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Ágora Mall",
+          "room": [
+            {
+              "date": "2017-08-12T19:10:45.368Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T19:10:45.368Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Blue Mall",
+          "room": [
+            {
+              "date": "2017-08-12T18:00:45.369Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T18:00:45.369Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Multiplaza Higüey",
+          "room": [
+            {
+              "date": "2017-08-12T16:10:45.370Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:10:45.370Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Occidental Mall",
+          "room": [
+            {
+              "date": "2017-08-12T17:30:45.371Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:30:45.371Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T21:10:45.374Z",
+              "format": "3D",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:10:45.374Z",
+              "format": "3D",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T15:30:45.375Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T15:30:45.375Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "San Francisco (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:45.376Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "A"
+            },
+            {
+              "date": "2017-08-13T17:00:45.376Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "A"
+            }
+          ]
+        },
+        {
+          "name": "San Francisco (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T20:00:45.377Z",
+              "format": "3D",
+              "language": "English",
+              "name": "A",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T20:00:45.377Z",
+              "format": "3D",
+              "language": "English",
+              "name": "A",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Stgo Plaza Internac. (Cinema Cibao)",
+          "room": [
+            {
+              "date": "2017-08-12T15:50:45.377Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:50:45.377Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Stgo Plaza Internac. (Cinema Cibao)",
+          "room": [
+            {
+              "date": "2017-08-12T21:30:45.378Z",
+              "format": "3D",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:30:45.378Z",
+              "format": "3D",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ],
+      "trailer_url": "https://www.youtube.com/watch?v=yDBFrQvfGlQ"
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/iTMLYuwfgquUSN3csNlrbHgXiA7.jpg",
+      "duration": 103,
+      "genre": [
+        "Drama"
+      ],
+      "name": "La passion d'Augustine",
+      "poster_url": "https://image.tmdb.org/t/p/w185/vZ9IdEBevoFN2GskRV8sFNVFPWv.jpg",
+      "rating": {
+        "imdb": "7.4",
+        "rottenTomatoes": "75"
+      },
+      "release_date": "2015-03-20T00:00:00.000Z",
+      "synopsis": "Canadá, Años 60. La revolución cultural y social empieza a tomar forma en la conservadora ciudad de Quebec. En una pequeña escuela en las afueras, hasta ahora aislada de los cambios de la gran ciudad, la Madre Augustine dedica su vida a enseñar a través de la música a jóvenes chicas de familias con dificultades. Un nuevo prodigio del piano entra en la escuela, su sobrina Alice, que le recuerda a un pasado que había dejado de lado para siempre, cuando la Madre Augustine se llamaba Simone Beaulieu. Con Alice, la pequeña escuela comienza a ser una joya musical que gana cada gran premio en concursos de piano, sus paredes respiran música. Pero cuando el gobierno de Quebec introduce un nuevo sistema de educación pública, sus métodos empiezan a ser cuestionados y peligra su supervivencia, Augustine y sus alumnas lucharán por salvar la escuela con lo único que tienen: su música.",
+      "theaters": [
+        {
+          "name": "Novo Centro (Fine Arts)",
+          "room": [
+            {
+              "date": "2017-08-12T16:55:53.618Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:55:53.618Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "duration": 97,
+      "genre": [
+        "Comedy",
+        "Drama"
+      ],
+      "name": "Perfectos Desconocidos",
+      "rating": {
+        "imdb": "7.8",
+        "rottenTomatoes": "50"
+      },
+      "release_date": "2017-12-01T00:00:00.000Z",
+      "synopsis": "Siete amigos que lo son desde hace años (tres parejas y un soltero) se reencuentran en una cena en la que deciden jugar a un juego extraño y arriesgado: ponen sus smartphone sobre la mesa y al grito de “no tenemos nada que ocultar”, deciden compartir los mensajes y las llamadas que cada uno de ellos reciba durante la noche, en una especie de ruleta rusa a golpe de SMS y tonos de llamada.",
+      "theaters": [
+        {
+          "name": "Novo Centro (Fine Arts)",
+          "room": [
+            {
+              "date": "2017-08-12T16:50:01.635Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:50:01.635Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/vX00hhapB6CVThsMhB4zH6yRvz6.jpg",
+      "duration": 0,
+      "genre": [
+        "Drama"
+      ],
+      "name": "Sambá",
+      "poster_url": "https://image.tmdb.org/t/p/w185/ccIg0zG9XXglLzPsW15N9E7fmgr.jpg",
+      "rating": {
+        "imdb": "7.6",
+        "rottenTomatoes": "76"
+      },
+      "release_date": "2017-06-29T00:00:00.000Z",
+      "synopsis": "Cisco regresa a casa en República Dominicana después de cumplir una injusta condena en una prisión norteamericana. Su madre alcohólica está delicada de salud y la única forma de conseguir dinero es peleando por él. Nichi, una ex promesa del boxeo italiano vive exiliado cerca del barrio, y ve en Cisco un diamante en bruto a quien debe pulir para saldar las deudas ocasionadas por su adicción a las apuestas. Nichi decide entrenar a Cisco, durante el proceso, poco a poco, descubre que la redención en juego es para ambos. Hay que llegar a la pelea final y cumplir el sueño dentro del ring.",
+      "theaters": [
+        {
+          "name": "Novo Centro (Fine Arts)",
+          "room": [
+            {
+              "date": "2017-08-12T21:35:08.750Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:35:08.750Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/hcF3ARxV7DwJpqc0DbXqmMBiaOi.jpg",
+      "duration": 95,
+      "genre": [
+        "Comedy",
+        "Drama"
+      ],
+      "name": "Super Papá",
+      "poster_url": "https://image.tmdb.org/t/p/w185/zDJ4GVch7Iw2i0j84ceoElRUZUR.jpg",
+      "rating": {
+        "imdb": "5.5"
+      },
+      "release_date": "1999-06-25T00:00:00.000Z",
+      "synopsis": "“Super Papá” cuenta la historia de Juan Antonio (Salcedo), padre de 6 hijos, quien enviudó hace poco tiempo. Rosalyn, su esposa, no pudo resistir el quinto parto, y esto ha obligado a tener el doble rol con sus pequeños. Sus abuelos, Don Lorenzo y Doña Clara, al ver la inestabilidad y la falta de control que Juan Antonio tiene sobre sus hijos, establecen una demanda de custodia para quedarse con los 6 nietos y llevárselos a vivir a España. Ante esa situación, Juan Antonio se verá comprometido a cumplir con las normas de tener nana, de casarse nuevamente y tener el mejor de los ambientes para sus pequeños, para evitar que se los quiten y por esto tendrá que convertirse en un “súper papá”.",
+      "theaters": [
+        {
+          "name": "Acropolis",
+          "room": [
+            {
+              "date": "2017-08-12T16:30:17.520Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:30:17.520Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "01",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Av. Venezuela (Palacio del Cine )",
+          "room": [
+            {
+              "date": "2017-08-12T17:40:17.521Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:40:17.521Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bávaro San Juan Shopping Center",
+          "room": [
+            {
+              "date": "2017-08-12T16:15:17.521Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            },
+            {
+              "date": "2017-08-13T16:15:17.522Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            }
+          ]
+        },
+        {
+          "name": "Bella Vista Mall (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T17:40:17.525Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:40:17.525Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bellaterra Stgo (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T20:00:17.536Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T20:00:17.536Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T14:25:17.537Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "13",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T14:25:17.538Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "13",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Cinema Centro (Malecón)",
+          "room": [
+            {
+              "date": "2017-08-12T16:50:17.544Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            },
+            {
+              "date": "2017-08-13T16:50:17.544Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            }
+          ]
+        },
+        {
+          "name": "Coral Mall",
+          "room": [
+            {
+              "date": "2017-08-12T16:55:17.556Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            },
+            {
+              "date": "2017-08-13T16:55:17.556Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "02"
+            }
+          ]
+        },
+        {
+          "name": "Diamond Mall (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T16:50:17.557Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            },
+            {
+              "date": "2017-08-13T16:50:17.557Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "07"
+            }
+          ]
+        },
+        {
+          "name": "Galería 360",
+          "room": [
+            {
+              "date": "2017-08-12T16:40:17.558Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T16:40:17.558Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Hollywood 7 Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T16:45:17.559Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:45:17.559Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Island Cinemas (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T17:00:17.561Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "La Romana (Hollywood Plaza)",
+          "room": [
+            {
+              "date": "2017-08-12T16:50:17.562Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T16:50:17.563Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Las Colinas Mall Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T16:50:17.564Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            },
+            {
+              "date": "2017-08-13T16:50:17.564Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            }
+          ]
+        },
+        {
+          "name": "Megacentro (Megaplex 10)",
+          "room": [
+            {
+              "date": "2017-08-12T16:50:17.565Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "08",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:50:17.565Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "08",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Megacentro (Megaplex 10)",
+          "room": [
+            {
+              "date": "2017-08-12T20:30:17.566Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T20:30:17.566Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Ágora Mall",
+          "room": [
+            {
+              "date": "2017-08-12T15:45:17.567Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:45:17.567Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Blue Mall",
+          "room": [
+            {
+              "date": "2017-08-12T17:15:17.567Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:15:17.568Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "05",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Multiplaza Higüey",
+          "room": [
+            {
+              "date": "2017-08-12T16:15:17.568Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:15:17.568Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Occidental Mall",
+          "room": [
+            {
+              "date": "2017-08-12T16:45:17.569Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:45:17.569Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T22:00:17.570Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T22:00:17.570Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T15:20:17.571Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "10"
+            },
+            {
+              "date": "2017-08-13T15:20:17.571Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "10"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T14:20:17.571Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "11",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T14:20:17.571Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "11",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "San Francisco (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T17:20:17.572Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "B",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:20:17.572Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "B",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Stgo Plaza Internac. (Cinema Cibao)",
+          "room": [
+            {
+              "date": "2017-08-12T16:50:17.572Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T16:50:17.572Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        }
+      ],
+      "trailer_url": "https://www.youtube.com/watch?v=leEo3cXOyko"
+    },
+    {
+      "backdrop_url": "https://image.tmdb.org/t/p/w342/Ytv7P13rbwQ3mLpCAY8lBTqI5s.jpg",
+      "duration": 148,
+      "genre": [
+        "Action",
+        "Adventure",
+        "Science Fiction",
+        "Thriller"
+      ],
+      "name": "Transformers: The Last Knight",
+      "poster_url": "https://image.tmdb.org/t/p/w185/f8Ng1Sgb3VLiSwAvrfKeQPzvlfr.jpg",
+      "rating": {
+        "imdb": "5.3",
+        "rottenTomatoes": "15"
+      },
+      "release_date": "2017-06-21T00:00:00.000Z",
+      "synopsis": "'El último caballero' rompe con los clásicos mitos de la franquicia Transformers y redefine lo que significa ser un héroe. Los seres humanos y los Transformers están en guerra; Optimus Prime se ha marchado. La clave para salvar nuestro planeta está enterrada en los secretos del pasado, en la historia oculta de los Transformers en la tierra. Salvar nuestro mundo recae sobre los hombros de una alianza improbable: Cade Yeager (Mark Wahlberg), Bumblebee, un lord inglés (Sir Anthony Hopkins) y una profesora de Oxford (Laura Haddock).Llega un momento en la vida en el que todos somos llamados a marcar la diferencia. En 'Transformers: El último caballero' los cazados se convertirán en héroes. Los héroes se convertirán en villanos. Sólo un mundo sobrevivirá: el suyo o el nuestro.",
+      "theaters": [
+        {
+          "name": "Acropolis",
+          "room": [
+            {
+              "date": "2017-08-12T15:35:23.798Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:35:23.799Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "07",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Av. Venezuela (Palacio del Cine )",
+          "room": [
+            {
+              "date": "2017-08-12T17:30:23.799Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T17:30:23.799Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "04",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bávaro San Juan Shopping Center",
+          "room": [
+            {
+              "date": "2017-08-12T21:00:23.799Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:00:23.800Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "06",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bella Vista Mall (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T21:20:23.800Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:20:23.800Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Bellaterra Stgo (Palacio del Cine)",
+          "room": [
+            {
+              "date": "2017-08-12T16:00:23.804Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T16:00:23.804Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Downtown Center",
+          "room": [
+            {
+              "date": "2017-08-12T14:55:23.805Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T14:55:23.806Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "CC Premium at Silver Sun",
+          "room": [
+            {
+              "date": "2017-08-12T21:10:23.806Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:10:23.806Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Cinema Centro (Malecón)",
+          "room": [
+            {
+              "date": "2017-08-12T15:35:23.807Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T15:35:23.807Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Coral Mall",
+          "room": [
+            {
+              "date": "2017-08-12T15:35:23.808Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            },
+            {
+              "date": "2017-08-13T15:35:23.808Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "01"
+            }
+          ]
+        },
+        {
+          "name": "Diamond Mall (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T18:35:23.809Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T18:35:23.809Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "Galería 360",
+          "room": [
+            {
+              "date": "2017-08-12T15:25:23.809Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "09",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T15:25:23.810Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "09",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Hollywood 7 Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T18:25:23.810Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            },
+            {
+              "date": "2017-08-13T18:25:23.810Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "04"
+            }
+          ]
+        },
+        {
+          "name": "Island Cinemas (Hollywood)",
+          "room": [
+            {
+              "date": "2017-08-12T18:15:23.811Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T18:15:23.811Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "La Romana (Hollywood Plaza)",
+          "room": [
+            {
+              "date": "2017-08-12T21:00:23.812Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T21:00:23.812Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Las Colinas Mall Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T15:30:23.813Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T15:30:23.813Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "Las Colinas Mall Stgo",
+          "room": [
+            {
+              "date": "2017-08-12T21:15:23.814Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "05"
+            },
+            {
+              "date": "2017-08-13T21:15:23.814Z",
+              "format": "3D",
+              "language": "Spanish",
+              "name": "05"
+            }
+          ]
+        },
+        {
+          "name": "Megacentro (Megaplex 10)",
+          "room": [
+            {
+              "date": "2017-08-12T15:35:23.814Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "09"
+            },
+            {
+              "date": "2017-08-13T15:35:23.814Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "09"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Multiplaza Higüey",
+          "room": [
+            {
+              "date": "2017-08-12T22:00:23.815Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T22:00:23.815Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "03",
+              "subtitle": "Spanish"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Occidental Mall",
+          "room": [
+            {
+              "date": "2017-08-12T21:40:23.816Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            },
+            {
+              "date": "2017-08-13T21:40:23.816Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "03"
+            }
+          ]
+        },
+        {
+          "name": "Palacio del Cine Sambil",
+          "room": [
+            {
+              "date": "2017-08-12T21:00:23.817Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            },
+            {
+              "date": "2017-08-13T21:00:23.817Z",
+              "format": "N/A",
+              "language": "Spanish",
+              "name": "08"
+            }
+          ]
+        },
+        {
+          "name": "Stgo Plaza Internac. (Cinema Cibao)",
+          "room": [
+            {
+              "date": "2017-08-12T21:00:23.818Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            },
+            {
+              "date": "2017-08-13T21:00:23.818Z",
+              "format": "N/A",
+              "language": "English",
+              "name": "02",
+              "subtitle": "Spanish"
+            }
+          ]
+        }
+      ],
+      "trailer_url": "https://www.youtube.com/watch?v=6Vtf0MszgP8"
+    }
+  ]
 }

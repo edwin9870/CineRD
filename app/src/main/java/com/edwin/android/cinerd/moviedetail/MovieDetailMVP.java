@@ -20,11 +20,11 @@ public interface MovieDetailMVP {
         void setImage(Movie movie);
         void setPresenter(Presenter presenter);
         void openTrailer(String trailerUrl);
+        void showMessage(String message);
     }
 
     interface Presenter {
         void showMovieDetail(Context context, long movieId);
-        void getMoviesByDayMovieNameTheaterName(int day, String movieName, String theaterName);
-        void showTrailer(long mMovieId);
+        void showTrailer(Context context, long mMovieId);
     }
 }

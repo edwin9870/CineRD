@@ -4,7 +4,9 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -30,6 +32,7 @@ import javax.inject.Singleton;
 @Singleton
 public class ProcessMovies {
     public static final String TAG = ProcessMovies.class.getSimpleName();
+    public static final String PREF_IS_BLOCKED = "IS_BLOCKED";
     private final Context mContext;
     ContentResolver mContentResolver;
     MovieCollector mMovieCollector;
@@ -42,18 +45,37 @@ public class ProcessMovies {
     }
 
     public void process(List<Movie> movies) {
-        cleanMovieSchedule();
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
+                (mContext.getApplicationContext());
+        boolean isThreadBlocked = sharedPreferences.getBoolean(PREF_IS_BLOCKED, false);
+        if(isThreadBlocked) {
+            Log.d(TAG, "There is another thread processing movie");
+            return;
+        }
+
+        sharedPreferences.edit().putBoolean(ProcessMovies.PREF_IS_BLOCKED, true).commit();
+        cleanMovieSchedule();
         for(Movie movie : movies) {
             Log.d(TAG, "Persisting movie: "+ movie);
             processMovie(movie);
             Log.d(TAG, "Movie persisted");
         }
+        sharedPreferences.edit().putBoolean(ProcessMovies.PREF_IS_BLOCKED, false).commit();
     }
 
     private int cleanMovieSchedule() {
-        int rowsDeleted = mContentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,
-                null, null);
+        int rowsDeleted = mContentResolver.delete(CineRdContract.MovieTheaterDetailEntry.CONTENT_URI,null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.MovieGenreEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.MovieRatingEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.FormatEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.GenreEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.LanguageEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.MovieEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.RatingEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.RoomEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.SubtitleEntry.CONTENT_URI, null, null);
+        rowsDeleted += mContentResolver.delete(CineRdContract.TheaterEntry.CONTENT_URI, null, null);
         Log.d(TAG, "rows deleted: "+ rowsDeleted);
         return rowsDeleted;
     }
@@ -333,14 +355,14 @@ public class ProcessMovies {
         ContentValues cv = new ContentValues();
         try {
             cursor = mContentResolver.query(CineRdContract.RoomEntry.CONTENT_URI, null,
-                    CineRdContract.RoomEntry.COLUMN_NAME_NUMBER + " = ? AND " + CineRdContract
+                    CineRdContract.RoomEntry.COLUMN_NAME_NAME + " = ? AND " + CineRdContract
 
                             .RoomEntry.COLUMN_NAME_THEATER_ID + " = ?", new String[]{room
                             .getNumber(), theaterId.toString()}, null);
             if (cursor != null && cursor.moveToNext()) {
                 roomId = cursor.getLong(cursor.getColumnIndexOrThrow(CineRdContract.RoomEntry._ID));
             } else {
-                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NUMBER, room.getNumber());
+                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NAME, room.getNumber());
                 cv.put(CineRdContract.RoomEntry.COLUMN_NAME_THEATER_ID, theaterId);
                 roomId = ContentUris.parseId(mContentResolver.insert(CineRdContract
                         .RoomEntry.CONTENT_URI, cv));

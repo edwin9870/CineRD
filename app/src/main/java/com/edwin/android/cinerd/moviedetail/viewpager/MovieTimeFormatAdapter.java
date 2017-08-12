@@ -27,6 +27,7 @@ public class MovieTimeFormatAdapter extends RecyclerView.Adapter<MovieTimeFormat
 
 
     public static final String TAG = MovieTimeFormatAdapter.class.getSimpleName();
+    public static final String NO_FORMAT = "N/A";
     private List<Room> mRooms;
     private Context mContext;
 
@@ -48,12 +49,13 @@ public class MovieTimeFormatAdapter extends RecyclerView.Adapter<MovieTimeFormat
         Room room = mRooms.get(position);
 
         java.text.DateFormat df = new SimpleDateFormat(mContext.getString(R.string.date_hour_minute)); // Quoted "Z" to indicate
-        Log.d(TAG, "TimeZone.getDefault(): "+ df.getTimeZone());
         Log.d(TAG, "room.getDate(): " + room.getDate());
         CharSequence hourMinute = df.format(room.getDate());
 
         holder.mMovieTimeTextView.setText(hourMinute);
-        holder.mMovieFormatTextView.setText(room.getFormat().toUpperCase());
+        if(!room.getFormat().toUpperCase().equals(NO_FORMAT)) {
+            holder.mMovieFormatTextView.setText(room.getFormat().toUpperCase());
+        }
     }
 
     @Override

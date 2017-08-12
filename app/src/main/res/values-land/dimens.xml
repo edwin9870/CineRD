@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- fragment_movie_detail.xml -->
+    <dimen name="text_movie_genre_duration_width">400dp</dimen>
+    <dimen name="text_movie_name_width">400dp</dimen>
+</resources>

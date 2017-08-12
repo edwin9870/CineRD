@@ -128,7 +128,6 @@ public class MovieFinderPresenter implements MovieFinderMVP.Presenter {
         String theaterName;
         for (MovieTheaterDetail movieTheaterDetail : movieTheaters) {
             instance.setTime(movieTheaterDetail.getAvailableDate());
-            instance.setTime(date);
             if (instance.get(Calendar.HOUR) == hour &&
                     instance.get(Calendar.MINUTE) == minute &&
                     instance.get(Calendar.DAY_OF_YEAR) == dayOfTheYear) {

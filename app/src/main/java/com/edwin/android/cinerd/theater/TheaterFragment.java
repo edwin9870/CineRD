@@ -36,11 +36,13 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
 
 
     public static final String TAG = TheaterFragment.class.getSimpleName();
+    public static final String BUNDLE_THEATER_ID = "BUNDLE_THEATER_ID";
     @BindView(R.id.recycler_view_theater_movie_poster)
     RecyclerView mRecyclerView;
     Unbinder unbinder;
     private TheaterMVP.Presenter mPresenter;
     private MoviePosterAdapter mAdapter;
+    private int mTheaterId;
 
     public TheaterFragment() {
     }
@@ -60,21 +62,38 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
         View view = inflater.inflate(R.layout.fragment_theater, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        mPresenter.showTheatersDialog();
-        mPresenter.setActivityTitle(getResources().getString(R.string.theater_activity_title));
+        if(savedInstanceState == null) {
+            mPresenter.showTheatersDialog();
+            mPresenter.setActivityTitle(getResources().getString(R.string.theater_activity_title));
+        }
 
-        mAdapter = new MoviePosterAdapter(getActivity(), this);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), getResources()
-                .getInteger(R.integer.theater_columns));
+            mAdapter = new MoviePosterAdapter(getActivity(), this);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), getResources()
 
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen
-                .space_between_movie_poster);
-        mRecyclerView.addItemDecoration(new SpacesItemDecoration(2, spacingInPixels, false));
-        mRecyclerView.setHasFixedSize(false);
-        mRecyclerView.setAdapter(mAdapter);
+                    .getInteger(R.integer.theater_columns));
+
+            mRecyclerView.setLayoutManager(gridLayoutManager);
+            int spacingInPixels = getResources().getDimensionPixelSize(R.dimen
+                    .space_between_movie_poster);
+            mRecyclerView.addItemDecoration(new SpacesItemDecoration(getResources().getInteger(R
+                    .integer.movie_poster_space_item), spacingInPixels, false));
+            mRecyclerView.setHasFixedSize(false);
+            mRecyclerView.setAdapter(mAdapter);
+
 
         return view;
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        if(savedInstanceState != null) {
+            mTheaterId = savedInstanceState.getInt(BUNDLE_THEATER_ID);
+            if(mTheaterId > 0) {
+                mPresenter.setActivityTitle(mTheaterId);
+                mPresenter.getMovies(mTheaterId);
+            }
+        }
+        super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
@@ -110,14 +129,23 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
                                         Toast.LENGTH_SHORT).show();
 
                                 Log.d(TAG, "Theater selected: " + theaterSearchable.getTitle());
-                                mPresenter.setActivityTitle(theaterSearchable.getTheaterId());
-                                mPresenter.getMovies(theaterSearchable.getTheaterId());
+                                mTheaterId = theaterSearchable.getTheaterId();
+                                mPresenter.setActivityTitle(mTheaterId);
+                                mPresenter.getMovies(mTheaterId);
                                 dialog.dismiss();
 
                             }
                         });
         searchDialogCompat.getContext().setTheme(R.style.AppTheme_Dialog_Light_DarkText);
         searchDialogCompat.show();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if(mTheaterId > 0) {
+            outState.putInt(BUNDLE_THEATER_ID, mTheaterId);
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override

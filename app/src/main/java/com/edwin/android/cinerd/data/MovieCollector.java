@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface MovieCollector {
 
-    List<Movie> getMovies();
+    List<Movie> getMovies(boolean lightVersion);
 }

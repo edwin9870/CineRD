@@ -68,7 +68,9 @@ public class MoviePosterFragment extends Fragment implements
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setAdapter(mAdapter);
 
-        mPresenter.getMovies();
+        if(mPresenter != null) {
+            mPresenter.getMovies();
+        }
 
         return view;
     }

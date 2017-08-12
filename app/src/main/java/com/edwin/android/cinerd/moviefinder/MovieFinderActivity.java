@@ -9,6 +9,7 @@ import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
 import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
+import com.edwin.android.cinerd.moviedetail.MovieDetailFragment;
 
 import javax.inject.Inject;
 
@@ -22,16 +23,21 @@ public class MovieFinderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_finder);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MovieFinderFragment movieFinderFragment = MovieFinderFragment.newInstance();
+        MovieFinderFragment movieFinderFragment = (MovieFinderFragment) getFragmentManager().findFragmentById(R.id.fragment_movie_finder);
+
+        if(movieFinderFragment == null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            movieFinderFragment = MovieFinderFragment.newInstance();
+
+            fragmentTransaction.add(R.id.fragment_movie_finder, movieFinderFragment);
+            fragmentTransaction.commit();
+        }
 
         DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder().applicationModule(new
                 ApplicationModule(getApplication())).build();
         DaggerMovieFinderComponent.builder().databaseComponent(databaseComponent)
                 .movieFinderPresenterModule(new MovieFinderPresenterModule(movieFinderFragment)).build().inject(this);
 
-        fragmentTransaction.add(R.id.fragment_movie_finder, movieFinderFragment);
-        fragmentTransaction.commit();
     }
 }

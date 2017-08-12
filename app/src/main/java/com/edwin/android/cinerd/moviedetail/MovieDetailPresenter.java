@@ -12,6 +12,7 @@ import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.entity.Genre;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Rating;
+import com.edwin.android.cinerd.util.NetworkUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.inject.Inject;
+
+import static com.edwin.android.cinerd.util.StringUtil.capitalizeFirstWord;
 
 /**
  * Created by Edwin Ramirez Ventura on 7/14/2017.
@@ -58,6 +61,10 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         Log.d(TAG, "Start executing showMovieDetail method");
 
         com.edwin.android.cinerd.entity.Movie movie = mMovieRepository.getMovieById(movieId);
+        Log.d(TAG, "movieId: " + movieId + ", movie found: " + movie);
+        if(movie == null) {
+            return;
+        }
         mView.setImage(movie);
 
         mView.setMovieName(movie.getName());
@@ -65,7 +72,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         Set<String> genresName = new HashSet<>();
 
         for(Genre genre: genres) {
-            genresName.add(genre.getName().substring(0, 1).toUpperCase() + genre.getName().substring(1));
+            genresName.add(capitalizeFirstWord(genre.getName()));
         }
         mView.setMovieGenreDuration(new ArrayList<>(genresName), movie.getDuration());
 
@@ -76,12 +83,14 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     }
 
     @Override
-    public void getMoviesByDayMovieNameTheaterName(int day, String movieName, String theaterName) {
+    public void showTrailer(Context context, final long movieId) {
 
-    }
+        boolean isOnline = NetworkUtil.isOnline(context);
+        if(!isOnline) {
+            mView.showMessage(context.getString(R.string.no_internet_to_play_video));
+            return;
+        }
 
-    @Override
-    public void showTrailer(final long movieId) {
         new AsyncTask<Void, Void, Movie>() {
 
             @Override
