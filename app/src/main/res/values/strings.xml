@@ -40,6 +40,6 @@
 
     <string name="loading_movies">Loading movie information, it may take several seconds.</string>
 
-
+    <string name="no_internet_to_play_video">There is not internet for playing the video.</string>
 
 </resources>

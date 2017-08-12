@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
@@ -223,9 +224,14 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
         }
     }
 
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
     @OnClick(R.id.image_button_play_trailer)
     public void onViewClicked() {
         Log.d(TAG, "image button play trailer");
-        mPresenter.showTrailer(mMovieId);
+        mPresenter.showTrailer(getActivity(), mMovieId);
     }
 }

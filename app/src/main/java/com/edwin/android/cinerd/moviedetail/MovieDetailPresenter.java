@@ -12,6 +12,7 @@ import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.entity.Genre;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Rating;
+import com.edwin.android.cinerd.util.ConnectionUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,12 +83,14 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     }
 
     @Override
-    public void getMoviesByDayMovieNameTheaterName(int day, String movieName, String theaterName) {
+    public void showTrailer(Context context, final long movieId) {
 
-    }
+        boolean isOnline = ConnectionUtil.isOnline(context);
+        if(!isOnline) {
+            mView.showMessage(context.getString(R.string.no_internet_to_play_video));
+            return;
+        }
 
-    @Override
-    public void showTrailer(final long movieId) {
         new AsyncTask<Void, Void, Movie>() {
 
             @Override
