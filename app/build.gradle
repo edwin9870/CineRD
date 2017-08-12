@@ -18,6 +18,12 @@ android {
         }
     }
 
+    buildTypes.each {
+        it.buildConfigField 'String', 'MOVIE_JSON_LIGHT_VERSION', MOVIE_JSON_LIGHT_VERSION
+        it.buildConfigField 'String', 'MOVIE_JSON_FULL_VERSION', MOVIE_JSON_FULL_VERSION
+        it.buildConfigField 'String', 'HOST_URL', HOST_URL
+    }
+
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
     }

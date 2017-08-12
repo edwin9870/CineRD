@@ -14,6 +14,7 @@ import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.data.MovieCollector;
 import com.edwin.android.cinerd.data.ProcessMovies;
 import com.edwin.android.cinerd.entity.json.Movie;
+import com.edwin.android.cinerd.util.ActivityUtil;
 
 import java.util.List;
 
@@ -47,11 +48,17 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient
             contentProviderClient, SyncResult syncResult) {
+
+        if(ActivityUtil.isAppRunning(mContext)) {
+            Log.d(TAG, "App is running, avoid to run sync adapter");
+            return;
+        }
+
         Log.d(TAG, "Running movie Sync adapter");
         DaggerDatabaseComponent.builder().applicationModule(new ApplicationModule(mContext
                 .getApplicationContext())).build().inject(this);
 
-        List<Movie> movies = mMovieCollector.getMovies();
+        List<Movie> movies = mMovieCollector.getMovies(false);
         Log.d(TAG, "mMovieCollector.getMoviesCollector(): " + movies);
         mMovieDataRepository.process(movies);
 

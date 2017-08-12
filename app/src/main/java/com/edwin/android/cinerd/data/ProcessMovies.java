@@ -4,7 +4,9 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -30,6 +32,7 @@ import javax.inject.Singleton;
 @Singleton
 public class ProcessMovies {
     public static final String TAG = ProcessMovies.class.getSimpleName();
+    public static final String PREF_IS_BLOCKED = "IS_BLOCKED";
     private final Context mContext;
     ContentResolver mContentResolver;
     MovieCollector mMovieCollector;
@@ -42,13 +45,23 @@ public class ProcessMovies {
     }
 
     public void process(List<Movie> movies) {
-        cleanMovieSchedule();
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
+                (mContext.getApplicationContext());
+        boolean isThreadBlocked = sharedPreferences.getBoolean(PREF_IS_BLOCKED, false);
+        if(isThreadBlocked) {
+            Log.d(TAG, "There is another thread processing movie");
+            return;
+        }
+
+        sharedPreferences.edit().putBoolean(ProcessMovies.PREF_IS_BLOCKED, true).commit();
+        cleanMovieSchedule();
         for(Movie movie : movies) {
             Log.d(TAG, "Persisting movie: "+ movie);
             processMovie(movie);
             Log.d(TAG, "Movie persisted");
         }
+        sharedPreferences.edit().putBoolean(ProcessMovies.PREF_IS_BLOCKED, false).commit();
     }
 
     private int cleanMovieSchedule() {

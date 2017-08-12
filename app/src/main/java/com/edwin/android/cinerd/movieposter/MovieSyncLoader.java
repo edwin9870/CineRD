@@ -2,7 +2,9 @@ package com.edwin.android.cinerd.movieposter;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
@@ -50,7 +52,7 @@ public class MovieSyncLoader extends AsyncTaskLoader<Void> {
         Log.d(TAG, "Starting to load data");
         DaggerDatabaseComponent.builder().applicationModule(new ApplicationModule(mContext
                 .getApplicationContext())).build().inject(this);
-        List<Movie> movies = mMovieCollector.getMovies();
+        List<Movie> movies = mMovieCollector.getMovies(true);
         Log.d(TAG, "mMovieCollector.getMoviesCollector(): " + movies);
         mMovieDataRepository.process(movies);
         return null;

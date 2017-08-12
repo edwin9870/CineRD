@@ -16,7 +16,7 @@ import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
 import com.edwin.android.cinerd.data.CineRdDbHelper;
 import com.edwin.android.cinerd.data.adapters.AccountGeneral;
-import com.edwin.android.cinerd.util.ConnectionUtil;
+import com.edwin.android.cinerd.util.NetworkUtil;
 import com.edwin.android.cinerd.util.DatabaseUtil;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
@@ -73,7 +73,7 @@ public class MoviePosterActivity extends AppCompatActivity {
                 (new ApplicationModule(getApplication())).build();
         if (!DatabaseUtil.existDatabase(this, CineRdDbHelper.DATABASE_NAME)) {
 
-            if(!ConnectionUtil.isOnline(this)) {
+            if(!NetworkUtil.isOnline(this)) {
                 Toast.makeText(this, R.string.no_internet_connection_to_load_movie_information, Toast.LENGTH_LONG).show();
                 return;
             }

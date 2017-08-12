@@ -12,7 +12,7 @@ import com.edwin.android.cinerd.data.repositories.RatingRepository;
 import com.edwin.android.cinerd.entity.Genre;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Rating;
-import com.edwin.android.cinerd.util.ConnectionUtil;
+import com.edwin.android.cinerd.util.NetworkUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
     @Override
     public void showTrailer(Context context, final long movieId) {
 
-        boolean isOnline = ConnectionUtil.isOnline(context);
+        boolean isOnline = NetworkUtil.isOnline(context);
         if(!isOnline) {
             mView.showMessage(context.getString(R.string.no_internet_to_play_video));
             return;
