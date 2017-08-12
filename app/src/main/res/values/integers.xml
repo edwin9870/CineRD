@@ -8,6 +8,6 @@
 
     <integer name="movie_poster_space_item">2</integer>
     <integer name="movie_poster_columns">2</integer>
-    <integer name="movie_finder_time_columns">5</integer>
+    <integer name="movie_finder_time_columns">4</integer>
     <integer name="theater_columns">2</integer>
 </resources>
