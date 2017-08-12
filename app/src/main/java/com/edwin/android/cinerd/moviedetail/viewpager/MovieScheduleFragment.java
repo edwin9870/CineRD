@@ -28,6 +28,7 @@ import com.edwin.android.cinerd.util.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -298,6 +299,12 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         List<MovieTheaterDetail> details =
                 mMovieTheaterDetailRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId,
                         availableDate, theaterId);
+        Collections.sort(details, new Comparator<MovieTheaterDetail>() {
+            @Override
+            public int compare(MovieTheaterDetail movieTheaterDetail, MovieTheaterDetail t1) {
+                return movieTheaterDetail.getAvailableDate().compareTo(t1.getAvailableDate());
+            }
+        });
         Log.d(TAG, "details: " + details);
         Room room;
         List<Room> rooms = new ArrayList<>();

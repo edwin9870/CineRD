@@ -32,6 +32,8 @@
     <dimen name="image_rotten_tomatoes_width">42dp</dimen>
     <dimen name="image_rotten_tomatoes_height">32dp</dimen>
     <dimen name="tab_layout_margin_top">-14dp</dimen>
+    <dimen name="text_movie_name_width">220dp</dimen>
+    <dimen name="text_movie_name_height">0dp</dimen>
 
     <!-- fragment_movie_finder.xml -->
     <dimen name="content_padding_bottom">24dp</dimen>
