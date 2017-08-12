@@ -38,6 +38,8 @@
     <string name="card_view_title_choose_a_schedule">Choose a schedule</string>
     <string name="card_view_movie_theaters_title">Movie theaters</string>
 
+    <string name="loading_movies">Loading movie information, it may take several seconds.</string>
+
 
 
 </resources>

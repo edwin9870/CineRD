@@ -10,7 +10,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
 
 /**
@@ -40,6 +42,10 @@ public class MovieSyncLoaderCallback implements LoaderManager.LoaderCallbacks<Vo
     public Loader<Void> onCreateLoader(int i, Bundle bundle) {
         mFloatingButtonMovieMenu.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
+        String toastMessage = mContext.getString(R.string.loading_movies);
+        Log.d(TAG, "toastMessage to show: " + toastMessage);
+        Toast.makeText(mContext, toastMessage, Toast.LENGTH_LONG).show();
+
         return new MovieSyncLoader(mContext);
     }
 
