@@ -4,13 +4,14 @@ import android.content.Context;
 import android.util.Log;
 
 import com.edwin.android.cinerd.BuildConfig;
+import com.edwin.android.cinerd.data.rest.MovieService;
+import com.edwin.android.cinerd.data.rest.MovieServiceAppClient;
 import com.edwin.android.cinerd.entity.json.Movie;
 import com.edwin.android.cinerd.entity.json.Movies;
 import com.edwin.android.cinerd.util.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,9 +36,16 @@ public class MovieCollectorJSON implements MovieCollector {
     @Override
     public List<Movie> getMovies(boolean lightVersion) {
         try {
-            String movieData = NetworkUtil.getMovieData(lightVersion);
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
-            Movies movies = gson.fromJson(movieData, Movies.class);
+            MovieService movieService = MovieServiceAppClient.getClient().create(MovieService
+                    .class);
+            Movies movies;
+            Log.d(TAG, "Downloading data. is lightVersion: " + lightVersion);
+            if(lightVersion) {
+                movies = movieService.getMovie(BuildConfig.MOVIE_JSON_LIGHT_VERSION).execute().body();
+            } else {
+                movies = movieService.getMovie(BuildConfig.MOVIE_JSON_FULL_VERSION).execute().body();
+            }
+            Log.d(TAG, "Data downloaded");
             return movies.getMovies();
         } catch (Exception e) {
             e.printStackTrace();

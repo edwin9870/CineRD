@@ -28,36 +28,4 @@ public final class NetworkUtil {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    public static String getMovieData(boolean lightVersion) throws IOException {
-        URL url;
-        if (lightVersion) {
-            url = new URL(BuildConfig.HOST_URL + "/" + BuildConfig.MOVIE_JSON_LIGHT_VERSION);
-        } else {
-            url = new URL(BuildConfig.HOST_URL + "/" + BuildConfig.MOVIE_JSON_FULL_VERSION);
-        }
-
-        Log.d(TAG, "Downloading data from url: " + url);
-        String jsonData = getResponseFromHttpUrl(url);
-        Log.d(TAG, "Data downloaded");
-        return jsonData;
-    }
-
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        try {
-            InputStream in = urlConnection.getInputStream();
-
-            Scanner scanner = new Scanner(in);
-            scanner.useDelimiter("\\A");
-
-            boolean hasInput = scanner.hasNext();
-            if (hasInput) {
-                return scanner.next();
-            } else {
-                return null;
-            }
-        } finally {
-            urlConnection.disconnect();
-        }
-    }
 }
