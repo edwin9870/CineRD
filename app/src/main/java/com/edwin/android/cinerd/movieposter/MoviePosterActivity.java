@@ -3,7 +3,9 @@ package com.edwin.android.cinerd.movieposter;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,10 +33,12 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MoviePosterActivity extends AppCompatActivity {
+public class MoviePosterActivity extends AppCompatActivity implements ManualSyncServiceReceiver.Receiver {
 
     public static final String TAG = MoviePosterActivity.class.getSimpleName();
     public static final int MOVIE_SYC_LOADER_ID = 51545;
+    public static final String BUNDLE_STATUS_RECEIVER = "BUNDLE_STATUS_RECEIVER";
+    public static final String BUNDLE_RECEIVER = "BUNDLE_RECEIVER";
     @BindView(R.id.floating_button_movie_menu)
     FloatingActionButton mFloatingButtonMovieMenu;
     @Inject
@@ -46,6 +50,8 @@ public class MoviePosterActivity extends AppCompatActivity {
     @BindView(R.id.fragment_movie_poster)
     FrameLayout mMoviePosterViewFragment;
     private DatabaseComponent mDatabaseComponent;
+    private int mResultCode;
+    private ManualSyncServiceReceiver mResultReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,20 @@ public class MoviePosterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_poster);
         ButterKnife.bind(this);
 
+        if(savedInstanceState == null) {
+            mResultCode = ManualSyncService.STATUS_FINISHED;
+        } else {
+            mResultCode = savedInstanceState.getInt(BUNDLE_STATUS_RECEIVER);
+            Log.d(TAG, "mResultlcode: " + mResultCode);
+            mResultReceiver = savedInstanceState.getParcelable(BUNDLE_RECEIVER);
+            Log.d(TAG, "setting result receiver");
+            mResultReceiver.setReceiver(this);
+            if(mResultCode == ManualSyncService.STATUS_RUNNING) {
+                hideContent();
+            }
+        }
+
+        Log.d(TAG, "Executing onCreate");
         try {
             if (mFloatingButtonMovieMenu != null && mFabFilterMenu != null) {
                 mFabFilterMenu.bindAncherView(mFloatingButtonMovieMenu);
@@ -79,8 +99,8 @@ public class MoviePosterActivity extends AppCompatActivity {
         mDatabaseComponent = DaggerDatabaseComponent.builder()
                 .applicationModule
                         (new ApplicationModule(getApplication())).build();
-        if (!DatabaseUtil.existDatabase(this, CineRdDbHelper.DATABASE_NAME)) {
 
+        if (!DatabaseUtil.existDatabase(this, CineRdDbHelper.DATABASE_NAME)) {
             if (!NetworkUtil.isOnline(this)) {
                 Toast.makeText(this, R.string.no_internet_connection_to_load_movie_information,
                         Toast.LENGTH_LONG).show();
@@ -88,10 +108,16 @@ public class MoviePosterActivity extends AppCompatActivity {
             }
 
             Log.d(TAG, "Database doesn't exist. Starting to data");
-            MovieSyncLoaderCallback movieSyncLoaderCallback = new MovieSyncLoaderCallback(this, mMoviePosterViewFragment,
-                    mProgressBar, mFloatingButtonMovieMenu, this, mDatabaseComponent, true);
-
-            getLoaderManager().initLoader(MOVIE_SYC_LOADER_ID, null, movieSyncLoaderCallback);
+            hideContent();
+            mResultReceiver = new ManualSyncServiceReceiver(new Handler());
+            mResultReceiver.setReceiver(this);
+            Intent intent = new Intent(Intent.ACTION_SYNC,
+                                        null,
+                                        this,
+                                        ManualSyncService.class);
+            intent.putExtra(ManualSyncService.EXTRA_RECEIVER, mResultReceiver);
+            intent.putExtra(ManualSyncService.EXTRA_LIGHT_VERSION, true);
+            startService(intent);
         } else {
             addFragment(mDatabaseComponent);
         }
@@ -99,6 +125,15 @@ public class MoviePosterActivity extends AppCompatActivity {
         AccountGeneral.createSyncAccount(this);
 
 
+    }
+
+    private void hideContent() {
+        mFloatingButtonMovieMenu.setVisibility(View.INVISIBLE);
+        mMoviePosterViewFragment.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+        String toastMessage = this.getString(R.string.loading_movies);
+        Log.d(TAG, "toastMessage to show: " + toastMessage);
+        Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -112,8 +147,8 @@ public class MoviePosterActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_refresh_action:
-
-                if (!NetworkUtil.isOnline(this)) {
+                Log.d(TAG, "refresh menu clicked");
+              /*  if (!NetworkUtil.isOnline(this)) {
                     Toast.makeText(this, R.string.no_internet_connection_to_update_movie_information,
                             Toast.LENGTH_LONG).show();
                     break;
@@ -125,17 +160,47 @@ public class MoviePosterActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(MovieSyncLoaderCallback.BUNDLE_RESET_FRAGMENT, true);
-                getLoaderManager().restartLoader(MOVIE_SYC_LOADER_ID, bundle, movieSyncLoaderCallback);
+                Log.d(TAG, "Refresh button clicked, start manual sync");
+                getLoaderManager().initLoader(MOVIE_SYC_LOADER_ID, bundle, movieSyncLoaderCallback);*/
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        Log.d(TAG, "resultCode: " + resultCode);
+        mResultCode = resultCode;
+        switch (mResultCode) {
+            case ManualSyncService.STATUS_RUNNING:
+                Log.d(TAG, "Service is running");
+                break;
+            case ManualSyncService.STATUS_FINISHED:
+                Log.d(TAG, "Service finish to running");
+                this.addFragment(mDatabaseComponent);
+                mProgressBar.setVisibility(View.INVISIBLE);
+                mFloatingButtonMovieMenu.setVisibility(View.VISIBLE);
+                mMoviePosterViewFragment.setVisibility(View.VISIBLE);
+                break;
+            case ManualSyncService.STATUS_ERROR:
+                Log.d(TAG, "Error running the service");
+                break;
+            default:
+                Log.d(TAG, "Unknown result code");
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(BUNDLE_STATUS_RECEIVER, mResultCode);
+        outState.putParcelable(BUNDLE_RECEIVER, mResultReceiver);
+        super.onSaveInstanceState(outState);
     }
 
     public void resetFragment() {
@@ -146,7 +211,7 @@ public class MoviePosterActivity extends AppCompatActivity {
                 .beginTransaction();
         fragmentTransaction.detach(fragment);
         fragmentTransaction.attach(fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
 
@@ -169,4 +234,5 @@ public class MoviePosterActivity extends AppCompatActivity {
                 .moviePosterPresenterModule(new MoviePosterPresenterModule(fragment)).build()
                 .inject(this);
     }
+
 }

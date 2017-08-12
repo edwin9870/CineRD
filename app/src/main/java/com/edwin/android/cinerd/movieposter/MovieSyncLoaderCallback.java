@@ -92,6 +92,7 @@ public class MovieSyncLoaderCallback implements LoaderManager.LoaderCallbacks<Vo
             }
         };
         handler.sendEmptyMessage(WHAT);
+
     }
 
     @Override

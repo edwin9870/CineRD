@@ -66,6 +66,9 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator"/>
         </service>
+        <service
+            android:name=".movieposter.ManualSyncService"
+            android:exported="false"/>
     </application>
 
 </manifest>
