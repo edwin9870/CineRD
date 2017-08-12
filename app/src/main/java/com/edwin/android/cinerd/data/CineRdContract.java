@@ -108,7 +108,7 @@ public class CineRdContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_ROOM).build();
 
         public static final String TABLE_NAME = "ROOM";
-        public static final String COLUMN_NAME_NUMBER = "NUMBER";
+        public static final String COLUMN_NAME_NAME = "NAME";
         public static final String COLUMN_NAME_THEATER_ID = "THEATER_ID";
     }
 

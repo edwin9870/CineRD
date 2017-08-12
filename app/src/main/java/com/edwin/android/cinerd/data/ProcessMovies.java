@@ -342,14 +342,14 @@ public class ProcessMovies {
         ContentValues cv = new ContentValues();
         try {
             cursor = mContentResolver.query(CineRdContract.RoomEntry.CONTENT_URI, null,
-                    CineRdContract.RoomEntry.COLUMN_NAME_NUMBER + " = ? AND " + CineRdContract
+                    CineRdContract.RoomEntry.COLUMN_NAME_NAME + " = ? AND " + CineRdContract
 
                             .RoomEntry.COLUMN_NAME_THEATER_ID + " = ?", new String[]{room
                             .getNumber(), theaterId.toString()}, null);
             if (cursor != null && cursor.moveToNext()) {
                 roomId = cursor.getLong(cursor.getColumnIndexOrThrow(CineRdContract.RoomEntry._ID));
             } else {
-                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NUMBER, room.getNumber());
+                cv.put(CineRdContract.RoomEntry.COLUMN_NAME_NAME, room.getNumber());
                 cv.put(CineRdContract.RoomEntry.COLUMN_NAME_THEATER_ID, theaterId);
                 roomId = ContentUris.parseId(mContentResolver.insert(CineRdContract
                         .RoomEntry.CONTENT_URI, cv));

@@ -12,12 +12,12 @@ public class Rating implements Parcelable {
 
     @SerializedName("imdb")
     private String mImdb;
-    @SerializedName("rottentomatoes")
-    private String mRottentomatoes;
+    @SerializedName("rottenTomatoes")
+    private String mRottenTomatoes;
 
     protected Rating(Parcel in) {
         mImdb = in.readString();
-        mRottentomatoes = in.readString();
+        mRottenTomatoes = in.readString();
     }
 
     public static final Creator<Rating> CREATOR = new Creator<Rating>() {
@@ -37,14 +37,14 @@ public class Rating implements Parcelable {
     }
 
     public String getRottentomatoes() {
-        return mRottentomatoes;
+        return mRottenTomatoes;
     }
 
     @Override
     public String toString() {
         return "Rating{" +
                 "mImdb='" + mImdb + '\'' +
-                ", mRottentomatoes='" + mRottentomatoes + '\'' +
+                ", mRottenTomatoes='" + mRottenTomatoes + '\'' +
                 '}';
     }
 
@@ -56,6 +56,6 @@ public class Rating implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(mImdb);
-        parcel.writeString(mRottentomatoes);
+        parcel.writeString(mRottenTomatoes);
     }
 }

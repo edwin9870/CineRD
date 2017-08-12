@@ -195,11 +195,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     @Override
     public void setImage(Movie movie) {
         Picasso picasso = Picasso.with(getActivity());
-        File backdropImageFile = getImageFile(getActivity(), movie.getBackdropUrl());
-        picasso.load(backdropImageFile).fit().into(imageMovieBackdrop);
 
-        File posterImageFile = getImageFile(getActivity(), movie.getPosterUrl());
-        picasso.load(posterImageFile).fit().into(mMovieDetailPosterImageView);
+        if(movie.getBackdropUrl() != null) {
+            File backdropImageFile = getImageFile(getActivity(), movie.getBackdropUrl());
+            picasso.load(backdropImageFile).fit().into(imageMovieBackdrop);
+        }
+
+        if(movie.getPosterUrl() != null) {
+            File posterImageFile = getImageFile(getActivity(), movie.getPosterUrl());
+            picasso.load(posterImageFile).fit().into(mMovieDetailPosterImageView);
+        }
     }
 
     @Override

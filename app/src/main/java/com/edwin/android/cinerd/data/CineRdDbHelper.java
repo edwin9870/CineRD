@@ -41,8 +41,8 @@ public class CineRdDbHelper extends SQLiteOpenHelper {
                 MovieEntry.COLUMN_NAME_NAME + " VARCHAR(40) NOT NULL," +
                 MovieEntry.COLUMN_NAME_DURATION + " INT(3) NOT NULL," +
                 MovieEntry.COLUMN_NAME_SYNOPSIS + " TEXT NOT NULL," +
-                MovieEntry.COLUMN_NAME_POSTER_PATH + " TEXT NOT NULL," +
-                MovieEntry.COLUMN_NAME_BACKDROP_PATH + " TEXT NOT NULL," +
+                MovieEntry.COLUMN_NAME_POSTER_PATH + " TEXT," +
+                MovieEntry.COLUMN_NAME_BACKDROP_PATH + " TEXT," +
                 MovieEntry.COLUMN_NAME_TRAILER_URL + " TEXT NOT NULL," +
                 MovieEntry.COLUMN_NAME_RELEASE_DATE +  " RELEASE_DATE DATETIME NOT NULL);" +
                 "CREATE UNIQUE INDEX MOVIE_NAME_uindex ON "+MovieEntry.TABLE_NAME+" ("+MovieEntry.COLUMN_NAME_NAME+");";
@@ -110,7 +110,7 @@ public class CineRdDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_ROOM_TABLE = "CREATE TABLE " +
                 RoomEntry.TABLE_NAME + " (" +
                 RoomEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                RoomEntry.COLUMN_NAME_NUMBER + " INTEGER(20) NOT NULL," +
+                RoomEntry.COLUMN_NAME_NAME + " VARCHAR(10) NOT NULL," +
                 RoomEntry.COLUMN_NAME_THEATER_ID + " INTEGER NOT NULL," +
                 " CONSTRAINT ROOM_THEATER_ID_fk FOREIGN KEY ("+RoomEntry.COLUMN_NAME_THEATER_ID+") REFERENCES "+ TheaterEntry.TABLE_NAME+" ("+TheaterEntry._ID+"));";
         db.execSQL(SQL_CREATE_ROOM_TABLE);

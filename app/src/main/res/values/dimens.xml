@@ -75,4 +75,7 @@
     <dimen name="progress_bar_loading_indicator_width">42dp</dimen>
     <dimen name="progress_bar_loading_indicator_height">42dp</dimen>
 
+    <!-- fragment_movie_synopsis.xml -->
+    <dimen name="movie_synopsis_padding">16dp</dimen>
+
 </resources>

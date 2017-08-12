@@ -18,8 +18,8 @@ public class Room implements Parcelable {
     private String mFormat;
     @SerializedName("language")
     private String mLanguage;
-    @SerializedName("number")
-    private String mNumber;
+    @SerializedName("name")
+    private String name;
     @SerializedName("subtitle")
     private String mSubtitle;
 
@@ -28,7 +28,7 @@ public class Room implements Parcelable {
     protected Room(Parcel in) {
         mFormat = in.readString();
         mLanguage = in.readString();
-        mNumber = in.readString();
+        name = in.readString();
         mSubtitle = in.readString();
     }
 
@@ -57,7 +57,7 @@ public class Room implements Parcelable {
     }
 
     public String getNumber() {
-        return mNumber;
+        return name;
     }
 
     public String getSubtitle() {
@@ -76,8 +76,8 @@ public class Room implements Parcelable {
         this.mLanguage = mLanguage;
     }
 
-    public void setmNumber(String mNumber) {
-        this.mNumber = mNumber;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setmSubtitle(String mSubtitle) {
@@ -90,7 +90,7 @@ public class Room implements Parcelable {
                 "mDate='" + mDate + '\'' +
                 ", mFormat='" + mFormat + '\'' +
                 ", mLanguage='" + mLanguage + '\'' +
-                ", mNumber='" + mNumber + '\'' +
+                ", name='" + name + '\'' +
                 ", mSubtitle='" + mSubtitle + '\'' +
                 '}';
     }
@@ -104,7 +104,7 @@ public class Room implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(mFormat);
         parcel.writeString(mLanguage);
-        parcel.writeString(mNumber);
+        parcel.writeString(name);
         parcel.writeString(mSubtitle);
     }
 }
