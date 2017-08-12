@@ -135,16 +135,6 @@
                 app:layout_constraintLeft_toRightOf="@+id/text_rotten_tomatoes_value"
                 app:layout_constraintTop_toTopOf="@+id/text_rotten_tomatoes_value"/>
 
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline_movie_detail_divisor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="101dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="448dp"/>
-
             <com.edwin.android.cinerd.views.WrapContentViewPager
                 android:id="@+id/pager_tab_content"
                 android:layout_width="match_parent"
@@ -161,9 +151,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tab_layout_margin_top"
                 app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@id/image_rotten_tomatoes"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline_movie_detail_divisor"
                 app:tabGravity="fill"
                 app:tabMode="fixed"/>
 
