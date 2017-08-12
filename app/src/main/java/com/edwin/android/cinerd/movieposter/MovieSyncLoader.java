@@ -28,6 +28,7 @@ public class MovieSyncLoader extends AsyncTaskLoader<Void> {
     public static final String TAG = MovieSyncLoader.class.getSimpleName();
     private final Context mContext;
     private boolean loaded;
+    private Boolean mLightVersion;
     @Inject
     ProcessMovies mMovieDataRepository;
     @Inject @Named("MovieCollectorJSON")
@@ -36,6 +37,12 @@ public class MovieSyncLoader extends AsyncTaskLoader<Void> {
     public MovieSyncLoader(Context context) {
         super(context);
         mContext = context;
+    }
+
+    public MovieSyncLoader(Context context, Boolean lightVersion) {
+        super(context);
+        mContext = context;
+        mLightVersion = lightVersion;
     }
 
     @Override
@@ -52,7 +59,12 @@ public class MovieSyncLoader extends AsyncTaskLoader<Void> {
         Log.d(TAG, "Starting to load data");
         DaggerDatabaseComponent.builder().applicationModule(new ApplicationModule(mContext
                 .getApplicationContext())).build().inject(this);
-        List<Movie> movies = mMovieCollector.getMovies(true);
+        List<Movie> movies;
+        if(mLightVersion == null) {
+            movies = mMovieCollector.getMovies(true);
+        }else {
+            movies = mMovieCollector.getMovies(mLightVersion);
+        }
         Log.d(TAG, "mMovieCollector.getMoviesCollector(): " + movies);
         mMovieDataRepository.process(movies);
         return null;
