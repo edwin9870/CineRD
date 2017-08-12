@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.configuration.di.ApplicationModule;
@@ -15,6 +16,7 @@ import com.edwin.android.cinerd.configuration.di.DaggerDatabaseComponent;
 import com.edwin.android.cinerd.configuration.di.DatabaseComponent;
 import com.edwin.android.cinerd.data.CineRdDbHelper;
 import com.edwin.android.cinerd.data.adapters.AccountGeneral;
+import com.edwin.android.cinerd.util.ConnectionUtil;
 import com.edwin.android.cinerd.util.DatabaseUtil;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
@@ -70,6 +72,12 @@ public class MoviePosterActivity extends AppCompatActivity {
                 .applicationModule
                 (new ApplicationModule(getApplication())).build();
         if (!DatabaseUtil.existDatabase(this, CineRdDbHelper.DATABASE_NAME)) {
+
+            if(!ConnectionUtil.isOnline(this)) {
+                Toast.makeText(this, R.string.no_internet_connection_to_load_movie_information, Toast.LENGTH_LONG).show();
+                return;
+            }
+
             Log.d(TAG, "Database doesn't exist. Starting to data");
             MovieSyncLoaderCallback movieSyncLoaderCallback = new MovieSyncLoaderCallback(this,
                     mProgressBar, mFloatingButtonMovieMenu, this, databaseComponent);
