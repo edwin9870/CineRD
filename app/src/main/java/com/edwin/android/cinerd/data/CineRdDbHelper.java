@@ -24,7 +24,7 @@ import com.edwin.android.cinerd.data.CineRdContract.TheaterEntry;
 public class CineRdDbHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "cine_w_rd.db";
+    public static final String DATABASE_NAME = "cineRd.db";
     public static final String TAG = CineRdDbHelper.class.getSimpleName();
 
     public CineRdDbHelper(Context context) {

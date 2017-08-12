@@ -36,7 +36,6 @@ import butterknife.ButterKnife;
 public class MoviePosterActivity extends AppCompatActivity implements ManualSyncServiceReceiver.Receiver {
 
     public static final String TAG = MoviePosterActivity.class.getSimpleName();
-    public static final int MOVIE_SYC_LOADER_ID = 51545;
     public static final String BUNDLE_STATUS_RECEIVER = "BUNDLE_STATUS_RECEIVER";
     public static final String BUNDLE_RECEIVER = "BUNDLE_RECEIVER";
     @BindView(R.id.floating_button_movie_menu)
@@ -148,20 +147,29 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
         switch (item.getItemId()) {
             case R.id.item_refresh_action:
                 Log.d(TAG, "refresh menu clicked");
-              /*  if (!NetworkUtil.isOnline(this)) {
+
+                if (!NetworkUtil.isOnline(this)) {
                     Toast.makeText(this, R.string.no_internet_connection_to_update_movie_information,
                             Toast.LENGTH_LONG).show();
                     break;
                 }
 
-                MovieSyncLoaderCallback movieSyncLoaderCallback = new MovieSyncLoaderCallback(this,
-                        mMoviePosterViewFragment, mProgressBar, mFloatingButtonMovieMenu, this, mDatabaseComponent, false);
+                if(mResultCode == ManualSyncService.STATUS_RUNNING) {
+                    Log.d(TAG, "Service is previously running");
+                    break;
+                }
 
-
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(MovieSyncLoaderCallback.BUNDLE_RESET_FRAGMENT, true);
+                hideContent();
+                mResultReceiver = new ManualSyncServiceReceiver(new Handler());
+                mResultReceiver.setReceiver(this);
+                Intent intent = new Intent(Intent.ACTION_SYNC,
+                        null,
+                        this,
+                        ManualSyncService.class);
+                intent.putExtra(ManualSyncService.EXTRA_RECEIVER, mResultReceiver);
+                intent.putExtra(ManualSyncService.EXTRA_LIGHT_VERSION, false);
+                startService(intent);
                 Log.d(TAG, "Refresh button clicked, start manual sync");
-                getLoaderManager().initLoader(MOVIE_SYC_LOADER_ID, bundle, movieSyncLoaderCallback);*/
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -211,7 +219,7 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
                 .beginTransaction();
         fragmentTransaction.detach(fragment);
         fragmentTransaction.attach(fragment);
-        fragmentTransaction.commitAllowingStateLoss();
+        fragmentTransaction.commit();
     }
 
 
