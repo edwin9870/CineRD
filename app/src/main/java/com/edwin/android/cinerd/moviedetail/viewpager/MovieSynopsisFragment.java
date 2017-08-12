@@ -66,7 +66,9 @@ public class MovieSynopsisFragment extends Fragment {
         MovieRepository movieRepository = new MovieRepository(getActivity(), ratingRe, movieTheaterDetailRepository);
 
         Movie movie = movieRepository.getMovieById(mMovieId);
-        mMovieSynopsisTextView.setText(movie.getSynopsis());
+        if(movie != null) {
+            mMovieSynopsisTextView.setText(movie.getSynopsis());
+        }
 
         return view;
     }

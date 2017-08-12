@@ -36,12 +36,6 @@ public final class AccountGeneral {
             ContentResolver.setIsSyncable(account, AUTHORITY, 1);
             ContentResolver.setSyncAutomatically(account, AUTHORITY, true);
             ContentResolver.addPeriodicSync(account, AUTHORITY, Bundle.EMPTY, syncFrequency);
-
-            created = true;
-        }
-
-        if(created) {
-            MovieSyncAdapter.performSync();
         }
     }
 }

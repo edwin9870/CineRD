@@ -44,13 +44,20 @@ public class MovieTheaterDetailRepository {
         try {
             movieTheaterDetailCursor = mContentResolver.query(CineRdContract
                     .MovieTheaterDetailEntry
-                    .CONTENT_URI, null, CineRdContract.MovieTheaterDetailEntry
+                    .CONTENT_URI, new String[]{
+                    "DISTINCT "+ CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_FORMAT_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_LANGUAGE_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_MOVIE_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_ROOM_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_SUBTITLE_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_THEATER_ID}, CineRdContract.MovieTheaterDetailEntry
                     .COLUMN_NAME_MOVIE_ID + " = ? AND " + CineRdContract.MovieTheaterDetailEntry
                     .COLUMN_NAME_THEATER_ID + " = ? AND date(" + CineRdContract
                     .MovieTheaterDetailEntry
                     .COLUMN_NAME_AVAILABLE_DATE + ") = date('" + DateUtil.formatDate
                     (availableDate) + "')", new String[]{String.valueOf(movieId), String.valueOf
-                    (theaterId)}, null);
+                    (theaterId)}, CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE);
 
             movieTheaterDetailList = parseMovieTheaterDetails(movieTheaterDetailCursor);
             movieTheaterDetailCursor.close();

@@ -299,12 +299,6 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         List<MovieTheaterDetail> details =
                 mMovieTheaterDetailRepository.getMoviesTheaterDetailByMovieIdAvailableDate(movieId,
                         availableDate, theaterId);
-        Collections.sort(details, new Comparator<MovieTheaterDetail>() {
-            @Override
-            public int compare(MovieTheaterDetail movieTheaterDetail, MovieTheaterDetail t1) {
-                return movieTheaterDetail.getAvailableDate().compareTo(t1.getAvailableDate());
-            }
-        });
         Log.d(TAG, "details: " + details);
         Room room;
         List<Room> rooms = new ArrayList<>();
@@ -315,6 +309,13 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
             rooms.add(room);
         }
 
+        Collections.sort(rooms, new Comparator<Room>() {
+            @Override
+            public int compare(Room room, Room t1) {
+                return room.getDate().compareTo(t1.getDate());
+            }
+        });
+        Log.d(TAG, "rooms sored: "+rooms);
         mMovieTimeFormatAdapter.setRooms(rooms);
     }
 

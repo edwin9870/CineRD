@@ -69,8 +69,6 @@ public class MoviePosterActivity extends AppCompatActivity {
         final DatabaseComponent databaseComponent = DaggerDatabaseComponent.builder()
                 .applicationModule
                 (new ApplicationModule(getApplication())).build();
-
-
         if (!DatabaseUtil.existDatabase(this, CineRdDbHelper.DATABASE_NAME)) {
             Log.d(TAG, "Database doesn't exist. Starting to data");
             MovieSyncLoaderCallback movieSyncLoaderCallback = new MovieSyncLoaderCallback(this,
@@ -78,9 +76,10 @@ public class MoviePosterActivity extends AppCompatActivity {
 
             getLoaderManager().initLoader(MOVIE_SYC_LOADER_ID, null, movieSyncLoaderCallback);
         } else {
-            AccountGeneral.createSyncAccount(this);
             addFragment(databaseComponent);
         }
+
+        AccountGeneral.createSyncAccount(this);
 
 
     }
