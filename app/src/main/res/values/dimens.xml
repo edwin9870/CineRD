@@ -43,6 +43,7 @@
     <dimen name="card_view_movie_finder_margin_left">16dp</dimen>
     <dimen name="card_view_movie_finder_margin_right">@dimen/card_view_movie_finder_margin_left</dimen>
     <dimen name="card_view_movie_finder_margin_top">24dp</dimen>
+    <dimen name="card_view_movie_finder_margin_bottom">@dimen/card_view_movie_finder_margin_top</dimen>
     <dimen name="card_view_movie_finder_padding">16dp</dimen>
     <dimen name="text_date_filter_margin_top">24dp</dimen>
     <dimen name="recycler_view_available_hour_margin_top">24dp</dimen>

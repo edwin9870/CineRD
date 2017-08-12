@@ -74,8 +74,6 @@ public class MovieTheaterDetailRepository {
     private List<MovieTheaterDetail> parseMovieTheaterDetails(Cursor movieTheaterDetailCursor) {
         List<MovieTheaterDetail> movieTheaterDetailList = new ArrayList<>();
         while (movieTheaterDetailCursor.moveToNext()) {
-            Log.d(TAG, "movieTheaterDetailCursor.getCount(): " + movieTheaterDetailCursor
-                    .getCount());
             MovieTheaterDetail movieTheaterDetail = parseMovieTheaterDetail
                     (movieTheaterDetailCursor);
             movieTheaterDetailList.add(movieTheaterDetail);
@@ -130,12 +128,26 @@ public class MovieTheaterDetailRepository {
         try {
             movieTheaterDetailCursor = mContentResolver.query(CineRdContract
                     .MovieTheaterDetailEntry
-                    .CONTENT_URI, null, CineRdContract.MovieTheaterDetailEntry
+                    .CONTENT_URI, new String[]{
+                    "DISTINCT " + CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_FORMAT_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_LANGUAGE_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_MOVIE_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_ROOM_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_SUBTITLE_ID,
+                    CineRdContract.MovieTheaterDetailEntry.COLUMN_NAME_THEATER_ID},
+                    CineRdContract.MovieTheaterDetailEntry
                     .COLUMN_NAME_MOVIE_ID + " = ? AND date(" + CineRdContract
                     .MovieTheaterDetailEntry
                     .COLUMN_NAME_AVAILABLE_DATE + ") = date('" + DateUtil.formatDate
-                    (availableDate) + "')", new String[]{String.valueOf(movieId)}, null);
+                    (availableDate) + "')", new String[]{String.valueOf(movieId)}, CineRdContract
+                            .MovieTheaterDetailEntry.COLUMN_NAME_AVAILABLE_DATE + " ASC");
 
+            Log.d(TAG, CineRdContract.MovieTheaterDetailEntry
+                    .COLUMN_NAME_MOVIE_ID + " = "+String.valueOf(movieId)+" AND date(" + CineRdContract
+                    .MovieTheaterDetailEntry
+                    .COLUMN_NAME_AVAILABLE_DATE + ") = date('" + DateUtil.formatDate
+                    (availableDate) + "')");
             movieTheaterDetailList = parseMovieTheaterDetails(movieTheaterDetailCursor);
             movieTheaterDetailCursor.close();
 

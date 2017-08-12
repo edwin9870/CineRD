@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,7 @@ import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.util.DateUtil;
+import com.edwin.android.cinerd.util.SpacesItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,9 +90,16 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mMovieFinderTimeAdapter = new MovieFinderTimeAdapter(this, getActivity());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.VERTICAL, false);
-        mAvailableHourRecyclerView.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),
+                getResources().getInteger(R.integer.movie_finder_time_columns));
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space_between_movie_poster);
+        mAvailableHourRecyclerView.addItemDecoration(new SpacesItemDecoration(
+                getResources().getInteger(R.integer.movie_finder_time_columns),
+                spacingInPixels,
+                false));
+
+        mAvailableHourRecyclerView.setLayoutManager(gridLayoutManager);
         mAvailableHourRecyclerView.setAdapter(mMovieFinderTimeAdapter);
 
         mMovieFinderTheaterAdapter = new MovieFinderTheaterAdapter();
