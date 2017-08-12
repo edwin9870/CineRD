@@ -60,6 +60,10 @@ public class MovieDetailPresenter implements MovieDetailMVP.Presenter {
         Log.d(TAG, "Start executing showMovieDetail method");
 
         com.edwin.android.cinerd.entity.Movie movie = mMovieRepository.getMovieById(movieId);
+        Log.d(TAG, "movieId: " + movieId + ", movie found: " + movie);
+        if(movie == null) {
+            return;
+        }
         mView.setImage(movie);
 
         mView.setMovieName(movie.getName());
