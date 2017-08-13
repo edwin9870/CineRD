@@ -27,7 +27,10 @@ import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieScheduleFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.MovieSynopsisFragment;
 import com.edwin.android.cinerd.moviedetail.viewpager.ViewPagerAdapter;
+import com.edwin.android.cinerd.movieposter.MoviePosterActivity;
+import com.edwin.android.cinerd.util.FirebaseUtil;
 import com.edwin.android.cinerd.views.WrapContentViewPager;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -82,6 +85,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
     private MovieScheduleFragment mScheduleFragment;
     private long mMovieId;
     private ViewPagerAdapter mAdapter;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public MovieDetailFragment() {
     }
@@ -107,6 +111,11 @@ public class MovieDetailFragment extends Fragment implements MovieDetailMVP.View
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         mUnbinder = ButterKnife.bind(this, view);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+
+        Bundle bundleFcm = new Bundle();
+        bundleFcm.putString(FirebaseUtil.PARAM.ACTIVITY_NAME, MovieDetailActivity.class.getSimpleName());
+        mFirebaseAnalytics.logEvent(FirebaseUtil.EVENT.OPEN_ACTIVITY, bundleFcm);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);

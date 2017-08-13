@@ -1,6 +1,5 @@
 package com.edwin.android.cinerd.movieposter;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -25,7 +24,6 @@ import com.edwin.android.cinerd.data.CineRdDbHelper;
 import com.edwin.android.cinerd.data.adapters.AccountGeneral;
 import com.edwin.android.cinerd.util.DatabaseUtil;
 import com.edwin.android.cinerd.util.NetworkUtil;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
 
@@ -65,6 +63,9 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
             mResultCode = savedInstanceState.getInt(BUNDLE_STATUS_RECEIVER);
             Log.d(TAG, "mResultlcode: " + mResultCode);
             mResultReceiver = savedInstanceState.getParcelable(BUNDLE_RECEIVER);
+        }
+
+        if(mResultReceiver != null) {
             Log.d(TAG, "setting result receiver");
             mResultReceiver.setReceiver(this);
             if(mResultCode == ManualSyncService.STATUS_RUNNING) {

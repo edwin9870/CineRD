@@ -2,6 +2,7 @@ package com.edwin.android.cinerd.movieposter;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.BaseBundle;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +16,9 @@ import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.moviedetail.MovieDetailActivity;
 import com.edwin.android.cinerd.moviefinder.MovieFinderActivity;
 import com.edwin.android.cinerd.theater.TheaterActivity;
+import com.edwin.android.cinerd.util.FirebaseUtil;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.List;
 
@@ -35,6 +38,7 @@ public class MoviePosterFragment extends Fragment implements
     Unbinder unbinder;
     private MoviePosterAdapter mAdapter;
     private MoviePosterMVP.Presenter mPresenter;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public MoviePosterFragment() {
     }
@@ -54,6 +58,11 @@ public class MoviePosterFragment extends Fragment implements
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_poster, container, false);
         unbinder = ButterKnife.bind(this, view);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+
+        Bundle bundleFcm = new Bundle();
+        bundleFcm.putString(FirebaseUtil.PARAM.ACTIVITY_NAME, MoviePosterActivity.class.getSimpleName());
+        mFirebaseAnalytics.logEvent(FirebaseUtil.EVENT.OPEN_ACTIVITY, bundleFcm);
 
         mAdapter = new MoviePosterAdapter(getActivity(), this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), getResources()
@@ -101,6 +110,11 @@ public class MoviePosterFragment extends Fragment implements
     @Override
     public void onClickMovie(Movie movie) {
         Log.d(TAG, "Movie clicked: " + movie);
+        Bundle bundleFcm = new Bundle();
+        bundleFcm.putString(FirebaseAnalytics.Param.ITEM_NAME, movie.getName().toUpperCase());
+        bundleFcm.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "MOVIE_POSTER");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundleFcm);
+
         Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
         intent.putExtra(MovieDetailActivity.BUNDLE_MOVIE_ID, movie.getMovieId());
         getActivity().startActivity(intent);
@@ -109,6 +123,7 @@ public class MoviePosterFragment extends Fragment implements
     @Override
     public void onClickMovie() {
         Log.d(TAG, "onClickMovie fired");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, Bundle.EMPTY);
         Intent intent = new Intent(getActivity(), MovieFinderActivity.class);
         getActivity().startActivity(intent);
     }

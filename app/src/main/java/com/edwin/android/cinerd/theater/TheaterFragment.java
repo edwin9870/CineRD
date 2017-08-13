@@ -19,7 +19,9 @@ import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.moviedetail.MovieDetailActivity;
 import com.edwin.android.cinerd.movieposter.MoviePosterAdapter;
+import com.edwin.android.cinerd.util.FirebaseUtil;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,6 +45,8 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
     private TheaterMVP.Presenter mPresenter;
     private MoviePosterAdapter mAdapter;
     private int mTheaterId;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
 
     public TheaterFragment() {
     }
@@ -66,6 +70,12 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
             mPresenter.showTheatersDialog();
             mPresenter.setActivityTitle(getResources().getString(R.string.theater_activity_title));
         }
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+
+        Bundle bundleFcm = new Bundle();
+        bundleFcm.putString(FirebaseUtil.PARAM.ACTIVITY_NAME, TheaterActivity.class.getSimpleName());
+        mFirebaseAnalytics.logEvent(FirebaseUtil.EVENT.OPEN_ACTIVITY, bundleFcm);
 
             mAdapter = new MoviePosterAdapter(getActivity(), this);
             GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), getResources()
