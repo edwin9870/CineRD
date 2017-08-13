@@ -224,7 +224,7 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragment = MoviePosterFragment.newInstance();
-            fragmentTransaction.add(R.id.fragment_movie_poster, fragment);
+            fragmentTransaction.replace(R.id.fragment_movie_poster, fragment);
             fragmentTransaction.commitAllowingStateLoss();
         }
 
