@@ -41,7 +41,8 @@
         <TextView
             android:id="@+id/text_rotten_tomatoes_label"
             style="@style/Movie.Detail.Text"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="@dimen/text_rotten_tomatoes_label_margin_left"
+            android:layout_marginStart="@dimen/text_rotten_tomatoes_label_margin_left"
             android:text="@string/text_widget_rotten_tomatoes_label"/>
 
         <TextView

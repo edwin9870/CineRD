@@ -57,4 +57,11 @@
     <string name="text_widget_rotten_tomatoes_label">Rotten Tomatoes:</string>
     <string name="text_widget_imdb_label">IMDB:</string>
 
+
+    <!-- fragment_movie_detail.xml -->
+    <string name="image_movie_backdrop_content_description">Movie backdrop</string>
+    <string name="image_button_play_trailer_contentDescription">Play movie trailer</string>
+    <string name="image_movie_poster_content_description">Movie poster</string>
+    <string name="image_imdb_content_description">IMDB rating</string>
+    <string name="image_rotten_tomatoes_ratting">Rotten Tomatoes rating</string>
 </resources>

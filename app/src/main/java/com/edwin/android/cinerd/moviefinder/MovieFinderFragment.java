@@ -170,9 +170,6 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
                             public void onSelected(BaseSearchDialogCompat dialog, Movie
                                     movie, int position) {
                                 MovieFinderFragment.this.clearForm();
-                                Toast.makeText(MovieFinderFragment.this.getActivity(), "Movie " +
-                                        "name: " + movie.getName() + " selected", Toast
-                                        .LENGTH_SHORT).show();
                                 mMovieNameFinderTextView.setText(movie.getName());
                                 mCalendarCardView.setVisibility(View.VISIBLE);
                                 dialog.dismiss();
