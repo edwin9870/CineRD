@@ -1,4 +1,4 @@
-package com.edwin.android.cinerd;
+package com.edwin.android.cinerd.fcm;
 
 import android.util.Log;
 
@@ -16,5 +16,10 @@ public class AppMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d(TAG, "Message received...");
+    }
+
+    @Override
+    public void onDeletedMessages() {
+        super.onDeletedMessages();
     }
 }

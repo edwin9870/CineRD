@@ -43,6 +43,12 @@
                 android:value=".movieposter.MoviePosterActivity"/>
         </activity>
 
+        <activity android:name=".settings.SettingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".movieposter.MoviePosterActivity"/>
+        </activity>
+
         <provider
             android:name=".data.CineRdContentProvider"
             android:authorities="com.edwin.android.cinerd"
@@ -69,8 +75,11 @@
             android:name=".movieposter.ManualSyncService"
             android:exported="false"/>
 
-        <activity android:name=".settings.SettingActivity">
-        </activity>
+        <service android:name=".fcm.AppMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
