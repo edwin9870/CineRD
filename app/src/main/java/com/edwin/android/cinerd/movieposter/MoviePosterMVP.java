@@ -15,11 +15,13 @@ public interface MoviePosterMVP {
         void setPresenter(Presenter presenter);
         void onClickMovie();
         void onClickTheater();
+        void openSettingActivity();
     }
 
     interface Presenter {
         void getMovies();
         void openMovieFilterActivity();
         void openTheatersActivity();
+        void settingMenuClicked();
     }
 }

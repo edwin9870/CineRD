@@ -171,7 +171,11 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
                 startService(intent);
                 Log.d(TAG, "Refresh button clicked, start manual sync");
                 break;
+            case R.id.item_settings_action:
+                    moviePosterPresenter.settingMenuClicked();
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

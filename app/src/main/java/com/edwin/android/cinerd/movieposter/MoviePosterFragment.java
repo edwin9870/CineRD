@@ -15,6 +15,7 @@ import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.moviedetail.MovieDetailActivity;
 import com.edwin.android.cinerd.moviefinder.MovieFinderActivity;
+import com.edwin.android.cinerd.settings.SettingActivity;
 import com.edwin.android.cinerd.theater.TheaterActivity;
 import com.edwin.android.cinerd.util.FirebaseUtil;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
@@ -133,5 +134,12 @@ public class MoviePosterFragment extends Fragment implements
         Log.d(TAG, "onClickTheater fired");
         Intent intent = new Intent(getActivity(), TheaterActivity.class);
         getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void openSettingActivity() {
+        Log.d(TAG, "Open setting activity");
+        Intent destinationActivity = new Intent(getActivity(), SettingActivity.class);
+        startActivity(destinationActivity);
     }
 }
