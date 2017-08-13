@@ -79,7 +79,9 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".AvailableMovieAppWidget">
+        <service android:name=".widget.ListGridService"
+                 android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <receiver android:name=".widget.AvailableMovieAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
