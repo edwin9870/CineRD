@@ -42,7 +42,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".movieposter.MoviePosterActivity"/>
         </activity>
-
         <activity android:name=".settings.SettingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -74,12 +73,21 @@
         <service
             android:name=".movieposter.ManualSyncService"
             android:exported="false"/>
-
         <service android:name=".fcm.AppMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+
+        <receiver android:name=".AvailableMovieAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/available_movie_app_widget_info"/>
+        </receiver>
     </application>
 
 </manifest>
