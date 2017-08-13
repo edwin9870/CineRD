@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "779293112778",
+    "firebase_url": "https://cinerd-5856c.firebaseio.com",
+    "project_id": "cinerd-5856c",
+    "storage_bucket": "cinerd-5856c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779293112778:android:af67e930a78c1bf3",
+        "android_client_info": {
+          "package_name": "com.edwin.android.cinerd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779293112778-4i8fsjml35ae6cbdlaqdeplv8ub69jii.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edwin.android.cinerd",
+            "certificate_hash": "da345737e8ff721035c84dd2256e87c902281ae9"
+          }
+        },
+        {
+          "client_id": "779293112778-2eljenfngn6vfjpbef5u3rpdkna11rfl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLV20-6fQpQxALbRkUdyakeCBCO7CZCCA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779293112778-2eljenfngn6vfjpbef5u3rpdkna11rfl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
