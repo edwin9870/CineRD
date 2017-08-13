@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:summary="Notifications"
+        android:title="Notifications">
+        <SwitchPreference
+            android:defaultValue="@bool/default_receive_new_movies_notification"
+            android:key="@string/receive_new_movies_notification_key"
+            android:summaryOff="@string/receive_new_movies_notification_summary_off"
+            android:summaryOn="@string/receive_new_movies_notification_summary_on"
+            android:title="New movies"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -46,6 +46,11 @@
 
     <!-- menu_item_refresh_action.xml -->
     <string name="menu_item_refresh_action">Refresh</string>
+
+    <!-- movie_poster_settings.xml -->
     <string name="item_settings_action_title">Settings</string>
+    <string name="receive_new_movies_notification_key">new_movies_notification_key</string>
+    <string name="receive_new_movies_notification_summary_off">Deactivated</string>
+    <string name="receive_new_movies_notification_summary_on">Activated</string>
 
 </resources>
