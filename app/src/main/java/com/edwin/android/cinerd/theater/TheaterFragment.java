@@ -2,6 +2,7 @@ package com.edwin.android.cinerd.theater;
 
 
 import android.app.Fragment;
+import android.app.LoaderManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.edwin.android.cinerd.R;
+import com.edwin.android.cinerd.data.repositories.TheaterRepository;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Theater;
 import com.edwin.android.cinerd.moviedetail.MovieDetailActivity;
@@ -25,6 +27,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,6 +42,7 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
 
     public static final String TAG = TheaterFragment.class.getSimpleName();
     public static final String BUNDLE_THEATER_ID = "BUNDLE_THEATER_ID";
+    public static final int LOADER_THEATER_LIST_ID = 54515;
     @BindView(R.id.recycler_view_theater_movie_poster)
     RecyclerView mRecyclerView;
     Unbinder unbinder;
@@ -78,9 +82,7 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
         mFirebaseAnalytics.logEvent(FirebaseUtil.EVENT.OPEN_ACTIVITY, bundleFcm);
 
             mAdapter = new MoviePosterAdapter(getActivity(), this);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), getResources()
-
-                    .getInteger(R.integer.theater_columns));
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.theater_columns));
 
             mRecyclerView.setLayoutManager(gridLayoutManager);
             int spacingInPixels = getResources().getDimensionPixelSize(R.dimen
@@ -125,29 +127,16 @@ public class TheaterFragment extends Fragment implements TheaterMVP.View, MovieP
     }
 
     @Override
-    public void showTheatersDialog(List<Theater> theaters) {
-        Collections.sort(theaters);
-        SimpleSearchDialogCompat searchDialogCompat = new SimpleSearchDialogCompat
-                (getActivity(), getString(R.string.theater_finder_dialog_title),
-                        getString(R.string.theater_finder_dialog_place_holder), null, new ArrayList<Theater>(theaters),
-                        new SearchResultListener<Theater>() {
-                            @Override
-                            public void onSelected(BaseSearchDialogCompat dialog, Theater
-                                    theaterSearchable, int position) {
-                                Toast.makeText(TheaterFragment.this.getActivity(),
-                                        theaterSearchable.getTitle(),
-                                        Toast.LENGTH_SHORT).show();
+    public void setTheaterId(int theaterId) {
+        mTheaterId = theaterId;
+    }
 
-                                Log.d(TAG, "Theater selected: " + theaterSearchable.getTitle());
-                                mTheaterId = theaterSearchable.getTheaterId();
-                                mPresenter.setActivityTitle(mTheaterId);
-                                mPresenter.getMovies(mTheaterId);
-                                dialog.dismiss();
-
-                            }
-                        });
-        searchDialogCompat.getContext().setTheme(R.style.AppTheme_Dialog_Light_DarkText);
-        searchDialogCompat.show();
+    @Override
+    public void showTheatersDialog(TheaterRepository theaterRepository, Date minDate) {
+        LoaderManager loaderManager = getLoaderManager();
+        TheaterListLoaderCallback theaterListLoaderCallback = new TheaterListLoaderCallback
+                (getActivity(), this, mPresenter, theaterRepository, minDate);
+        loaderManager.initLoader(LOADER_THEATER_LIST_ID, null, theaterListLoaderCallback);
     }
 
     @Override

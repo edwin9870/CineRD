@@ -81,19 +81,7 @@ public class TheaterPresenter implements TheaterMVP.Presenter {
 
     @Override
     public void showTheatersDialog() {
-        new AsyncTask<Void, Void, List<Theater>>() {
-
-            @Override
-            protected List<Theater> doInBackground(Void... voids) {
-                return mTheaterRepository.getAllTheatersByMinDate(new Date());
-            }
-
-            @Override
-            protected void onPostExecute(List<Theater> theaters) {
-                super.onPostExecute(theaters);
-                mView.showTheatersDialog(theaters);
-            }
-        }.execute();
+        mView.showTheatersDialog(mTheaterRepository, new Date());
     }
 
     @Override
