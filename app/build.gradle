@@ -1,6 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'cinerd'
+            keyPassword 'cinerd123'
+            storeFile file("$rootDir/keystore.jks")
+            storePassword 'udacity'
+        }
+    }
+
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
@@ -15,6 +24,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 
@@ -62,8 +72,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     provided 'javax.annotation:jsr250-api:1.0'
 }
-
-
-
 
 apply plugin: 'com.google.gms.google-services'
