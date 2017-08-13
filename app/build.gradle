@@ -55,8 +55,12 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.mirrajabi:search-dialog:1.2.1'
+    compile 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.2'
+    compile 'com.google.firebase:firebase-core:10.0.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     provided 'javax.annotation:jsr250-api:1.0'
-    compile 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.2'
 }
+
+
+apply plugin: 'com.google.gms.google-services'

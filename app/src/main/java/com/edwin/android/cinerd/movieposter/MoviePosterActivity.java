@@ -25,6 +25,7 @@ import com.edwin.android.cinerd.data.CineRdDbHelper;
 import com.edwin.android.cinerd.data.adapters.AccountGeneral;
 import com.edwin.android.cinerd.util.DatabaseUtil;
 import com.edwin.android.cinerd.util.NetworkUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
 
@@ -122,8 +123,6 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
         }
 
         AccountGeneral.createSyncAccount(this);
-
-
     }
 
     private void hideContent() {
@@ -210,19 +209,6 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
         outState.putParcelable(BUNDLE_RECEIVER, mResultReceiver);
         super.onSaveInstanceState(outState);
     }
-
-    public void resetFragment() {
-        Log.d(TAG, "Resetting fragment");
-        Fragment fragment = this.getFragmentManager().findFragmentById(R.id
-                .fragment_movie_poster);
-        FragmentTransaction fragmentTransaction = this.getFragmentManager()
-                .beginTransaction();
-        fragmentTransaction.detach(fragment);
-        fragmentTransaction.attach(fragment);
-        fragmentTransaction.commit();
-    }
-
-
 
     public void addFragment(DatabaseComponent databaseComponent) {
         MoviePosterFragment fragment = (MoviePosterFragment) getFragmentManager()
