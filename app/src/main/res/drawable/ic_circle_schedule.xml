@@ -4,5 +4,5 @@
     <corners android:radius="30dp"/>
     <stroke
         android:width="3dip"
-        android:color="@color/colorAccent"/>
+        android:color="@color/color_accent"/>
 </shape>

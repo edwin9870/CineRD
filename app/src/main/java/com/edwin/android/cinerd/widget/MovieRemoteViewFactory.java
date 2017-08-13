@@ -73,7 +73,7 @@ public class MovieRemoteViewFactory implements RemoteViewsService.RemoteViewsFac
     @Override
     public RemoteViews getViewAt(int position) {
         Log.d(TAG, "getViewAt: "+ position);
-        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.item_recipe_widget);
+        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.item_movie_detail_widget);
 
         Movie movie = movies.get(position);
         views.setTextViewText(R.id.text_widget_movie_name, movie.getName());

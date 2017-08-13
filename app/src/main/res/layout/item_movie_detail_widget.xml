@@ -11,7 +11,7 @@
         android:id="@+id/text_widget_movie_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/color_accent"
         android:textSize="25sp"
         tools:text="Harry Potter"/>
 
@@ -24,16 +24,14 @@
 
 
     <LinearLayout
-        android:id="@+id/widget_horizontal_white_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/text_imdb_label"
             style="@style/Movie.Detail.Text"
-            android:text="IMDB: "/>
+            android:text="@string/text_widget_imdb_label"/>
 
         <TextView
             android:id="@+id/text_imdb_value"
@@ -44,7 +42,7 @@
             android:id="@+id/text_rotten_tomatoes_label"
             style="@style/Movie.Detail.Text"
             android:layout_marginLeft="16dp"
-            android:text="Rotten Tomatoes: "/>
+            android:text="@string/text_widget_rotten_tomatoes_label"/>
 
         <TextView
             android:id="@+id/text_rotten_tomatoes_value"
