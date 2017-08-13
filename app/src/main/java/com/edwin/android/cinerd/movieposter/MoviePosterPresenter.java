@@ -18,13 +18,10 @@ public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
 
     private final MovieRepository mMovieRepository;
     MoviePosterMVP.View mView;
-    private final ProcessMovies mMovieDataRepository;
 
     @Inject
-    public MoviePosterPresenter(MoviePosterMVP.View view, ProcessMovies mMovieDataRepository,
-                                MovieRepository movieRepository) {
+    public MoviePosterPresenter(MoviePosterMVP.View view,MovieRepository movieRepository) {
         mView = view;
-        this.mMovieDataRepository = mMovieDataRepository;
         mMovieRepository = movieRepository;
     }
 
@@ -55,5 +52,10 @@ public class MoviePosterPresenter implements MoviePosterMVP.Presenter {
     @Override
     public void openTheatersActivity() {
         mView.onClickTheater();
+    }
+
+    @Override
+    public void settingMenuClicked() {
+        mView.openSettingActivity();
     }
 }

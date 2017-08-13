@@ -58,8 +58,8 @@ public class MovieScheduleAdapter extends RecyclerView.Adapter<MovieScheduleAdap
         Log.d(TAG, "mSelectedDate: " + mSelectedDate + ", date: " + date);
         if(mSelectedDate != null && DateUtil.areSameDay(date, mSelectedDate)) {
             Log.d(TAG, "Setting holder TextView color");
-            holder.mScheduleDayNameTextView.setTextColor(ResourceUtil.getResourceColor(mContext, R.color.colorAccent));
-            holder.mScheduleDayTextView.setTextColor(ResourceUtil.getResourceColor(mContext, R.color.colorAccent));
+            holder.mScheduleDayNameTextView.setTextColor(ResourceUtil.getResourceColor(mContext, R.color.color_accent));
+            holder.mScheduleDayTextView.setTextColor(ResourceUtil.getResourceColor(mContext, R.color.color_accent));
         }
 
         Log.d(TAG, "Setup schedule day and name");

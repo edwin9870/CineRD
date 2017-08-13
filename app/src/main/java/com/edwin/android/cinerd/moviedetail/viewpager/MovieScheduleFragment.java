@@ -281,8 +281,8 @@ public class MovieScheduleFragment extends Fragment implements MovieScheduleAdap
         TextView currentScheduleDayNameTextView = dateViewClicked.findViewById(R.id.text_schedule_day_name);
         TextView currentScheduleDayTextView = dateViewClicked.findViewById(R.id.text_schedule_day);
 
-        currentScheduleDayNameTextView.setTextColor(ResourceUtil.getResourceColor(getActivity(), R.color.colorAccent));
-        currentScheduleDayTextView.setTextColor(ResourceUtil.getResourceColor(getActivity(), R.color.colorAccent));
+        currentScheduleDayNameTextView.setTextColor(ResourceUtil.getResourceColor(getActivity(), R.color.color_accent));
+        currentScheduleDayTextView.setTextColor(ResourceUtil.getResourceColor(getActivity(), R.color.color_accent));
 
         if(mSelectedScheduleDayTextView != null && mSelectedScheduleDayNameTextView != null) {
             mSelectedScheduleDayTextView.setTextColor(mOriginalTextColor);

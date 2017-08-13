@@ -22,7 +22,9 @@ import com.edwin.android.cinerd.R;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.db.MovieTheaterDetail;
 import com.edwin.android.cinerd.util.DateUtil;
+import com.edwin.android.cinerd.util.FirebaseUtil;
 import com.edwin.android.cinerd.util.SpacesItemDecoration;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,6 +73,7 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
     private MovieFinderTheaterAdapter mMovieFinderTheaterAdapter;
     private List<MovieTheaterDetail> mUniqueMovieTheaterDetails;
     private List<String> mTheatersNameToShow;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public MovieFinderFragment() {
 
@@ -88,6 +91,11 @@ public class MovieFinderFragment extends Fragment implements MovieFinderMVP.View
         unbinder = ButterKnife.bind(this, view);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+
+        Bundle bundleFcm = new Bundle();
+        bundleFcm.putString(FirebaseUtil.PARAM.ACTIVITY_NAME, MovieFinderActivity.class.getSimpleName());
+        mFirebaseAnalytics.logEvent(FirebaseUtil.EVENT.OPEN_ACTIVITY, bundleFcm);
 
         mMovieFinderTimeAdapter = new MovieFinderTimeAdapter(this, getActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),

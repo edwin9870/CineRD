@@ -1,6 +1,5 @@
 package com.edwin.android.cinerd.movieposter;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -64,6 +63,9 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
             mResultCode = savedInstanceState.getInt(BUNDLE_STATUS_RECEIVER);
             Log.d(TAG, "mResultlcode: " + mResultCode);
             mResultReceiver = savedInstanceState.getParcelable(BUNDLE_RECEIVER);
+        }
+
+        if(mResultReceiver != null) {
             Log.d(TAG, "setting result receiver");
             mResultReceiver.setReceiver(this);
             if(mResultCode == ManualSyncService.STATUS_RUNNING) {
@@ -122,8 +124,6 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
         }
 
         AccountGeneral.createSyncAccount(this);
-
-
     }
 
     private void hideContent() {
@@ -171,7 +171,11 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
                 startService(intent);
                 Log.d(TAG, "Refresh button clicked, start manual sync");
                 break;
+            case R.id.item_settings_action:
+                    moviePosterPresenter.settingMenuClicked();
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -211,19 +215,6 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
         super.onSaveInstanceState(outState);
     }
 
-    public void resetFragment() {
-        Log.d(TAG, "Resetting fragment");
-        Fragment fragment = this.getFragmentManager().findFragmentById(R.id
-                .fragment_movie_poster);
-        FragmentTransaction fragmentTransaction = this.getFragmentManager()
-                .beginTransaction();
-        fragmentTransaction.detach(fragment);
-        fragmentTransaction.attach(fragment);
-        fragmentTransaction.commit();
-    }
-
-
-
     public void addFragment(DatabaseComponent databaseComponent) {
         MoviePosterFragment fragment = (MoviePosterFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_movie_poster);
@@ -234,7 +225,7 @@ public class MoviePosterActivity extends AppCompatActivity implements ManualSync
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragment = MoviePosterFragment.newInstance();
             fragmentTransaction.add(R.id.fragment_movie_poster, fragment);
-            fragmentTransaction.commit();
+            fragmentTransaction.commitAllowingStateLoss();
         }
 
         Log.d(TAG, "Injection movie poster presenter");

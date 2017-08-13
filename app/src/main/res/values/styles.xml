@@ -5,20 +5,20 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/seance_500</item>
         <item name="colorPrimaryDark">@color/seance_700</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/color_accent</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/seance_500</item>
         <item name="colorPrimaryDark">@color/seance_700</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/color_accent</item>
     </style>
 
     <style name="AppTheme.Dialog.Light.DarkText" parent="Theme.AppCompat.Light.DialogWhenLarge">
         <item name="colorPrimary">@color/seance_500</item>
         <item name="colorPrimaryDark">@color/seance_700</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/color_accent</item>
     </style>
 
     <style name="Movie.Detail.Text" parent="Base.TextAppearance.AppCompat.Subhead">

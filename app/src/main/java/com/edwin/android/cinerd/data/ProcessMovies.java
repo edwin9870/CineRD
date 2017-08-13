@@ -25,6 +25,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static com.edwin.android.cinerd.widget.AvailableMovieAppWidget.updateMoviesDataWidget;
+
 /**
  * Created by Edwin Ramirez Ventura on 7/8/2017.
  */
@@ -62,6 +64,7 @@ public class ProcessMovies {
             Log.d(TAG, "Movie persisted");
         }
         sharedPreferences.edit().putBoolean(ProcessMovies.PREF_IS_BLOCKED, false).commit();
+        updateMoviesDataWidget(mContext);
     }
 
     private int cleanMovieSchedule() {
