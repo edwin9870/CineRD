@@ -1,7 +1,9 @@
 package com.edwin.android.cinerd.util;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.util.DisplayMetrics;
 
 import java.util.List;
 

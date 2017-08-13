@@ -1,8 +1,10 @@
 package com.edwin.android.cinerd.theater;
 
+import com.edwin.android.cinerd.data.repositories.TheaterRepository;
 import com.edwin.android.cinerd.entity.Movie;
 import com.edwin.android.cinerd.entity.Theater;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +17,8 @@ public interface TheaterMVP {
         void setPresenter(Presenter presenter);
         void onReceiveMovies(List<Movie> movies);
         void setActivityTitle(String title);
-        void showTheatersDialog(List<Theater> theaters);
+        void setTheaterId(int theaterId);
+        void showTheatersDialog(TheaterRepository theaterRepository, Date minDate);
     }
 
     interface Presenter {

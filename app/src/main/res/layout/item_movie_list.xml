@@ -12,6 +12,7 @@
             android:id="@+id/image_movie_poster"
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_movie_poster_height"
+            android:contentDescription="@string/image_movie_poster_content_description"
             android:adjustViewBounds="true"
             android:background="@color/seance_500"/>
 
@@ -58,6 +59,8 @@
                     android:layout_height="@dimen/image_movie_poster_imdb_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/image_movie_poster_imdb_margin_left"
+                    android:layout_marginStart="@dimen/image_movie_poster_imdb_margin_left"
+                    android:contentDescription="@string/image_imdb_content_description"
                     android:background="@drawable/ic_imdb"/>
 
                 <TextView
@@ -67,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/text_movie_poster_rotten_tomatoes_value_margin_left"
+                    android:layout_marginStart="@dimen/text_movie_poster_rotten_tomatoes_value_margin_left"
                     android:textColor="#BFFFFFFF"
                     tools:text="91%"/>
 
@@ -76,6 +80,7 @@
                     android:layout_width="@dimen/image_movie_poster_rotten_tomatoes_width"
                     android:layout_height="@dimen/image_movie_poster_rotten_tomatoes_height"
                     android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/text_widget_rotten_tomatoes_label"
                     android:layout_marginLeft="@dimen/image_movie_poster_rotten_tomatoes_margin_left"
                     android:layout_marginStart="@dimen/image_movie_poster_rotten_tomatoes_margin_left"
                     android:background="@drawable/ic_rotten_tomatoes"/>
