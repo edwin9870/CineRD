@@ -46,5 +46,6 @@
 
     <!-- menu_item_refresh_action.xml -->
     <string name="menu_item_refresh_action">Refresh</string>
+    <string name="item_settings_action_title">Settings</string>
 
 </resources>
