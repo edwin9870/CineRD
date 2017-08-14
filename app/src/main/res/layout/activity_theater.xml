@@ -17,6 +17,7 @@
         android:id="@+id/floating_button_theater_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/floating_button_theater_menu_content_description"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_default_size"
         android:src="@drawable/ic_people_watching_a_movie"

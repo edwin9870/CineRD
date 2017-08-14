@@ -15,6 +15,7 @@
     <string name="movie_theater_search_dialog_input_place_holder">Movie theater name</string>
     <string name="theater_finder_dialog_title">Select a theater</string>
     <string name="theater_finder_dialog_place_holder">Theater name</string>
+    <string name="floating_button_theater_menu_content_description">Select other movie theater</string>
 
     <!-- Search dialog movie name filter -->
     <string name="movie_filter_search_dialog_title">Find a movie</string>
@@ -37,6 +38,8 @@
     <string name="text_date_filter_hint">Date</string>
     <string name="card_view_title_choose_a_schedule">Choose a schedule</string>
     <string name="card_view_movie_theaters_title">Movie theaters</string>
+    <string name="item_action_movie_content_description">Open movie finder</string>
+    <string name="item_action_movie_theater_content_description">Open movie theater finder</string>
 
     <string name="loading_movies">Loading movie information, it may take several seconds.</string>
 
@@ -64,4 +67,8 @@
     <string name="image_movie_poster_content_description">Movie poster</string>
     <string name="image_imdb_content_description">IMDB rating</string>
     <string name="image_rotten_tomatoes_ratting">Rotten Tomatoes rating</string>
+
+    <!-- activity_movie_poster.xml -->
+    <string name="floating_button_movie_menu_content_description">Open movie finder or movie theater finder, select a option</string>
+
 </resources>
